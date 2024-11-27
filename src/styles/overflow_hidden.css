@@ -1,0 +1,13 @@
+/* src/styles/global.css */
+
+/* Hide scrollbar in webkit browsers */
+.scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Optional: Add overflow styling for the container */
+  .scroll-container {
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    scrollbar-width: none;  /* For Firefox */
+  }
+  
