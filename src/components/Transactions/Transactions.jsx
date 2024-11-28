@@ -1,31 +1,39 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
-import { FiEdit2 } from "react-icons/fi";
-import { IoFilter } from "react-icons/io5";
-import { BsSearch } from "react-icons/bs";
+  import logo from "../../assets/imglogo.png"
 import Pagination from "../Pagination/Paginations";
-import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
- 
+import ButtonsWithPopup from "./sideButtons/ButtonWithProps";
+import { BsCalendar } from "react-icons/bs";
+import { HiDotsVertical } from "react-icons/hi";
+   
 const PAGE_SIZE = 10;
  
-const DashboardList: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedDatas, setSelectedDatas] = useState<any>(null);
-  const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filterStatus, setFilterStatus] = useState<string>("All");
+const Transactions  = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+   const [searchQuery] = useState("");
+  const [filterStatus, setFilterStatus] = useState("All");
+  const [selectedAction, setSelectedAction] = useState("");
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [selectedRow, setSelectedRow] = useState(null);
 
+  
+
+  // const handleChange = (event) => {
+  //   setSelectedAction(event.target.value);
+  //   console.log("Selected action:", event.target.value);
+  // };
   
   const tableData = [
     {
       PaymentID: "@3873",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
 
       Sender: "0810031976",
       Amount: "$2,000",
-      Status: "success",
+      Status: "complete",
       Beneficiary: "08173562873",
       inventoryLevels: 60,
       type:"send voucher"
@@ -34,6 +42,7 @@ const DashboardList: React.FC = () => {
       PaymentID: "#12233",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
       Sender: "0810031976",
       Amount: "$1,500",
       Status: "pending",
@@ -45,6 +54,7 @@ const DashboardList: React.FC = () => {
       PaymentID: "#12233",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
       Sender: "08100319760",
       Amount: "$837639",
       Status: "complete",
@@ -56,6 +66,7 @@ const DashboardList: React.FC = () => {
       PaymentID: "#12233",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
       Sender: "08100319760",
       Amount: "$3,000",
       Status: "Rejected",
@@ -67,9 +78,10 @@ const DashboardList: React.FC = () => {
       PaymentID: "#12233",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
       inventoryLevels: 70,
       type:"send voucher"
@@ -79,9 +91,10 @@ const DashboardList: React.FC = () => {
       PaymentID: "#12233",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
+      name:"Benz",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
       type:"send voucher"
     },
@@ -90,7 +103,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -100,7 +113,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -110,7 +123,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -120,7 +133,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -130,7 +143,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "pending",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -140,7 +153,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "complete",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -150,7 +163,7 @@ const DashboardList: React.FC = () => {
       Timestamp: "09/08/24, 12:0018pm",
       Sender: "08100319760",
       Amount: "$3,000",
-      Status: "Pending",
+      Status: "complete",
       Beneficiary: "08173562873",
      type:"send voucher"
       
@@ -184,40 +197,44 @@ const DashboardList: React.FC = () => {
 
   const rowAnimation = {
     hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
+    visible: (i) => ({
       opacity: 1,
       y: 0,
       transition: { delay: i * 0.05, type: "spring", stiffness: 300 },
     }),
   };
  
-
-  const openModalEdit = (data: any) => {
-    setSelectedDatas(data);
-    setIsModalEdit(true);
-  };
-
-  const closeModalEdit = () => {
-    setIsModalEdit(false);
-    setSelectedDatas(null);
-  };
-  
-  const handleFilterChange = (status: string) => {
+  const handleFilterChange = (status) => {
     setFilterStatus(status);
   };
 
+  const handleChange = (event, row) => {
+    const value = event.target.value;
+    setSelectedAction(value);
+    if (value === "Approve") {
+      setSelectedRow(row);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRow(null);
+    setSelectedAction("");
+  };
+
   return (
-    <div className="border w-full p-4 bg-white rounded-lg shadow-md mt-[20px]">
-    <div className=" md:flex justify-between items-center mb-6 font-sans">
+    <div className="  w-full p-4 rounded-lg   ">
+    <div className=" md:flex justify-between items-center mb-6 font-sans  ">
   {/* Left Section: Title and Tag */}
   <div className="flex-col gap-3 items-center md:mb-0 mb-5 space-y-4">
 <motion.h2
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
   transition={{ duration: 0.5 }}
-  className="text-[22px] text-[#49454FCC] leading-[27.72px] font-[500] font-inter  "
+  className="md:text-[32px] text-[#202224] leading-[43.65px] font-[700] font-inter  "
 >
-  Recent Transactions
+  Transactions
 </motion.h2>
 <div className="flex justify-between flex-wrap">
 <div className="flex gap-2 mt-2">
@@ -312,15 +329,142 @@ onClick={() => handleFilterChange("Rejected")}>
                   {row.Amount}               
                   </td>
                   <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Status}               
-                  </td>
-                <td className="px-4 py-2">
-  <button 
-  onClick={(e) => { e.stopPropagation(); openModalEdit(row); }}
-  >
-    <FiEdit2 className="text-gray-600" />
-  </button>
-</td>
+                  <span
+                    className={`${
+                      row.Status === "complete"
+                        ? "text-[#3ECF8E]"
+                        : row.Status === "pending"
+                        ? "text-[#FFC13C]"
+                        : row.Status === "Rejected"
+                        ? "text-[#F66F68]"
+                        : " text-[#F66F68]"
+                    } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
+                  >
+                    {row.Status}
+                  </span>
+                </td>
+                <td className="border px-4 py-2">
+                <select
+                  onChange={(e) => handleChange(e, row)}
+                  value={selectedAction}
+                  className="border outline-none px-4 py-2 rounded-md text-sm"
+                >
+                  <option value="">Action</option>
+                  <option value="Approve">View Details</option>
+                </select>
+              </td>
+            {/* modal OPen */}
+            {isModalOpen && selectedRow && (
+        <div className="fixed p-3 inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
+          <div className="bg-white rounded-lg p-6 md:w-1/2">
+            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">Transaction details (ID- #545676)</h2>
+            <div className="flex gap-3 justify-between border-t pt-[20px]">
+
+              <div>
+                {/* sender */}
+             <div className="">
+             <h4 className=" font-[600]">Sender</h4>
+              <div className=" space-x-2 flex  items-center">
+              <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
+              <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+               {selectedRow.name}
+            </span>
+            <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
+            <HiDotsVertical/>
+            </span>
+              </div>
+             
+             </div>
+             {/* phone NUmber */}
+           <div className="mt-[20px] ">
+             <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
+               Sender’s Phone number 
+              </h4>
+              <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+                 {selectedRow.Sender}
+              </div>
+            
+           </div>
+            {/* Voucher Amount */}
+            <div className="mt-[10px] ">
+             <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
+             Voucher Amount
+              </h4>
+              <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+                 {selectedRow.Amount}
+              </div>
+            
+           </div>
+            {/* Transaction Date & Time */}
+            <div className="mt-[10px] ">
+             <h4 className=" md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
+             Transaction Date & Time
+              </h4>
+              <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden gap-1">
+                <BsCalendar/> {selectedRow.Timestamp}
+              </div>
+            
+           </div>
+              </div>
+              {/* second */}
+              <div>
+                {/* Beneficiary */}
+             <div className="">
+             <h4 className=" font-[600]">Beneficiary</h4>
+              <div className=" space-x-2 flex  items-center">
+              <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
+              <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5 md: overflow-hidden justify-center">
+               {selectedRow.name}
+            </span>
+            <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
+            <HiDotsVertical/>
+            </span>
+              </div>
+             
+             </div>
+             {/* phone NUmber */}
+           <div className="mt-[20px] ">
+             <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
+               Beneficiary’s Phone number 
+              </h4>
+              <div className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+                 {selectedRow.Beneficiary}
+              </div>
+            
+           </div>
+            {/* Transaction*/}
+            <div className="mt-[10px] ">
+             <h4 className="md:mb-[10px] text-[12px] font-[500] md:text-[14px] leading-[20px] ">
+             Transaction Type
+              </h4>
+              <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+                 {selectedRow.type}
+              </div>
+            
+           </div>
+            {/* Transaction Date & Time */}
+            <div className="mt-[20px] flex justify-end items-center">
+              <button
+                className="bg-[#0EAD69] font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]"
+               >
+                Successful
+              </button>
+            
+           </div>
+              </div>
+            </div>
+            
+            <div className="mt-4 flex justify-center py-3">
+              <button
+                className="bg-[#F5F6F7] text-[#191B1C] px-3 font-[500] md:px-[30px] py-2 rounded-full"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
               </motion.tr>
             ))}
          </motion.tbody>
@@ -335,38 +479,9 @@ onClick={() => handleFilterChange("Rejected")}>
       />
          
 
-{isModalEdit && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="fixed z-[300] inset-0 bg-black bg-opacity-50 flex justify-center items-center "
-        >
-          <div className="bg-white rounded-lg p-6 w-11/12 max-w-lg">
-            <h3 className="text-lg font-bold mb-4">Edit Details</h3>
-            <div className="space-y-2">
-              <p>
-                <span className="font-medium">Name:</span> {selectedDatas?.name}
-              </p>
-              <p>
-                <span className="font-medium">Transactions:</span>{" "}
-                {selectedDatas?.recentTransactions}
-              </p>
-              <p>
-                <span className="font-medium">Sales:</span> {selectedDatas?.sales}
-              </p>
-            </div>
-            <button
-              onClick={closeModalEdit}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-              Close
-            </button>
-          </div>
-        </motion.div>
-)}
+ 
     </div>
   );
 };
 
-export default DashboardList;
+export default Transactions;

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Section = () => {
+const PayoutDetails = () => {
   return (
     <div>
       <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis, incidunt veritatis nemo quidem atque dignissimos reprehenderit tenetur voluptatum aperiam, reiciendis pariatur vitae. Fuga, voluptatem? Dolorum autem optio id officiis iure quae, hic laudantium magni exercitationem beatae perspiciatis libero molestias, alias magnam enim dolorem nisi assumenda sint, sapiente placeat eum. Dolorem, voluptas, repellendus hic nulla tempora neque at facilis consequuntur fugit, veritatis itaque iste cum! Nobis sapiente accusantium quisquam est harum nulla, officia natus sit quis dolor magni hic id perspiciatis ad obcaecati tenetur expedita assumenda laudantium blanditiis soluta, distinctio libero repellendus quae! Asperiores inventore tempore soluta illo eos reprehenderit obcaecati repellat voluptates placeat id officia quasi ex, voluptatem totam facilis maiores aspernatur mollitia impedit blanditiis, a est officiis quis magnam? Commodi perferendis vero laudantium suscipit tenetur nesciunt voluptates, fugiat culpa quidem, aut voluptatem. Est autem provident repudiandae laboriosam qui non earum nihil commodi architecto ipsa voluptatum assumenda dolor quis velit sequi, itaque voluptatem pariatur delectus eius nulla natus repellendus quod? Voluptas, corrupti, voluptatem eum eligendi necessitatibus aliquam magnam enim tempore quaerat et hic? Sapiente cupiditate est beatae incidunt pariatur eum dolorum neque voluptas optio adipisci similique exercitationem ex voluptatibus corrupti facere, ipsam illum in velit, iste ab praesentium aut odit eius? Molestiae ex tenetur aperiam iure doloremque assumenda id dignissimos, odio eligendi natus vel rem modi eum sit eveniet, laudantium, error autem laboriosam nemo molestias ipsa illum. Suscipit, fuga beatae! Saepe corporis impedit sed deleniti vel totam assumenda molestiae. Modi temporibus magni laborum cupiditate non iure sapiente, rem id, voluptatibus quidem pariatur eaque saepe facere qui harum mollitia aut nemo quis ipsam adipisci! Nulla debitis placeat alias? Quibusdam ipsam quidem obcaecati! Rerum, error pariatur harum fuga magnam architecto cum nostrum quis. Voluptatibus, atque! Tenetur, placeat aperiam! Commodi, atque enim ab vitae beatae officiis. Numquam culpa recusandae cum ipsam dicta eius!</h4>
@@ -8,4 +8,4 @@ const Section = () => {
   )
 }
 
-export default Section
+export default PayoutDetails

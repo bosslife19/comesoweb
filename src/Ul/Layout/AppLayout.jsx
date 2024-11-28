@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import   { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
 import SideBarItem from './SideBarItem';
-// import SubscriptionUpdate from '../SubscriptionUpdate';
+ // import SubscriptionUpdate from '../SubscriptionUpdate';
 
-const AppLayout: React.FC = () => {
+const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return ( 
@@ -29,7 +29,7 @@ const AppLayout: React.FC = () => {
 
 					{/* <!-- ===== Main Content Start ===== --> */}
 					<main>
-						<div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+						<div className="mx-auto bg-[#F5F6FA] max-w-screen-2xl p-4 md:p-6 2xl:p-10">
 							<Outlet />
 						</div>
 					</main>

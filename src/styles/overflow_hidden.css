@@ -10,4 +10,50 @@
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
     scrollbar-width: none;  /* For Firefox */
   }
+
   
+  
+
+  /* Hide the default checkbox */
+.custom-checkbox-input {
+  background-color: black;
+  border-color: black;
+  display: none;
+}
+
+/* Style the label as the custom checkbox */
+.custom-checkbox-label {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* When the checkbox is checked, change the background and border */
+.custom-checkbox-input:checked + .custom-checkbox-label {
+  background-color: black;
+  border-color: black;
+}
+
+/* Create the checkmark */
+.custom-checkbox-input:checked + .custom-checkbox-label::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Optional: Add hover effect for the checkbox */
+.custom-checkbox-label:hover {
+  border-color: #888;
+}

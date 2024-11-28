@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import   { useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const ButtonsWithPopup: React.FC = () => {
-  const [openPopup, setOpenPopup] = useState<"calendar" | "dropdown" | null>(null);
- 
+const ButtonsWithPopup = () => {
+  const [openPopup, setOpenPopup] = useState(null);
+
   // Options for the dropdown
   const dropdownOptions = ["Beneficiary 1", "Beneficiary 2", "Beneficiary 3"];
 
   // Selected dropdown value
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState("");
 
-  const togglePopup = (popupType: "calendar" | "dropdown") => {
+  const togglePopup = (popupType) => {
     setOpenPopup((prev) => (prev === popupType ? null : popupType));
   };
 
-  const handleDropdownChange = (option: any) => {
+  const handleDropdownChange = (option) => {
     setSelectedOption(option.value);
     setOpenPopup(null); // Close dropdown after selection
   };
@@ -64,5 +64,3 @@ const ButtonsWithPopup: React.FC = () => {
 };
 
 export default ButtonsWithPopup;
-
- 
