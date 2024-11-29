@@ -51,12 +51,12 @@ export const ProductDetails = () => {
   return (
     <div className=" flex flex-col lg:flex-row  md:justify-between flex-wrap">
       {/* Sidebar */}
-      <div className="bg-gray-100 md:p-5">
+      <div className=" md:p-5">
         <LeftBoard onSelect={(item) => setSelectedItem(item)} />
       </div>
 
       {/* Content */}
-      <div className="flex-1 mt-[4%] flex-wrap md:h-screen  items-center justify-center">
+      <div className="flex-1   shadow-md mt-[4%] flex-wrap md:h-screen  items-center justify-center">
         {/* Header */}
         <div className="bg-[#fff] shadow-md  rounded-t-[10px]  border -b py-[20px] px-4 flex items-center justify-between   ">
           <div className="flex items-center gap-4">
@@ -122,7 +122,7 @@ export const ProductDetails = () => {
         
         </div>
         <div>
-          <div className="  bg-[#fff] pb-2 mb-4 border-t border-b pt-[15px] px-[10px] rounded-b-[10px] flex items-center gap-2">
+          <div className=" shadow-md border pb-2 mb-4  pt-[15px] px-[10px] rounded-b-[10px] flex items-center gap-2">
             <span className="text-[#9D9D9D]">
               <FaMicrophone />
             </span>
@@ -145,7 +145,7 @@ export const ProductDetails = () => {
 
            
           </div>
-          <div className="flex justify-end items-center  ">
+          <div className="flex  justify-end items-center  ">
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 1}

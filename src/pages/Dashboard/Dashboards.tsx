@@ -1,6 +1,5 @@
 import React from "react"
-import DashboardTitle from "../../components/Dashboard/DashboardTitle"
-import DashboardMain from "../../components/Dashboard/DashboardMain"
+ import DashboardMain from "../../components/Dashboard/DashboardMain"
 import DashboardList from "../../components/Dashboard/DashboardOverview"
 
  
@@ -10,7 +9,7 @@ import DashboardList from "../../components/Dashboard/DashboardOverview"
  
   
   return (
-     <div className="">  
+     <div className="   h-full my-2">  
      <DashboardMain />  
      <DashboardList/>
       </div>

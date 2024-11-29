@@ -70,7 +70,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
       { text: "Users", link: "users", icon: FaUsers },
       { text: "Facilities", link: "facilities", icon: FaHouseMedical },
       { text: "Team", link: "team", icon: BsMicrosoftTeams },
-      { text: "Settings", link: "settings/user", icon: IoMdSettings },
+      { text: "Settings", link: "settings", icon: IoMdSettings },
       { text: "Logout", link: "Logout", icon: LuClock12 },
     ],
     []

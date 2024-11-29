@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Pagination from '../../Pagination/Paginations';
 import { Modal } from '../ModalDetals1/ModalDetails1';
@@ -344,7 +344,7 @@ Health Faclity
                 </td>
                 <td className="  md:px-4 py-2">
                 <select
-                  onChange={(e) => handleChange(e, row)}
+                  // onChange={(e) => handleChange(e, row)}
                   value={selectedAction}
                   className="border outline-none  text-center py-[3px] md:py-2 rounded-full text-[12px] md:text-[14px]"
                 >
