@@ -7,9 +7,10 @@ import { CiStar } from "react-icons/ci";
 import { FaMicrophone, FaTrash } from "react-icons/fa";
 import logo from "../../assets/imglogo.png";
 import { HiOutlinePaperClip } from "react-icons/hi";
-import { ImFilePicture } from "react-icons/im";
+import { ImFilePicture, ImPrinter } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { IoIosWarning } from "react-icons/io";
 
 export const ProductDetails = () => {
   const { id } = useParams(); // Access the dynamic id
@@ -48,39 +49,38 @@ export const ProductDetails = () => {
   };
 
   return (
-    <div className="md:flex md:justify-between">
+    <div className=" flex flex-col lg:flex-row  md:justify-between flex-wrap">
       {/* Sidebar */}
-      <div className="bg-gray-100 p-5">
+      <div className="bg-gray-100 md:p-5">
         <LeftBoard onSelect={(item) => setSelectedItem(item)} />
       </div>
 
       {/* Content */}
-      <div className="flex-1 mt-[4%] rounded-[5px] bg-[#fff] items-center justify-center">
+      <div className="flex-1 mt-[4%] flex-wrap md:h-screen  items-center justify-center">
         {/* Header */}
-        <div className="pt-4 border-b pb-[20px] px-4 flex items-center justify-between mb-[10px] md:mb-[30px]">
+        <div className="bg-[#fff] shadow-md  rounded-t-[10px]  border -b py-[20px] px-4 flex items-center justify-between   ">
           <div className="flex items-center gap-4">
             <span onClick={() => navigate(-1)} className="bg-[#f5f5f5] text-[20px] rounded-[10px] p-2">
               <MdKeyboardArrowLeft />
             </span>
-            <h3>Mako</h3>
+            <h3 className=" font-[600]">Mako</h3>
           </div>
-          <div className="flex border bg-[#FAFBFD]">
-            <span className="border-r-[0.6px] border-[#D5D5D5] py-2 px-2 text-[17px]">
-              <MdMoveToInbox />
+          <div className="flex  bg-[#FAFBFD]">
+            <span className="border-[0.6px] rounded-l-[10px] border-[#D5D5D5] py-2 px-2 text-[17px]">
+              <ImPrinter />
             </span>
-            <span className="border-r-[0.6px] border-[#D5D5D5] py-2 px-2 text-[17px]">
-              <CiStar />
+            <span className="border-[0.6px] border-[#D5D5D5] py-2 px-2 text-[17px]">
+              <IoIosWarning />
             </span>
-            <span className="border-r-[0.6px] border-[#D5D5D5] py-2 px-2 text-[17px]">
+            <span className="border-[0.6px] rounded-r-[10px] border-[#D5D5D5] py-2 px-2 text-[17px]">
               <FaTrash />
             </span>
           </div>
         </div>
 
         {/* Chat Design */}
-        <div className="bg-white min-h-screen p-5 rounded-lg shadow-md flex flex-col justify-between gap-4">
-          <div className="overflow-y-auto max-h-full space-y-3">
-            {currentMessages.map((message, index) => (
+        <div className="bg-white px-4  overflow-y-auto min-h-full py-3  rounded-lg flex flex-col justify-between gap-4">
+             {currentMessages.map((message, index) => (
               <div
                 key={index}
                 className={`flex ${
@@ -115,19 +115,20 @@ export const ProductDetails = () => {
                 )}
               </div>
             ))}
-          </div>
-
+ 
         
 
           {/* Message Input */}
-          <div>
-          <div className="mt-4 mb-4 flex items-center gap-2">
+        
+        </div>
+        <div>
+          <div className="  bg-[#fff] pb-2 mb-4 border-t border-b pt-[15px] px-[10px] rounded-b-[10px] flex items-center gap-2">
             <span className="text-[#9D9D9D]">
               <FaMicrophone />
             </span>
             <input
               type="text"
-              className="flex-1 border border-gray-300 rounded-lg p-2 focus:outline-none"
+              className=" w-full  border-gray-300 rounded-lg p-2 focus:outline-none"
               placeholder="Type a message..."
             />
             <span className="text-[#9D9D9D]">
@@ -136,14 +137,15 @@ export const ProductDetails = () => {
             <span className="text-[#9D9D9D]">
               <ImFilePicture />
             </span>
-            <button className="font-nunito text-[12px] leading-[16.37px] flex gap-2 items-center bg-[#0A2EE2] text-white px-5 py-3 rounded-lg">
+            <button className="font-nunito text-[11px] md:text-[12px] leading-[16.37px] flex gap-2 items-center bg-[#0A2EE2] text-white px-2 md:px-5 py-3 rounded-lg">
               <FiSend />
               Send
             </button>
           </div>
 
-            {/* Pagination */}
-            <div className="flex justify-end items-center  ">
+           
+          </div>
+          <div className="flex justify-end items-center  ">
             <button
               onClick={handlePrevPage}
               disabled={currentPage === 1}
@@ -165,10 +167,10 @@ export const ProductDetails = () => {
             >
              <RiArrowRightSLine />
             </button>
-          </div>
-          </div>
         </div>
       </div>
+       {/* Pagination */}
+      
     </div>
   );
 };

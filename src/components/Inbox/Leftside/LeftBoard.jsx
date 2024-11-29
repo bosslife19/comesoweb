@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import { CiStar } from "react-icons/ci";
-import { FiSend } from "react-icons/fi";
+import { FiPlus, FiSend, FiSquare } from "react-icons/fi";
 import { GoPencil } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
 import { MdOutlineEmail } from "react-icons/md";
@@ -10,7 +10,6 @@ import { TbMessageCircleCog } from "react-icons/tb";
 import { TiWarningOutline } from "react-icons/ti";
 import { motion } from "framer-motion";
 
-// eslint-disable-next-line react/prop-types
 const LeftBoard = ({ onSelect }) => {
   const [selected, setSelected] = useState("Inbox");
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For toggling the mobile menu
@@ -22,8 +21,32 @@ const LeftBoard = ({ onSelect }) => {
     { icon: GoPencil, label: "Draft", count: 8 },
     { icon: TiWarningOutline, label: "Spam", count: 8 },
     { icon: TbMessageCircleCog, label: "Important", count: 8 },
-    { icon: BiTrash, label: "Bin", count: 8 },
+    { icon: BiTrash, label: "Bin", count: 90 },
   ];
+
+  const primaryItems = [
+    { icon: FiSquare, label: "Primary", count: "" },
+    { icon: FiSquare, label: "Social", count: "" },
+    { icon: FiSquare, label: "Work", count: "" },
+    { icon: FiSquare, label: "Friends", count: "" },
+    { icon: FiPlus, label: "Create New Label", count: "" },
+  ];
+
+  const getLabelColor = (label) => {
+    switch (label) {
+      case "Primary":
+        return "text-[#00B69B]";
+      case "Social":
+        return "text-[#FD9A56]";
+      case "Work":
+        return "text-[#527FFD]";
+      case "Friends":
+        return "text-[#D456FD]";
+      default:
+        return "text-[#C7C7C8]";
+    }
+  };
+  
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -33,7 +56,6 @@ const LeftBoard = ({ onSelect }) => {
       transition: { delay: i * 0.05, type: "spring", stiffness: 300 },
     }),
   };
-  
 
   const handleSelect = (item) => {
     setSelected(item);
@@ -41,10 +63,10 @@ const LeftBoard = ({ onSelect }) => {
   };
 
   return (
-    <div className="bg-white md:w-[296px] h-full my-[20px] p-5 rounded-[20px] border-[0.3px] border-[#EBEBEC] shadow-md">
+    <div className="bg-white md:w-[296px] my-[20px] p-5 rounded-[20px] border-[0.3px] border-[#EBEBEC] shadow-md">
       {/* Compose Button */}
-      <div className=" flex justify-center">
-        <button className=" flex w-[150px] md:w-[238px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+      <div className="flex justify-center">
+        <button className="flex w-[150px] md:w-[238px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
           <BiPlus />
           Compose
         </button>
@@ -55,13 +77,13 @@ const LeftBoard = ({ onSelect }) => {
         <motion.button
           variants={containerVariants}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="w-full  text-[#202224] py-2 px-4 rounded-md"
+          className="w-full text-[#202224] py-2 px-4 rounded-md"
         >
-          {isMenuOpen ? <IoMdClose />: <RxHamburgerMenu />          }
+          {isMenuOpen ? <IoMdClose /> : <RxHamburgerMenu />}
         </motion.button>
         {isMenuOpen && (
           <div className="mt-3 bg-white border rounded-md shadow-sm">
-            {menuItems.map((item) => {
+            {[...menuItems, ...primaryItems].map((item) => {
               const isActive = selected === item.label;
               const Icon = item.icon;
 
@@ -123,6 +145,26 @@ const LeftBoard = ({ onSelect }) => {
               </div>
             );
           })}
+
+          <h3 className="mt-[20px] text-[#202224] font-nunito leading-[21.82px] text-[16px] font-[600] tracking-[0.06px]">
+            Labels
+          </h3>
+          {primaryItems.map((item) => {
+          const Icon = item.icon;
+          const labelColor = getLabelColor(item.label);
+
+          return (
+            <div
+              key={item.label}
+              className="flex items-center gap-3 py-2 px-3 cursor-pointer rounded-md hover:bg-[#F5F5F5]"
+            >
+              <Icon className={`text-lg ${labelColor}`} />
+              <span className={`font-nunito text-sm font-semibold ${labelColor}`}>
+                {item.label}
+              </span>
+            </div>
+          );
+        })}
         </div>
       </div>
     </div>

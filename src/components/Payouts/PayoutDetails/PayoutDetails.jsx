@@ -1,19 +1,15 @@
-import  { useState } from "react";
+import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import Pagination from '../../Pagination/Paginations';
+import { Modal } from '../ModalDetals1/ModalDetails1';
+import { Modal2 } from '../ModalDetails2/ModalDetails2';
+import { ModalOtpPage } from '../ModalOTP/ModalOTP';
+import { ModalSuccess } from '../ModalSuccess/ModalSuccess';
+import logo from '../../../assets/imglogo.png'
 import { motion } from "framer-motion";
- // import Pagination from "../../Pagination/Paginations";
-  
-import Pagination from "../Pagination/Paginations";
- // import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
- import logo from "../../assets/imglogo.png"
- 
-import { Modal } from "./ModalDetals1/ModalDetails1";
-import { Modal2 } from "./ModalDetails2/ModalDetails2";
-import { ModalOtpPage } from "./ModalOTP/ModalOTP";
-import { ModalSuccess } from "./ModalSuccess/ModalSuccess";
-import { Navigate, useNavigate } from "react-router-dom";
-const PAGE_SIZE = 10;
- 
-const PayoutBoardList  = () => {
+
+const PayoutDetai = ({name}) => {
+  const { id } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery] = useState("");
   const [filterStatus] = useState("All");
@@ -51,7 +47,8 @@ const PayoutBoardList  = () => {
   const closeSecondModal = () => setIsSecondModalOpen(false);
   const closeThirdModal = () => setIsThirdModalOpen(false);
   const closeLastModal = () => setIsLastModalOpen(false);
-
+  const PAGE_SIZE = 7;
+ 
   const handleChange = (event, row) => {
     const value = event.target.value;
 
@@ -367,7 +364,7 @@ Health Faclity
           row={selectedRow}
         />
       )}
-      {isSecondModalOpen && <Modal2   row={selectedRow} isOpen={isSecondModalOpen} closeSecondModal={closeSecondModal} handProceedSecond={handProceedSecond} />}
+      {isSecondModalOpen && <Modal2  row={selectedRow} isOpen={isSecondModalOpen} closeSecondModal={closeSecondModal} handProceedSecond={handProceedSecond} />}
       {isThirdModalOpen && <ModalOtpPage isOpen={isThirdModalOpen} closeThirdModal={closeThirdModal} handProceedThird={handProceedThird} />}
       {isLastModalOpen && <ModalSuccess isOpen={isLastModalOpen} closeLastModal={closeLastModal} />}
 
@@ -392,4 +389,4 @@ Health Faclity
   );
 };
 
-export default PayoutBoardList;
+export default PayoutDetai

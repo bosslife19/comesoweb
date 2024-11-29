@@ -8,7 +8,8 @@ import { InboxContents } from './components/Inbox/SelectedContents/InboxContents
 import { ProductDetails } from './Screens/InboxScreen/InboxScreen';
 import { TransactionPage } from './pages/TransactionsManagement/TransactionsManagement';
 import { PayoutPage } from './pages/Payouts/PayoutManagement';
- 
+import { PayoutDetails } from './pages/Payouts/PayoutDetails/PayoutDetails';
+  
 function App() {
   return (
     <BrowserRouter>
@@ -89,6 +90,14 @@ function App() {
             }
           />
 
+<Route
+            path="/Pays/:id"
+            element={
+              <>
+                <PayoutDetails />
+              </>
+            }
+          />
 
         </Route>
 

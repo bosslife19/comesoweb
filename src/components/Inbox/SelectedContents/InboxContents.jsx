@@ -55,7 +55,7 @@ export const InboxContents = () => {
   };
 
   return (
-    <div>
+    <div className="  " >
       <div className="pt-4 px-4 flex items-center justify-between mb-[10px] md:mb-[30px]">
         <div className="md:w-[332px] ">
           <Search id="search" placeholder="Search" name="search" />

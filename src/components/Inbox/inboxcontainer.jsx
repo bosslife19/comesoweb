@@ -8,9 +8,9 @@ export const Inboxcontainer = () => {
 
 
   return (
-    <div className=" w-full">
+    <div className=" w-full h-screen lg:h-full">
     <h3 className="text-[#202224] font-nunito text-[32px] leading-[43.65px] tracking-[0.11px] pb-[30px]">Inbox</h3>
-      <div className="md:flex ">
+      <div className="md:flex flex-wrap  ">
       <div className="md:w-[300px]">
       <LeftBoard onSelect={(item) => setSelectedItem(item)} />
       </div>

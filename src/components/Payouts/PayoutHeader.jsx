@@ -11,9 +11,9 @@ const PayoutBoardMain = () => {
             <ButtonsWithPopup/>
         </div>
      {/* flex */}
-     <div className='md:flex flex-wrap gap-4'>
-     <div className="w-full md:w-[247px] rounded-[14px] bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
-        <div className="border py-2 border-[#6B788E1F] border-opacity-10 rounded-md w-full">
+     <div className='flex md:flex-row flex-wrap gap-4'>
+     <div className="w-full border-[#6B788E1F] border-opacity-10 rounded-md border md:w-[247px]  bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
+        <div className=" py-2  w-full">
           <div className="flex justify-between items-center gap-3 p-4">
             <div className="space-y-3">
             <h3 className="font-[600] leading-[21.82px] text-[14px] text-[#777779] font-poppins ">
@@ -36,8 +36,8 @@ const PayoutBoardMain = () => {
         </div>
       </div>
 
-      <div className="w-full md:w-[247px] rounded-[14px] bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
-        <div className="border py-2 border-[#6B788E1F] border-opacity-10 rounded-md w-full">
+      <div className="w-full md:w-[247px] border py-2 border-[#6B788E1F] border-opacity-10 rounded-md  bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
+        <div className="w-full">
           <div className="flex justify-between items-center gap-3 p-4">
             <div className="space-y-3">
             <span className="font-[500] leading-[21.82px] md:text-[15px] text-[#777779] font-nunito  ">
@@ -59,8 +59,8 @@ const PayoutBoardMain = () => {
       </div>
       
      
-      <div className="w-full md:w-[247px] rounded-[14px] bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
-        <div className="border py-2 border-[#6B788E1F] border-opacity-10 rounded-md w-full">
+      <div className="w-full border py-2 border-[#6B788E1F] border-opacity-10 rounded-md md:w-[247px]  bg-[#fff]  cursor-pointer shadow-sm  text-[#6B788E]">
+        <div className=" w-full">
           <div className="flex justify-between items-center gap-3 p-4">
             <div className="space-y-3">
             <h4 className="font-[600] leading-[21.82px] text-[14px] text-[#777779] font-nunito  ">
