@@ -22,7 +22,7 @@ export const Modal = ({ row, closeModal, handProceed }) => (
 <div className=" space-x-2 flex  items-center">
 <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
 <span className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
- {row.name}
+ {/* {row.name} */}
 </span>
 <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
 <HiDotsVertical/>
@@ -36,7 +36,7 @@ export const Modal = ({ row, closeModal, handProceed }) => (
 Company’s Phone number
 </h4>
 <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden justify-center">
-   {row.Sender}
+   {/* {row.Sender} */}
 </div>
 
 </div>
@@ -46,7 +46,7 @@ Company’s Phone number
 Payout Amount
 </h4>
 <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden justify-center">
-   {row.Amount}
+   {/* {row.Amount} */}
 </div>
 
 </div>
@@ -56,7 +56,8 @@ Payout Amount
 Starting Date Period
 </h4>
 <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden gap-1">
-  <BsCalendar/> {row.Timestamp}
+  <BsCalendar/> 
+  {/* {row.Timestamp} */}
 </div>
 
 </div>
@@ -69,7 +70,7 @@ Starting Date Period
 <div className=" space-x-2 flex  items-center">
 <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
 <span className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
- {row.name}
+ {/* {row.name} */}
 </span>
 <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
 <HiDotsVertical/>
@@ -83,7 +84,7 @@ Starting Date Period
 Company’s Account Number 
 </h4>
 <div className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden justify-center">
-   {row.Beneficiary}
+   {/* {row.Beneficiary} */}
 </div>
 
 </div>
@@ -93,7 +94,7 @@ Company’s Account Number
 Transaction 
 </h4>
 <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden justify-center">
-   {row.type}
+   {/* {row.type} */}
 </div>
 
 </div>
@@ -103,7 +104,8 @@ Transaction
 Ending Date Period
 </h4>
 <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5 pt-2 overflow-hidden gap-1">
-  <BsCalendar/> {row.Timestamp}
+  <BsCalendar/> 
+  {/* {row.Timestamp} */}
 </div>
 
 </div>

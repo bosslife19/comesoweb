@@ -10,6 +10,9 @@ import { TransactionPage } from './pages/TransactionsManagement/TransactionsMana
 import { PayoutPage } from './pages/Payouts/PayoutManagement';
 import { PayoutDetails } from './pages/Payouts/PayoutDetails/PayoutDetails';
 import { SettingsManagement } from './pages/Setting/SettingsManagement';
+import UserManagement from './pages/Users/UserManagement';
+import UserDetails1 from './pages/UserDetails/UserPage';
+import UserDetailsPage from './pages/UserDetails/UserPage';
   
 function App() {
   return (
@@ -107,6 +110,24 @@ function App() {
               </>
             }
           />
+           <Route
+            path="users"
+            element={
+              <>
+                <UserManagement />
+              </>
+            }
+          />
+
+       <Route
+            path="userBoard"
+            element={
+              <>
+                <UserDetailsPage />
+              </>
+            }
+          />
+
 
 
 
