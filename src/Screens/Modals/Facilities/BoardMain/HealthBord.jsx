@@ -1,16 +1,17 @@
 import  { useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
-  import logo from "../../assets/imglogo.png"
-import Pagination from "../Pagination/Paginations";
- import { BsCalendar } from "react-icons/bs";
+  import logo from "../../../../assets/imglogo.png"
+  import { BsCalendar } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 import { BiUserPlus } from "react-icons/bi";
-import UserModal from "../../Screens/UserModalScreen/UserModal";
+ import Pagination from "../../../../components/Pagination/Paginations";
+import FacilitiesModals from "../../../facilitiesModal/FacilitiesModals";
    
+
 const PAGE_SIZE = 10;
  
-const UserBoard  = () => {
+const HealthBord  = () => {
   const [currentPage, setCurrentPage] = useState(1);
    const [searchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
@@ -20,10 +21,7 @@ const UserBoard  = () => {
    const [isModalOpens, setIsModalOpens] = useState(false);
 
   
-   const handleFilterChange = (status) => {
-    setFilterStatus(status);
-  };
-  
+ 
   const handleChange = (event, row) => {
     const value = event.target.value;
     setSelectedAction(value);
@@ -207,17 +205,17 @@ const closeModals = () => {
   transition={{ duration: 0.5 }}
   className="md:text-[32px] text-[#202224] leading-[43.65px] font-[700] font-inter  "
 >
-  Users
+Health Facilities
 </motion.h2>
  <button  onClick={handleChanges} className="flex text-[#333333] font-inter font-[500] text-[14px] leading-[20.3px] gap-1 items-center border py-2 px-1  rounded-[5px] border-[#D0D5DD]">
     <BiUserPlus/>
-    Add New User
+    Add New Facility
  </button>
 </div>
 
  {/* Modal */}
  {isModalOpens && ( 
-        <UserModal
+        <FacilitiesModals
         isOpen={isModalOpens}
         closeModals={closeModals}
         />
@@ -275,7 +273,7 @@ const closeModals = () => {
                 variants={rowAnimation}
                 initial="hidden"
                 animate="visible"
-                custom={index} 
+                custom={index}
                 className={`${
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
@@ -310,7 +308,10 @@ const closeModals = () => {
                   className="border outline-none  py-2 rounded-md text-sm"
                 >
                   <option value="">Action</option>
+                  <option value="">Call User</option>
+                  <option value="">Send Mail</option>
                   <option value="Approve">View Details</option>
+                  <option value="">Deactivate</option>
                 </select>
               </td>
 
@@ -447,4 +448,4 @@ const closeModals = () => {
   );
 };
 
-export default UserBoard;
+export default HealthBord;

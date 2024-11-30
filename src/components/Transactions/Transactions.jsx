@@ -276,7 +276,7 @@ onClick={() => handleFilterChange("Rejected")}>
       >
         <table className="min-w-full bg-white border border-[#F9FAFB] rounded-lg">
           <thead>
-          <tr className="bg-[#F9FAFB]">
+          <tr className=" ">
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                    Payment ID
                    </th>
@@ -315,8 +315,10 @@ onClick={() => handleFilterChange("Rejected")}>
                 variants={rowAnimation}
                 initial="hidden"
                 animate="visible"
-                custom={index}
-                 className="border-b hover:bg-gray-50"
+                custom={index} 
+                className={`${
+                    index % 2 === 0 ? "bg-gray-100" : " bg-white" 
+                  } border-b hover:bg-gray-50`}
               >
                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.PaymentID || "N/A"}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
@@ -343,11 +345,11 @@ onClick={() => handleFilterChange("Rejected")}>
                     {row.Status}
                   </span> 
                 </td>
-                <td className="border px-4 py-2">
+                <td className=" px-4 py-2">
                 <select
                   onChange={(e) => handleChange(e, row)}
                   value={selectedAction}
-                  className="border outline-none px-4 py-2 rounded-md text-sm"
+                  className="border outline-none px-1  py-2 rounded-[20px] text-sm"
                 >
                   <option value="">Action</option>
                   <option value="Approve">View Details</option>

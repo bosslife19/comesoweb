@@ -6,11 +6,11 @@ import Pagination from "../Pagination/Paginations";
  import { BsCalendar } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
 import { BiUserPlus } from "react-icons/bi";
-import UserModal from "../../Screens/UserModalScreen/UserModal";
+ import TeamModal from "../../Screens/TEamsModal/TeamModal";
    
 const PAGE_SIZE = 10;
- 
-const UserBoard  = () => {
+  
+const TeamBoard  = () => {
   const [currentPage, setCurrentPage] = useState(1);
    const [searchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
@@ -40,109 +40,97 @@ const UserBoard  = () => {
   };
   const tableData = [
     {
-      UserID: "#43873",
+      
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "0810031976",
-      Amount: "$2,000",
+      PhoneNumber_UserID: "0810031976",
+      Role:"Chief Executive Officer",
       Status: "Active",
      
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "0810031976",
-      Amount: "$1,500",
+      PhoneNumber_UserID: "0810031976",
+      Role:"Chief Executive Officer",
       Status: "pending",
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "08100319760",
-      Amount: "$837639",
-      Status: "Active",
+      PhoneNumber_UserID: "0810031976",
+      Role:"Chief Executive Officer",
+      Status: "pending",
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "Rejected",
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
       name:"Benz",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
      
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "pending",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "Active",
       
     },
     {
-      UserID: "#12233",
       LastVisted: "09/08/24, 12:0018pm",
-      PhoneNumber: "08100319760",
-      Amount: "$3,000",
+      PhoneNumber_UserID: "08100319760",
+      Role:"Production Manager",
       Status: "Active",
       
     },
@@ -152,7 +140,7 @@ const UserBoard  = () => {
   ];
 
   const filteredData = tableData.filter((row) => {
-    const matchesQuery = row.UserID.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesQuery = row.PhoneNumber_UserID.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || row.Status.toLowerCase() === filterStatus.toLowerCase();
     return matchesQuery && matchesStatus;
   });
@@ -207,7 +195,7 @@ const closeModals = () => {
   transition={{ duration: 0.5 }}
   className="md:text-[32px] text-[#202224] leading-[43.65px] font-[700] font-inter  "
 >
-  Users
+  Teams
 </motion.h2>
  <button  onClick={handleChanges} className="flex text-[#333333] font-inter font-[500] text-[14px] leading-[20.3px] gap-1 items-center border py-2 px-1  rounded-[5px] border-[#D0D5DD]">
     <BiUserPlus/>
@@ -217,7 +205,7 @@ const closeModals = () => {
 
  {/* Modal */}
  {isModalOpens && ( 
-        <UserModal
+        <TeamModal
         isOpen={isModalOpens}
         closeModals={closeModals}
         />
@@ -235,11 +223,9 @@ const closeModals = () => {
         <table className="min-w-full bg-white border border-[#F9FAFB] rounded-lg">
           <thead>
           <tr className="bg-[#fff] border-t shadow-sm rounded-[30px] ">
+                   
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                   User ID
-                   </th>
-                   <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     PhoneNumber
+                   UserID/PhoneNumber
                    </th>
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Names
@@ -253,7 +239,7 @@ const closeModals = () => {
                    
                    
                    <th className="px-4 py-[20px] text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Amount
+                     Role
                    </th>
                    <th className="px-4  py-[20px] text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                     Status
@@ -280,14 +266,13 @@ const closeModals = () => {
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
               >
-               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.UserID || "N/A"}</td>
-                <td className="px-4 flex gap-2 items-center py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
+                 <td className="px-4 flex gap-2 items-center py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <img src={logo} className="w-[30px] h-[30px] rounded-full" />
-                  {row.PhoneNumber}
+                  {row.PhoneNumber_UserID}
                 </td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.name}</td>      
                  <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250] ">{row.LastVisted}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">{row.Amount}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">{row.Role}</td>
                   <td className="px-4 py-2 text-[11px]  md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
                   <span
                     className={`${
@@ -447,4 +432,4 @@ const closeModals = () => {
   );
 };
 
-export default UserBoard;
+export default TeamBoard;

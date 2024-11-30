@@ -209,7 +209,7 @@ const UsersDetails = () => {
 
   const handles = (id) => {
     // Use navigate to go to a page with the product or detail
-    navigate(`/Pays/${id}`);
+    // navigate(`/Pays/${id}`);
   };
   return (
     <div>

@@ -11,9 +11,12 @@ import { PayoutPage } from './pages/Payouts/PayoutManagement';
 import { PayoutDetails } from './pages/Payouts/PayoutDetails/PayoutDetails';
 import { SettingsManagement } from './pages/Setting/SettingsManagement';
 import UserManagement from './pages/Users/UserManagement';
-import UserDetails1 from './pages/UserDetails/UserPage';
-import UserDetailsPage from './pages/UserDetails/UserPage';
-  
+ import UserDetailsPage from './pages/UserDetails/UserPage';
+import HealthBord from './Screens/Modals/Facilities/BoardMain/HealthBord';
+import HealthDetailsPage from './pages/HealthDetails/HealthDetailsPage';
+import Teamsmanagement from './pages/Teamsmanagement/Teamsmanagement';
+import TeamsDetails from './pages/Teamsmanagement/TeamsDetails';
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -95,7 +98,7 @@ function App() {
           />
 
            <Route
-            path="/Pays/:id"
+            path="/Pays"
             element={
               <>
                 <PayoutDetails />
@@ -124,6 +127,42 @@ function App() {
             element={
               <>
                 <UserDetailsPage />
+              </>
+            }
+          />
+
+            <Route
+            path="/facilities"
+            element={
+              <>
+                <HealthBord />
+              </>
+            }
+          />
+
+           <Route
+            path="HealthFacility"
+            element={
+              <>
+                <HealthDetailsPage />
+              </>
+            }
+          />
+          {/* Teams */}
+          <Route
+            path="team"
+            element={
+              <>
+                <Teamsmanagement />
+              </>
+            }
+          />
+          {/* Teams details */}
+          <Route
+            path="TeamUser"
+            element={
+              <>
+                <TeamsDetails />
               </>
             }
           />

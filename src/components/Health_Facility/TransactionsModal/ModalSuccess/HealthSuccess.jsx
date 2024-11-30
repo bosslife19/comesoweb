@@ -1,15 +1,11 @@
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
-import logo from "../../../assets/successful.png"
+import logo from "../../../../assets/successful.png"
 import { HiOutlineArrowRight } from 'react-icons/hi'
 import { useNavigate } from 'react-router-dom'
-export const ModalSuccess = ({closeLastModal}) => {
+export const HealthSuccess = ({closeLastModal,handProceedLast}) => {
 
-const navigate = useNavigate()
-  const handles = () => {
-    // Use navigate to go to a page with the product or detail
-    navigate("/Pays");
-  };
+ 
   return (
     <div className="fixed inset-0 font-sans p-[20px] bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
     <div className="bg-white rounded-lg  md:w-1/2">
@@ -27,7 +23,7 @@ const navigate = useNavigate()
         <p className='text-[#A4A9AE] font-[400] text-[18px] leading-[26.37px] md:px-[16%] mt-2'>
           You have successfully approved payout for the month of November fo Gloria Niiquaye Health Centre</p>
          <img src={logo}  className=' object-contain h-[100px] md:h-[200px]' />
-         <button onClick={handles} className='flex gap-2 items-center rounded-[20px] text-center justify-center font-sans font-[600] leading-[40px] text-[12px] md:text-[14px] text-[#fff] bg-[#0A2EE2] md:py-[10px] '>
+         <button onClick={handProceedLast} className='flex gap-2 items-center rounded-[20px] text-center justify-center font-sans font-[600] leading-[40px] text-[12px] md:text-[14px] text-[#fff] bg-[#0A2EE2] md:py-[10px] '>
           View Receipt
           <HiOutlineArrowRight/>
          </button>
