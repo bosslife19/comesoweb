@@ -4,7 +4,7 @@ import PayoutDetai from '../../../components/Payouts/PayoutDetails/PayoutDetails
 
 export const PayoutDetails = () => {
   return (
-    <div>
+    <div className='md:h-[100vh] md:mb-[200px]'>
         <DetailsPayMain/>
         <PayoutDetai/>
     </div>

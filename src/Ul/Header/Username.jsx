@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Username: React.FC = () => {
+const Username = () => {
     // Replace with actual user data or props as needed
     const userData = {
         firstName: "Four",

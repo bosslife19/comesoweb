@@ -1,13 +1,12 @@
  import UserBottom from '../../components/Users/UserDetails/UserBottom'
-import UsersDetails from '../../components/Users/UserDetails/UsersDetails'
-import UserHeader from '../../components/Users/UserDetails/userHeader'
+ import UserHeader from '../../components/Users/UserDetails/userHeader'
 
 const UserDetailsPage = () => {
   return (
-    <>
-    <UserHeader/>
+<div className='lg:h-[100vh] md:mb-[200px]'>    
+  <UserHeader/>
       <UserBottom/>
-    </>
+    </div>
   )
 }
 

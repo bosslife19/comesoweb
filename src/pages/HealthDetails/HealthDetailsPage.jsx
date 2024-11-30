@@ -1,13 +1,12 @@
  import HealthBottom from '../../components/Health_Facility/HealthDetails/HealthBottom'
 import HealthHeader from '../../components/Health_Facility/HealthDetails/HealthHeader'
-import UserBottom from '../../components/Users/UserDetails/UserBottom'
- 
+  
 const HealthDetailsPage = () => {
   return (
-    <>
+    <div className='lg:h-[100vh] mt-[20px] h-full mb-0 md:mb-[90%] md:pb-[63%]'>    
     <HealthHeader/>
       <HealthBottom/>
-    </>
+    </div>
   )
 }
 

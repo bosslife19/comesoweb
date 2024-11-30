@@ -242,7 +242,8 @@ const PayoutBoardList  = () => {
 
  
   return (
-    <div className=" w-full  bg-white rounded-lg shadow-md mt-[20px]">
+   <div className="  lg:h-[100vh] ">
+     <div className=" w-full   bg-white rounded-lg shadow-md mt-[20px] ">
     <div className=" md:flex justify-between items-center mb-2 font-sans">
   {/* Left Section: Title and Tag */}
   
@@ -269,7 +270,7 @@ Health Faclity
         transition={{ duration: 0.5 }}
         className="overflow-x-auto scroll-container"
       >
-        <table className="w-full mx-2 bg-white  border-[#F9FAFB] rounded-lg">
+        <table className="w-full mx-2  border-[#F9FAFB] rounded-lg">
           <thead>
           <tr className="">
                    <th className="md:px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
@@ -386,6 +387,7 @@ Health Faclity
 
  
     </div>
+   </div>
   );
 };
 

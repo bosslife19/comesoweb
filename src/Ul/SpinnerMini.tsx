@@ -2,7 +2,7 @@ import React from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 
 
-const SpinnerMini: React.FC = () => {
+const SpinnerMini  = () => {
     return (
         <BiLoaderAlt
             className="animate-spin flex justify-center text-3xl items-center text-white"

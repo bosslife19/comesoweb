@@ -1,7 +1,7 @@
 import   { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+ import SideBarItem from './SideBarItem';
 import Header from '../Header/Header';
-import SideBarItem from './SideBarItem';
  // import SubscriptionUpdate from '../SubscriptionUpdate';
 
 const AppLayout = () => {
@@ -29,7 +29,7 @@ const AppLayout = () => {
 
 					{/* <!-- ===== Main Content Start ===== --> */}
 					<main>
-						<div className="    p-4 md:p-6 2xl:p-10">
+						<div className=" bg-[#F5F6FA]   p-4 md:p-6 2xl:p-10">
 							<Outlet />
 						</div>
 					</main>

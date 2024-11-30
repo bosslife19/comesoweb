@@ -1,35 +1,31 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
-
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
-  // Replace with your actual selector to check authentication status
-  const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
-
   useEffect(() => {
+    // Check authentication status from localStorage
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+
     if (!isAuthenticated) {
-      // Redirect to login after a delay or immediately
+      // Redirect to login after a delay
       const timer = setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/login"); // Redirect to the login page
       }, 1000);
 
       return () => clearTimeout(timer); // Cleanup timer
     }
-  }, [isAuthenticated, navigate]);
+  }, [navigate]);
 
   // Render children if authenticated
+  const isAuthenticated = localStorage.getItem("isAuthenticated");
   if (isAuthenticated) {
     return <>{children}</>;
   }
 
   // Render null or a loading spinner while redirecting
   return null;
-};
+}
 
 export default ProtectedRoute;

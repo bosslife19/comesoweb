@@ -5,15 +5,11 @@ import { FaUserLarge } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import AvatarDropdown from "./AvatarDropdown";
 import { BiBell } from "react-icons/bi";
-import { CiSettings } from "react-icons/ci";
 
-const Header = (props: {
-  sidebarOpen: string | boolean | undefined;
-  setSidebarOpen: (arg0: boolean) => void;
-}) => {
+const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
- 
+
   const dropdownOptions = [
     {
       text: "Add User",
@@ -41,7 +37,7 @@ const Header = (props: {
             aria-controls="sidebar"
             onClick={(e) => {
               e.stopPropagation();
-              props.setSidebarOpen(!props.sidebarOpen);
+              setSidebarOpen(!sidebarOpen);
             }}
             className="block rounded-sm bg-white p-1.5 shadow-sm"
           >
@@ -72,8 +68,6 @@ const Header = (props: {
 
         {/* Header Actions */}
         <div className="flex items-center gap-5">
-          {/* Settings Icon */}
- 
           {/* Notifications Icon */}
           <BiBell className="text-[#6C737F] text-[20px] cursor-pointer" />
 

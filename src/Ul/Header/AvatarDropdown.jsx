@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useRef, FC } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 // import Avatars from "../../assets/Avatars.png";
 
-interface Option {
-  text: string;
-  icon: FC<{ className?: string }>;
-  color: string;
-  handler: () => void;
-}
-
-const AvatarDropdown: FC<{ options: Option[] }> = ({ options }) => {
+const AvatarDropdown = ({ options }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const closeDropdown = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+  const closeDropdown = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
     }
   };

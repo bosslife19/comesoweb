@@ -1,0 +1,13 @@
+/* Global CSS to remove focus and active borders */
+*,
+*::before,
+*::after {
+  outline: none !important; /* Remove outline for all elements */
+  border: none !important; /* Remove borders for all elements */
+}
+
+img:focus,
+img:active {
+  outline: none;
+  border: none;
+}

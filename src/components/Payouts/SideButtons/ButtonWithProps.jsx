@@ -16,13 +16,10 @@ const ButtonsWithPopup = () => {
     setOpenPopup((prev) => (prev === popupType ? null : popupType));
   };
 
-  // const handleDropdownChange = (option) => {
-  //   setSelectedOption(option.value);
-  //   setOpenPopup(null); // Close dropdown after selection
-  // };
+  
 
-  return (
-    <div className="flex gap-4">
+  return ( 
+    <div className=" lg:flex gap-4 md:space-y-3 items-center">
       {/* Calendar Button */}
       <div className="relative">
         <button

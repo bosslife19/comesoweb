@@ -7,9 +7,9 @@ import { TfiLocationPin } from 'react-icons/tfi';
 
 const PersonalBoard = () => {
   return (
-    <div className="md:grid grid-cols-2 gap-4 p-2 font-inter">
+    <div className="md:grid grid-cols-2 gap-4 p-2 font-inter ">
       {/* Top-left input */}
-      <div className="flex flex-col bg-[#fff] shadow-md p-4 md:w-[498px] md:h-[487px] rounded-[12px]">
+      <div className="flex flex-col bg-[#fff] shadow-md p-4 md:w-[100%] md:h-[100%] rounded-[12px]">
       <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">
           Company Name
         </label>
@@ -63,7 +63,7 @@ const PersonalBoard = () => {
        </div>
 
       {/* Top-right input */}
-      <div className="flex my-4 flex-col bg-[#fff] shadow-md p-4 md:w-[498px] md:h-[387px] rounded-[12px]">
+      <div className="flex my-4 flex-col   p-4 md:w-[100%] md:h-[387px] rounded-[12px]">
       <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">
       Account Number
         </label>
@@ -106,7 +106,7 @@ const PersonalBoard = () => {
        </div>
 
       {/* Below top-left input */}
-      <div className="flex my-4 flex-col bg-[#fff] shadow-md p-4 md:w-[498px] md:h-[100%] rounded-[12px]">
+      <div className="flex my-4 flex-col bg-[#fff] shadow-md p-4 md:w-[100%] md:h-[100%] rounded-[12px]">
         <h3 className='text-[#1A1A21] font-[600] text-[20px] leading-[24px] font-inter pb-2 '>Verification Documents</h3>
         <p className='text-[#8C94A6] font-[400] text-[16px] leading-[23.2px] py-1 tracking-[0.5px]'>View & edit your verification documents</p>
       <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">
@@ -199,7 +199,7 @@ const PersonalBoard = () => {
        </div>
 
       {/* Below top-right input */}
-      <div className="my-4 flex flex-col bg-[#fff] shadow-md p-4 md:w-[498px] md:h-[347px] rounded-[12px]">
+      <div className="my-4 flex flex-col bg-[#fff] shadow-md p-4 md:w-[100%] md:h-[347px] rounded-[12px]">
       <h3 className='text-[#1A1A21] font-[600] text-[20px] leading-[24px] font-inter pb-2 '>Our Pharmacists & their certifications</h3>
         <p className='text-[#8C94A6] font-[400] text-[16px] leading-[23.2px] py-1 tracking-[0.5px]'>View & edit your verification documents</p>
       <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">

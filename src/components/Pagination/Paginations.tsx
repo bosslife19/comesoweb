@@ -113,7 +113,7 @@ const Pagination: React.FC<PaginationProps> = ({
         {/* Previous Button */}
         <div className="flex ">
         <button
-          className="p-2 font-semibold text-sm flex items-center text-gray-700 rounded transition-all duration-200 ease-in-out disabled:opacity-50 hover:bg-gray-200"
+          className="md:p-2 font-semibold text-sm flex items-center text-gray-700 rounded transition-all duration-200 ease-in-out disabled:opacity-50 hover:bg-gray-200"
           onClick={previousPage}
           disabled={currentPage === startPage}
         >

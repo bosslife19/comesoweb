@@ -5,9 +5,9 @@ export const PayoutPage = () => {
    
      
  return (
-  <>
+  <div className='md:my-[120px]'>
    <PayoutBoardMain/>
    <PayoutBoardList/>
-  </>
+  </div>
  )
 }

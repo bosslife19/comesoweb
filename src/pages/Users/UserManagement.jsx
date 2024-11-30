@@ -3,9 +3,9 @@ import UserBoard from '../../components/Users/UserBoard'
 
 const UserManagement = () => {
   return (
-    <>
-      <UserBoard/>
-    </>
+<div className='lg:h-[100vh] md:mb-[200px]'>      
+  <UserBoard/>
+    </div>
   )
 }
 
