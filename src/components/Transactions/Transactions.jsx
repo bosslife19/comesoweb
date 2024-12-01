@@ -236,8 +236,8 @@ const Transactions  = () => {
 >
   Transactions
 </motion.h2>
-<div className="flex justify-between flex-wrap">
-<div className="flex gap-2 mt-2">
+<div className="flex justify-between flex-wrap items-center">
+<div className="flex gap-2 mt-2 items-center">
 <button
 onClick={() => handleFilterChange("All")}
 className={`border md:px-[0px] px-[20px] md:w-[118px] md:h-[42px] rounded-[30px] ${filterStatus === "All" ? "border-blue-500 text-[#222222E5]" : "bg-white text-black"} font-[500] text-[14px] md:text-[17px] leading-[21.42px]`}
@@ -261,7 +261,7 @@ onClick={() => handleFilterChange("Rejected")}>
 </div>
 
 {/* Right Section: Search Bar and Filter Button */}
-<div className="flex items-center gap-3  mt-[35px]">
+<div className="flex lg:px-5 lg:items-center gap-3  mt-[35px]">
 <ButtonsWithPopup/>
 </div>
 </div>

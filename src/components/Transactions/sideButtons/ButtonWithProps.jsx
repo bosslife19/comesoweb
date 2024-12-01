@@ -22,7 +22,7 @@ const ButtonsWithPopup = () => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap">
       {/* Calendar Button */}
       <div className="relative">
         <button
@@ -53,7 +53,7 @@ const ButtonsWithPopup = () => {
           onChange={handleDropdownChange}
           value={selectedOption}
           placeholder="To Beneficiaries"
-          className="w-full h-[42px] rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] leading-[21.42px]"
+          className="w-full h-[42px] rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[13px] leading-[21.42px]"
           controlClassName="border border-[#EBEBEE] rounded-[30px] px-4 py-2 cursor-pointer"
           menuClassName="bg-white border border-[#EBEBEE] shadow-lg rounded-lg"
           onFocus={() => togglePopup("dropdown")}

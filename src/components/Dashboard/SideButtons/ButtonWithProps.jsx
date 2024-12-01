@@ -22,7 +22,7 @@ const ButtonsWithPopup = () => {
   };
 
   return (
-    <div className=" lg:flex gap-4 md:space-y-3 items-center">
+    <div className=" flex-wrap flex gap-4 md:space-y-3 items-center px-2">
       {/* Calendar Button */}
       <div className="relative">
         <button

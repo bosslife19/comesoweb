@@ -156,8 +156,8 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
         }`}
       >
         <div className="flex items-center justify-between gap-2 px-2 py-5.5 lg:py-2.5">
-          <Link to="dashboard">
-            <h3>LOGO</h3>
+          <Link to="dashboard" >
+            <h3 className="ml-5">LOGO</h3>
           </Link>
 
           <button

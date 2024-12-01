@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
-// import Avatars from "../../assets/Avatars.png";
+import Avatars from "../../assets/imglogo.png";
 
 const AvatarDropdown = ({ options }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +23,12 @@ const AvatarDropdown = ({ options }) => {
 
   return (
     <div className="relative flex items-center gap-3 cursor-pointer" ref={dropdownRef}>
-      <div className="cursor-pointer" onClick={toggleDropdown}>
-        {/* <img src={Avatars} alt="Avatar" className="object-cover w-10 h-10 rounded-full" /> */}
+      <div className="cursor-pointer flex" onClick={toggleDropdown}>
+        <img src={Avatars} alt="Avatar" className="object-cover w-10 h-10 rounded-full" />
+        <div className="flex-col flex px-2">
+          <span>Peter Sam</span>
+          <span>Admin</span>
+        </div>
       </div>
 
       <div onClick={toggleDropdown}>

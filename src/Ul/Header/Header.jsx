@@ -4,10 +4,13 @@ import Search from "../Input/components/Search";
 import { FaUserLarge } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import AvatarDropdown from "./AvatarDropdown";
-import { BiBell } from "react-icons/bi";
+ import bell from "../../assets/icon.png";
+import "flag-icons/css/flag-icons.min.css"; // Import flag icons CSS
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("en-US");
   const navigate = useNavigate();
 
   const dropdownOptions = [
@@ -28,9 +31,21 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
     },
   ];
 
+  // List of available languages with flag-icon classes
+  const languages = [
+    { code: "en-GB", name: "English (UK)", flagClass: "fi-gb" },
+    { code: "en-US", name: "English (US)", flagClass: "fi-us" },
+  ];
+
+  const handleLanguageChange = (language) => {
+    setSelectedLanguage(language);
+    console.log(`Language changed to: ${language}`);
+    setLanguageDropdownOpen(false);
+  };
+
   return (
     <header className="sticky top-0 flex flex-col z-[51] bg-[#FDFDFD] shadow">
-      <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-md md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-between py-[12px] px-4 shadow-md md:px-6 2xl:px-11">
         {/* Sidebar Toggle Button */}
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button
@@ -69,7 +84,48 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Header Actions */}
         <div className="flex items-center gap-5">
           {/* Notifications Icon */}
-          <BiBell className="text-[#6C737F] text-[20px] cursor-pointer" />
+          <div className=" relative">
+          <img src={bell} alt="Notifications" className="h-6 w-6" />
+          <div className="w-[13px] absolute top-[-5px] right-0 text-[9px] h-[13px] text-center rounded-full bg-[#F93C65] text-[#fff]">
+            6
+          </div>
+          </div>
+
+          {/* Language Selector */}
+          <div className="relative">
+            <button
+              className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
+              onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+            >
+              <span
+                className={`fi ${
+                  languages.find((lang) => lang.code === selectedLanguage)
+                    ?.flagClass
+                }`}
+              ></span>
+              <span>
+                {
+                  languages.find((lang) => lang.code === selectedLanguage)
+                    ?.name
+                }
+              </span>
+            </button>
+
+            {languageDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left"
+                    onClick={() => handleLanguageChange(lang.code)}
+                  >
+                    <span className={`fi ${lang.flagClass}`}></span>
+                    <span>{lang.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Avatar Dropdown */}
           <div className="border-l-2 pl-4">

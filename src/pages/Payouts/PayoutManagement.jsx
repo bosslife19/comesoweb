@@ -5,7 +5,7 @@ export const PayoutPage = () => {
    
      
  return (
-  <div className='md:my-[120px]'>
+  <div className='md:mb-[85px]'>
    <PayoutBoardMain/>
    <PayoutBoardList/>
   </div>
