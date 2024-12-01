@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { BiArrowBack, BiArrowFromRight, BiHide, BiShow } from "react-icons/bi";
 import Spinner from "../../../Ul/Spinner";
-
+import "../../../styles/overflow_hidden.css"
 // Sample data for the auto slider
 const sliderData = [
   {
@@ -36,7 +36,7 @@ const sliderData = [
   },
 ];
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
 
    // States for form inputs
@@ -98,36 +98,56 @@ function Login() {
   }
 
   return (
-    <div className="flex justify-between  h-screen  relative overflow-hidden ">
+    <div className="flex justify-between    relative overflow-hidden ">
      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
       {/* Login Form */}
 
        {/* Login Form */}
-       <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2">
+       <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2 scroll-container  lg:h-screen overflow-y-auto">
         <span className="flex items-center font-poppins text-[#333333] font-[500] md:text-[32px] leading-[48px]">
-          Welcome to
+          Welcome Back
           <img src={COMESOLOGO} className="ml-2" alt="COME SO LOGO" />
         </span>
         <form className="space-y-4 mt-6">
+          <div>
+            <label className="block text-[#666666] text-sm font-medium">Company Name</label>
+            <input
+              type="text"
+              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              // required
+            />
+          </div>
           <div>
             <label className="block text-[#666666] text-sm font-medium">Email</label>
             <input
               type="email"
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              // required
             />
           </div>
           <div>
             <label className="block text-[#666666] text-sm font-medium">Phone Number</label>
             <PhoneInput
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
-              value={phoneNumber}
+              // value={phoneNumber}
               onChange={setPhoneNumber}
               defaultCountry="US"
               international
               required
+            />
+          </div>
+          <div>
+            <label className="block text-[#666666] text-sm font-medium">Company Location</label>
+            <input
+              type="text"
+              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              // value={email}
+              // onChange={(e) => setEmail(e.target.value)}
+              // required
             />
           </div>
           <div className="relative">
@@ -137,8 +157,8 @@ function Login() {
             <input
               type={showPassword ? "text" : "password"} // Switch input type based on visibility
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
-              value={password}
-              onChange={handlePasswordChange}
+              // value={password}
+              // onChange={handlePasswordChange}
               required
             />
             {/* Eye icon for toggling password visibility */}
@@ -151,7 +171,7 @@ function Login() {
             </span>
           </div>
         </form>
-        <div className="absolute bottom-0 flex flex-col pb-3 ">
+        <div className="  pt-[20%] flex flex-col pb-3 ">
           <span className=" font-[400] text-[16px] leading-[24px] text-[#666666]">
             By creating an account, you agree to the Terms of use and Privacy Policy.
           </span>
@@ -162,9 +182,9 @@ function Login() {
           >
             Login
           </button>
-          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">Don’t have an account? 
-            <Link to="/Signup" className=" underline">
-            Sign Up
+          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">Already have an ccount?
+            <Link to="/login" className=" underline">
+             Login
             </Link>
           </span>
         </div>
@@ -173,7 +193,7 @@ function Login() {
       </div>
 
       {/* Image Slider */}
-      <div className="w-0 lg:w-1/2 flex flex-col justify-center h-full relative overflow-hidden  ">
+      <div className="w-0 lg:w-1/2 flex flex-col justify-center md:h-screen   relative overflow-hidden   ">
         <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
         <Slider {...settings}>
           {sliderData.map((data, index) => (
@@ -195,4 +215,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

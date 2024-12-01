@@ -2,8 +2,7 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
  import AppLayout from "./Ul/Layout/AppLayout";
-import Dashboards from "./pages/Dashboard/Dashboards";
-import PageNotFound from "./pages/PageNotFound";
+ import PageNotFound from "./pages/PageNotFound";
 import Customermangement from "./pages/Inbox/Inboxmangement";
 import { InboxContents } from "./components/Inbox/SelectedContents/InboxContents";
 import { ProductDetails } from "./Screens/InboxScreen/InboxScreen";
@@ -19,14 +18,21 @@ import TeamsDetails from "./pages/Teamsmanagement/TeamsDetails";
 import Facilities from "./pages/Facilities/Facilities";
 import ProtectedRoute from "./Ul/Layout/ProtectedRoute";
 import Login from "./components/Auth/LoginSection/Login";
+import Signup from "./components/Auth/SignUpSection/SignUp";
+import PageTransition from "./Ul/Layout/PageTransition";
+import Dashboards from "./pages/Dashboard/Dashboards";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* Public Route: Login */}
-        <Route path="/login" element={<Login />} />
-
+        <Route path="/login" element={
+           <PageTransition >
+          <Login />
+          </PageTransition>
+          } />
+        <Route path="/Signup" element={<Signup />} />
         {/* Protected Routes */}
         <Route
           path="/"
@@ -48,7 +54,9 @@ function App() {
           <Route
             path="dashboard"
             element={
+              <PageTransition >
               <Dashboards />
+              </PageTransition>
             }
           />
 

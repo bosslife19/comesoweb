@@ -3,7 +3,7 @@
 *::before,
 *::after {
   outline: none !important; /* Remove outline for all elements */
-  border: none !important; /* Remove borders for all elements */
+  /* border: none !important;  */
 }
 
 img:focus,
