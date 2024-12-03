@@ -139,7 +139,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <>
       {sidebarOpen && (
-        <div className="z-[999] scroll-container fixed inset-0 transition-opacity">
+        <div className="z-[999]  fixed inset-0 transition-opacity">
           <div
             className="absolute inset-0 bg-gray opacity-70"
             tabIndex={0}

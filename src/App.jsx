@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
  import AppLayout from "./Ul/Layout/AppLayout";
@@ -21,9 +21,16 @@ import Login from "./components/Auth/LoginSection/Login";
 import Signup from "./components/Auth/SignUpSection/SignUp";
 import PageTransition from "./Ul/Layout/PageTransition";
 import Dashboards from "./pages/Dashboard/Dashboards";
-
+import WelcomeLottie from "./components/welcomLoading/welcomLoading";
+ 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
+    <>
+    {isLoading ? (
+      <WelcomeLottie onComplete={() => setIsLoading(false)} />
+    ) : (
     <BrowserRouter>
       <Routes>
         {/* Public Route: Login */}
@@ -169,6 +176,9 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
+    )
+}
+    </>
   );
 }
 

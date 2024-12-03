@@ -9,7 +9,7 @@ import { LuCalendarDays, LuClock12 } from "react-icons/lu";
 import { BiSolidCopyAlt } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { FaHouseMedical } from "react-icons/fa6";
-
+import logo from "../../assets/COMESOLOGO.png"
 const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
   const history = useNavigate();
   const trigger = useRef(null);
@@ -157,7 +157,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
       >
         <div className="flex items-center justify-between gap-2 px-2 py-5.5 lg:py-2.5">
           <Link to="dashboard" >
-            <h3 className="ml-5">LOGO</h3>
+            <img src={logo} /> 
           </Link>
 
           <button

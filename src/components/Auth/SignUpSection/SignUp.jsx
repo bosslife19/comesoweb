@@ -184,7 +184,7 @@ function Signup() {
           </button>
           <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">Already have an ccount?
             <Link to="/login" className=" underline">
-             Login
+             SignUp
             </Link>
           </span>
         </div>

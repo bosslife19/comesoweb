@@ -13,14 +13,13 @@ import ProtectedRoute from "./Ul/Layout/ProtectedRoute";
 import Successful from "./Screens/Kyc/Successful";
 import { PayoutPage } from "./pages/Payouts/PayoutManagement";
 import Payments from "./components/Payment/Payments";
-import WelcomeLoading from "./components/welcomLoading/welcomLoading";
-import WelcomeLottie from "./components/welcomLoading/welcomLoading";
+ import WelcomeLottie from "./components/welcomLoading/welcomLoading";
 import { PayoutDetails } from "./pages/Payouts/PayoutDetails/PayoutDetails";
 import { TransactionPage } from "./pages/TransactionsManagement/TransactionsManagement";
 import Customermangement from "./pages/Customermangement/Customermangement";
 import { SettingsManagement } from "./pages/Setting/SettingsManagement";
 
-function App() {
+function App() { 
  
     const [isLoading, setIsLoading] = useState(true);
 

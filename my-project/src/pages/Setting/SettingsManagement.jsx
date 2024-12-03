@@ -10,7 +10,7 @@ export const SettingsManagement = () => {
     {isLoading ? (
         <CustomLottiePlayer onComplete={() => setIsLoading(false)} />
       ) : (
-        <div className="lg:h-screen h-full mb-0 md:mb-[72%] md:pb-[40%]">
+        <div className="   my-[20px]">
     <SettingsBoard/>
     </div>
       )}
