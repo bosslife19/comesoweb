@@ -1,0 +1,110 @@
+/* src/styles/global.css */
+
+/* Hide scrollbar in webkit browsers */
+.scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Optional: Add overflow styling for the container */
+  .scroll-container {
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    scrollbar-width: none;  /* For Firefox */
+  }
+
+  
+  
+
+  /* Hide the default checkbox */
+.custom-checkbox-input {
+  background-color: black;
+  border-color: black;
+  display: none;
+}
+
+/* Style the label as the custom checkbox */
+.custom-checkbox-label {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* When the checkbox is checked, change the background and border */
+.custom-checkbox-input:checked + .custom-checkbox-label {
+  background-color: black;
+  border-color: black;
+}
+
+/* Create the checkmark */
+.custom-checkbox-input:checked + .custom-checkbox-label::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Optional: Add hover effect for the checkbox */
+.custom-checkbox-label:hover {
+  border-color: #888;
+}
+
+
+
+/* 2 */
+
+  /* Hide the default checkbox */
+  .custom-checkbox-inputs {
+    background-color: #0A2EE2;
+    border-color: #0A2EE2;
+    display: none;
+  }
+  
+  /* Style the label as the custom checkbox */
+  .custom-checkbox-labels {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  /* When the checkbox is checked, change the background and border */
+  .custom-checkbox-inputs:checked + .custom-checkbox-labels {
+    background-color: #0A2EE2;
+    border-color: #0A2EE2;
+  }
+  
+  /* Create the checkmark */
+  .custom-checkbox-inputs:checked + .custom-checkbox-labels::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+  
+  /* Optional: Add hover effect for the checkbox */
+  .custom-checkbox-labels:hover {
+    border-color: #888;
+  }
+
+
+  
