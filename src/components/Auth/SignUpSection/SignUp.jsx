@@ -197,15 +197,15 @@ function Signup() {
         <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
         <Slider {...settings}>
           {sliderData.map((data, index) => (
-            <div key={index} className="text-center px-6 pt-[10%]">
+            <div key={index} className="text-center px-6">
               <h2 className="text-xl font-bold mb-2">{data.header}</h2>
               <img
                 src={data.image}
                 alt={`Slide ${index}`}
                 className="w-full h-[300px] object-contain mb-4"
               />
-              <h3 className="text-lg font-semibold">{data.semiHeader}</h3>
-              <p className="text-sm text-gray-700">{data.paragraph}</p>
+            <h3 className="md:text-[20px] leading-[24px] font-[600] text-[#0A2EE2]">{data.semiHeader}</h3>
+              <p className="text-[24px] pt-2 font-[600] leading-[38.4px] text-[#333333]">{data.paragraph}</p>
             </div>
           ))}
         </Slider>

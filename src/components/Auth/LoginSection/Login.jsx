@@ -99,7 +99,7 @@ function Login() {
 
   return (
     <div className="flex justify-between  h-screen  relative overflow-hidden ">
-     <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
+     <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
       {/* Login Form */}
 
        {/* Login Form */}
@@ -169,27 +169,27 @@ function Login() {
           </span>
         </div>
 
-        <div className="lg:w-0 w-[342px] z-[-1] h-[342px] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#DDDFE1]"></div>
+        <div className="lg:w-0 w-[342px] z-[-1] h-[342px] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
       </div>
 
       {/* Image Slider */}
       <div className="w-0 lg:w-1/2 flex flex-col justify-center h-full relative overflow-hidden  ">
-        <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
+        <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
         <Slider {...settings}>
           {sliderData.map((data, index) => (
-            <div key={index} className="text-center px-6 pt-[10%]">
+            <div key={index} className="text-center px-6 ">
               <h2 className="text-xl font-bold mb-2">{data.header}</h2>
               <img
                 src={data.image}
                 alt={`Slide ${index}`}
                 className="w-full h-[300px] object-contain mb-4"
               />
-              <h3 className="text-lg font-semibold">{data.semiHeader}</h3>
-              <p className="text-sm text-gray-700">{data.paragraph}</p>
+              <h3 className="md:text-[20px] leading-[24px] font-[600] text-[#0A2EE2]">{data.semiHeader}</h3>
+              <p className="text-[24px] pt-2 font-[600] leading-[38.4px] text-[#333333]">{data.paragraph}</p>
             </div>
           ))}
         </Slider>
-        <div className="w-[342px] h-[342px] z-[-1] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#DDDFE1]"></div>
+        <div className="w-[342px] h-[342px] z-[-1] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
       </div>
     </div>
   );

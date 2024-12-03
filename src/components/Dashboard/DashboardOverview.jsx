@@ -288,9 +288,10 @@ onClick={() => handleFilterChange("Rejected")}>
                 variants={rowAnimation}
                 initial="hidden"
                 animate="visible"
-                custom={index}
-                 className="border-b hover:bg-gray-50"
-              >
+                className={`${
+                  index % 2 === 0 ? "bg-gray-100" : " bg-white" 
+                } border-b hover:bg-gray-50`}
+            >
                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.PaymentID || "N/A"}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   {row.Timestamp}

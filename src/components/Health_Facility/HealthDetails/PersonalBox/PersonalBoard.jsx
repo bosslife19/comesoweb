@@ -104,7 +104,7 @@ const PersonalBoard = () => {
        
          <button className='bg-[#0A2EE2] w-full my-2 py-2 md:py-0 md:h-[55px] rounded-[8px] text-white'>Save Changes</button>
        </div>
-
+ 
       {/* Below top-left input */}
       <div className="flex my-4 flex-col bg-[#fff] shadow-md p-4 md:w-[100%] md:h-[100%] rounded-[12px]">
         <h3 className='text-[#1A1A21] font-[600] text-[20px] leading-[24px] font-inter pb-2 '>Verification Documents</h3>
