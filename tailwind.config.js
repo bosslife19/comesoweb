@@ -13,6 +13,6 @@ export default {
         alata: ['Alata', 'sans-serif'], // Add Alata font here
       },
     },
-  },
+  }, 
   plugins: [],
 };

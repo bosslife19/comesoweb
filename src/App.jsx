@@ -1,27 +1,44 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
- import AppLayout from "./Ul/Layout/AppLayout";
- import PageNotFound from "./pages/PageNotFound";
-import Customermangement from "./pages/Inbox/Inboxmangement";
-import { InboxContents } from "./components/Inbox/SelectedContents/InboxContents";
-import { ProductDetails } from "./Screens/InboxScreen/InboxScreen";
-import { TransactionPage } from "./pages/TransactionsManagement/TransactionsManagement";
-import { PayoutPage } from "./pages/Payouts/PayoutManagement";
-import { PayoutDetails } from "./pages/Payouts/PayoutDetails/PayoutDetails";
-import { SettingsManagement } from "./pages/Setting/SettingsManagement";
-import UserManagement from "./pages/Users/UserManagement";
-import UserDetailsPage from "./pages/UserDetails/UserPage";
- import HealthDetailsPage from "./pages/HealthDetails/HealthDetailsPage";
-import Teamsmanagement from "./pages/Teamsmanagement/Teamsmanagement";
-import TeamsDetails from "./pages/Teamsmanagement/TeamsDetails";
-import Facilities from "./pages/Facilities/Facilities";
-import ProtectedRoute from "./Ul/Layout/ProtectedRoute";
-import Login from "./components/Auth/LoginSection/Login";
-import Signup from "./components/Auth/SignUpSection/SignUp";
-import PageTransition from "./Ul/Layout/PageTransition";
-import Dashboards from "./pages/Dashboard/Dashboards";
-import WelcomeLottie from "./components/welcomLoading/welcomLoading";
+import WelcomeLottie from "./Admin-Website/welcomLoading/welcomLoading";
+import Pagination from "./Admin-Website/Admin/AdminPagnations/Paginations";
+import Login from "./Admin-Website/Auth/LoginSection/Login";
+import Signup from "./Admin-Website/Auth/SignUpSection/SignUp";
+import ProtectedRoute from "./Ul/Admin/Layout/ProtectedRoute";
+import AppLayout from "./Ul/Admin/Layout/AppLayout";
+import Dashboards from "./pages/Admin/Dashboard/Dashboards";
+import Customermangement from "./pages/Admin/Inbox/Inboxmangement";
+import { InboxContents } from "./Admin-Website/Admin/AdminInbox/SelectedContents/InboxContents";
+import { ProductDetails } from "./Screens/Admin/InboxScreen/InboxScreen";
+import { TransactionPage } from "./pages/Admin/TransactionsManagement/TransactionsManagement";
+import { PayoutPage } from "./pages/Admin/Payouts/PayoutManagement";
+import { PayoutDetails } from "./pages/Admin/Payouts/PayoutDetails/PayoutDetails";
+import { SettingsManagement } from "./pages/Admin/Setting/SettingsManagement";
+import UserManagement from "./pages/Admin/Users/UserManagement";
+import UserDetailsPage from "./pages/Admin/UserDetails/UserPage";
+import Facilities from "./pages/Admin/Facilities/Facilities";
+import HealthDetailsPage from "./pages/Admin/HealthDetails/HealthDetailsPage";
+import Teamsmanagement from "./pages/Admin/Teamsmanagement/Teamsmanagement";
+import TeamsDetails from "./pages/Admin/Teamsmanagement/TeamsDetails";
+import PageNotFound from "./pages/Admin/PageNotFound";
+
+
+// website
+import AppLayouts from "./Ul/Website/Layout/AppLayouts";
+import PageTransitionin from "./Ul/Website/Layout/PageTransition";
+import { InboxContent } from "./Admin-Website/Website/websiteInbox/SelectedContents/InboxContents";
+import { PayoutDetail } from "./pages/Website/Payouts/PayoutDetails/PayoutDetails";
+import Payments from "./Admin-Website/Website/WebsitePayment/Payment/Payments";
+import { PayoutPag } from "./pages/Website/Payouts/PayoutManagement";
+import { TransactionPag } from "./pages/Website/TransactionsManagement/TransactionsManagement";
+import { SettingsManagemen } from "./pages/Website/Setting/SettingsManagement";
+import Customermangemen from "./pages/Website/Customermangement/Customermangement";
+import Successful from "./Screens/Website/Kyc/Successful";
+import PageTransition from "./Ul/Admin/Layout/PageTransition";
+ 
+
+
  
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,14 +50,108 @@ function App() {
     ) : (
     <BrowserRouter>
       <Routes>
-        {/* Public Route: Login */}
-        <Route path="/login" element={
-           <PageTransition >
-          <Login />
-          </PageTransition>
-          } />
+        {/* Public Routes */}
+        <Route path="/login" element={  <PageTransition> <Login />  </PageTransition>  } />
         <Route path="/Signup" element={<Signup />} />
-        {/* Protected Routes */}
+
+
+
+{/* Starting Website Route */}
+
+        {/* Website Route */}
+
+        
+         <Route
+            path="Kyc/details"
+            element={
+              <Customermangemen />
+            }
+          />
+          
+           <Route
+            path="Kyc/successful"
+            element={
+              <Successful />
+            }
+          />
+
+         {/* <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <AppLayouts  />
+            </ProtectedRoute>
+          }
+        > */}
+          
+          <Route
+            path="/"
+            element={
+              <PageTransitionin >
+              <Dashboards />
+              </PageTransitionin>
+            }
+          /> 
+ 
+           <Route
+            path="inbox-contents"
+            element={
+              <InboxContent />
+            }
+          />
+
+            <Route
+            path="payoutDetails"
+            element={
+              <PayoutDetail />
+            }
+          />
+
+            <Route
+            path="Payments"
+            element={
+              <Payments  />
+            }
+          />
+
+         <Route
+            path="payout"
+            element={
+              <PayoutPag />
+            }
+          />
+
+             <Route
+            path="transactions"
+            element={
+              <TransactionPag />
+            }
+          />
+
+           <Route
+            path="Settings"
+            element={
+              <SettingsManagemen/>
+            }
+          />
+
+
+
+        {/* </Route> */}
+
+
+        {/* End of website Route */}
+
+
+
+
+
+
+
+{/* start Admin Route */}
+
+        {/* Admin Routes */}
+
         <Route
           path="/"
           element={
@@ -61,9 +172,9 @@ function App() {
           <Route
             path="dashboard"
             element={
-              <PageTransition >
+              // <PageTransition >
               <Dashboards />
-              </PageTransition>
+              // </PageTransition>
             }
           />
 

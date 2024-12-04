@@ -18,7 +18,7 @@ import { PayoutDetails } from "./pages/Payouts/PayoutDetails/PayoutDetails";
 import { TransactionPage } from "./pages/TransactionsManagement/TransactionsManagement";
 import Customermangement from "./pages/Customermangement/Customermangement";
 import { SettingsManagement } from "./pages/Setting/SettingsManagement";
-
+ 
 function App() { 
  
     const [isLoading, setIsLoading] = useState(true);
