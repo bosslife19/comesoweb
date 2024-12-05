@@ -76,7 +76,7 @@ const DashboardMain = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> 
 
         {/* Next Payout Card */}
         <div className="w-full md:w-[428px] ] bg-[#fff] cursor-pointer  text-[#6B788E]">

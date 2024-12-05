@@ -22,7 +22,7 @@ const DonutChart = () => {
   };
 
   return (
-    <div className="py-[20px] shadow-md border rounded-[10px] text-center w-full md:w-[323px] font-sans ">
+    <div className="py-[20px] shadow-md border rounded-[10px] text-center w-full md:w-[323px] font-sans bg-[#fff] ">
       {/* Text above the chart */}
       <div className='flex w-full border-b pb-3 items-center mb-4 px-[10px] justify-between'>
       <h3 className="text-[16px] leading-[24px]  font-[500] text-[#191B1C]">Most Visited Page</h3>

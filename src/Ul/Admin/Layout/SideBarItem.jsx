@@ -63,14 +63,14 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
 
   const allItems = useMemo(
     () => [
-      { text: "Dashboard", link: "dashboard", icon: IoMdClock },
-      { text: "Inbox", link: "inbox", icon: RiErrorWarningLine },
-      { text: "Transactions", link: "transactions", icon: LuCalendarDays },
-      { text: "Payout", link: "payout", icon: BiSolidCopyAlt },
-      { text: "Users", link: "users", icon: FaUsers },
-      { text: "Facilities", link: "facilities", icon: FaHouseMedical },
-      { text: "Team", link: "team", icon: BsMicrosoftTeams },
-      { text: "Settings", link: "settings", icon: IoMdSettings },
+      { text: "Dashboard", link: "/admin/dashboard", icon: IoMdClock },
+      { text: "Inbox", link: "/admin/inbox", icon: RiErrorWarningLine },
+      { text: "Transactions", link: "/admintransactions", icon: LuCalendarDays },
+      { text: "Payout", link: "/admin/payout", icon: BiSolidCopyAlt },
+      { text: "Users", link: "/admin/users", icon: FaUsers },
+      { text: "Facilities", link: "/admin/facilities", icon: FaHouseMedical },
+      { text: "Team", link: "/admin/team", icon: BsMicrosoftTeams },
+      { text: "Settings", link: "/admin/settings", icon: IoMdSettings },
       { text: "Logout", link: "Logout", icon: LuClock12 },
     ],
     []

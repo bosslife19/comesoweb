@@ -8,7 +8,7 @@ export const ModalSuccess = ({closeLastModal}) => {
 const navigate = useNavigate()
   const handles = () => {
     // Use navigate to go to a page with the product or detail
-    navigate("/Pays");
+    navigate("/admin/pays");
   };
   return (
     <div className="fixed inset-0 font-sans p-[20px] bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">

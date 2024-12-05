@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import DashboardMain from "../../components/Dashboard/DashboardMain";
-import DashboardList from "../../components/Dashboard/DashboardOverview";
-import CustomLottiePlayer from "../../components/welcomLoading/MainLoading";
- 
-const Dashboards = () => {
+import CustomLottiePlayer from "../../../Admin-Website/welcomLoading/MainLoading";
+import DashboardMain from "../../../Admin-Website/Website/WebsiteDashboard/DashboardMain";
+import DashboardList from "../../../Admin-Website/Website/WebsiteDashboard/DashboardOverview";
+const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
@@ -21,4 +20,4 @@ const Dashboards = () => {
   );
 };
 
-export default Dashboards;
+export default Dashboard;

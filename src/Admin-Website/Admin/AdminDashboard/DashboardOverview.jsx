@@ -180,7 +180,7 @@ const DashboardList  = () => {
         staggerChildren: 0.1,
       },
     },
-  };
+  }; 
   
 
   const rowAnimation = {

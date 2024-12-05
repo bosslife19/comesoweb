@@ -21,7 +21,7 @@ const PayoutBoardMain = () => {
     // Use navigate to go to a page with the product or detail
     navigate("/payoutDetails");
   };
-
+ 
   
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CustomLottiePlayer from "../../../Admin-Website/welcomLoading/MainLoading";
-import DashboardList from "../../../Admin-Website/Website/WebsiteDashboard/DashboardOverview";
-import DashboardMain from "../../../Admin-Website/Website/WebsiteDashboard/DashboardMain";
+import DashboardMain from "../../../Admin-Website/Admin/AdminDashboard/DashboardMain";
+import DashboardList from "../../../Admin-Website/Admin/AdminDashboard/DashboardOverview";
  
 const Dashboards = () => {
   const [isLoading, setIsLoading] = useState(true);

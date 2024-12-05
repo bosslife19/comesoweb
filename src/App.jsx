@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WelcomeLottie from "./Admin-Website/welcomLoading/welcomLoading";
-import Pagination from "./Admin-Website/Admin/AdminPagnations/Paginations";
-import Login from "./Admin-Website/Auth/LoginSection/Login";
+ import Login from "./Admin-Website/Auth/LoginSection/Login";
 import Signup from "./Admin-Website/Auth/SignUpSection/SignUp";
 import ProtectedRoute from "./Ul/Admin/Layout/ProtectedRoute";
 import AppLayout from "./Ul/Admin/Layout/AppLayout";
@@ -36,6 +35,8 @@ import { SettingsManagemen } from "./pages/Website/Setting/SettingsManagement";
 import Customermangemen from "./pages/Website/Customermangement/Customermangement";
 import Successful from "./Screens/Website/Kyc/Successful";
 import PageTransition from "./Ul/Admin/Layout/PageTransition";
+import Dashboard from "./pages/Website/Dashboard/Dashboards";
+// import Received from "./Admin-Website/Admin/users/Received/Receive";
  
 
 
@@ -75,24 +76,30 @@ function App() {
             }
           />
 
-         {/* <Route
+         <Route
           path="/"
           element={
             <ProtectedRoute>
               <AppLayouts  />
             </ProtectedRoute>
           }
-        > */}
+        >
           
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <PageTransitionin >
-              <Dashboards />
+              <Dashboard />
               </PageTransitionin>
             }
           /> 
- 
+
+         <Route
+            index
+            element={
+              <Dashboard />
+            }
+          />
            <Route
             path="inbox-contents"
             element={
@@ -101,14 +108,14 @@ function App() {
           />
 
             <Route
-            path="payoutDetails"
+            path="/payoutDetails"
             element={
               <PayoutDetail />
             }
           />
 
             <Route
-            path="Payments"
+            path="/Payments"
             element={
               <Payments  />
             }
@@ -129,7 +136,7 @@ function App() {
           />
 
            <Route
-            path="Settings"
+            path="settings"
             element={
               <SettingsManagemen/>
             }
@@ -137,7 +144,7 @@ function App() {
 
 
 
-        {/* </Route> */}
+        </Route>
 
 
         {/* End of website Route */}
@@ -153,7 +160,7 @@ function App() {
         {/* Admin Routes */}
 
         <Route
-          path="/"
+          path="/admin"
           element={
             <ProtectedRoute>
               <AppLayout />
@@ -170,7 +177,7 @@ function App() {
 
           {/* Dashboard Route */}
           <Route
-            path="dashboard"
+            path="/admin/dashboard"
             element={
               // <PageTransition >
               <Dashboards />
@@ -180,7 +187,7 @@ function App() {
 
           {/* Inbox Management */}
           <Route
-            path="inbox"
+            path="/admin/inbox"
             element={
               <Customermangement />
             }
@@ -188,7 +195,7 @@ function App() {
 
           {/* Inbox Contents */}
           <Route
-            path="inbox-contents"
+            path="/admin/inbox-contents"
             element={
               <InboxContents />
             }
@@ -196,7 +203,7 @@ function App() {
 
           {/* Product Details */}
           <Route
-            path="product/:id"
+            path="/admin/product/:id"
             element={
               <ProductDetails />
             }
@@ -204,7 +211,7 @@ function App() {
 
           {/* Transactions */}
           <Route
-            path="transactions"
+            path="/admin/transactions"
             element={
               <TransactionPage />
             }
@@ -212,7 +219,7 @@ function App() {
 
           {/* Payouts */}
           <Route
-            path="payout"
+            path="/admin/payout"
             element={
               <PayoutPage />
             }
@@ -220,7 +227,7 @@ function App() {
 
           {/* Payout Details */}
           <Route
-            path="pays"
+            path="/admin/pays"
             element={
               <PayoutDetails />
             }
@@ -228,7 +235,7 @@ function App() {
 
           {/* Settings */}
           <Route
-            path="settings"
+            path="/admin/settings"
             element={
               <SettingsManagement />
             }
@@ -236,7 +243,7 @@ function App() {
 
           {/* User Management */}
           <Route
-            path="users"
+            path="/admin/users"
             element={
               <UserManagement />
             }
@@ -244,7 +251,7 @@ function App() {
 
           {/* User Details */}
           <Route
-            path="userBoard"
+            path="/admin/userBoard"
             element={
               <UserDetailsPage />
             }
@@ -252,15 +259,22 @@ function App() {
 
           {/* Facilities */}
           <Route
-            path="/facilities"
+            path="/admin/facilities"
             element={
               <Facilities />
             }
           />
-
+          {/* Receive */}
+          {/* <Route
+            path="/admin/Received"
+            element={
+              <Received />
+            }
+          /> */}
+          
           {/* Health Facility */}
           <Route
-            path="healthFacility"
+            path="/admin/healthFacility"
             element={
               <HealthDetailsPage />
             }
@@ -268,7 +282,7 @@ function App() {
 
           {/* Teams Management */}
           <Route
-            path="team"
+            path="/admin/team"
             element={
               <Teamsmanagement />
             }
@@ -276,7 +290,7 @@ function App() {
 
           {/* Team Details */}
           <Route
-            path="teamUser"
+            path="/admin/teamUser"
             element={
               <TeamsDetails />
             }
