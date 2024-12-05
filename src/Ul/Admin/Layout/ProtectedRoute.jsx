@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
+  console.log('here');
   const navigate = useNavigate();
 
   useEffect(() => {

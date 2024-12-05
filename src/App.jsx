@@ -87,9 +87,11 @@ function App() {
           <Route
             path="/"
             element={
+              <ProtectedRoute>
               <PageTransitionin >
-              <Dashboards />
+              {/* <Dashboards /> */}
               </PageTransitionin>
+              </ProtectedRoute>
             }
           /> 
  
