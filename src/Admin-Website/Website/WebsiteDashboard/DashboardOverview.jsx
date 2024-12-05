@@ -1,7 +1,8 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
    
 import Pagination from "../websitePagnations/Paginations";
+import axiosClient from "../../../axios-client";
   
 const PAGE_SIZE = 10;
  
@@ -10,11 +11,27 @@ const DashboardList  = () => {
    const [searchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [selectedAction, setSelectedAction] = useState("");
+  const [transactions, setTransactions] = useState([]);
 
   const handleChange = (event) => {
     setSelectedAction(event.target.value);
     console.log("Selected action:", event.target.value);
   };
+  useEffect(()=>{
+    const getUser = async ()=>{
+     try {
+       const response = await axiosClient.get('/user');
+       
+       
+        setTransactions(response.data.transactions)
+     } catch (error) {
+       console.log(error);
+     }
+     
+   
+    }
+    getUser();
+     }, []);
    
   const tableData = [
     {
@@ -178,89 +195,95 @@ const DashboardList  = () => {
  
 </div>
 
-
-      {/* Responsive Table Container */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="overflow-x-auto  scroll-container border rounded-[15px]"
-      >
-        <table className="min-w-full  bg-white shadow-md border border-[#F9FAFB] rounded-lg">
-          <thead>
-          <tr className="bg-[#fff] ">
-                   
-                   <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Timestamp
-                   </th>
-                  
-                   <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Sender
-                   </th>
-                   <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Phone Number
-                   </th>
-                   <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Amount
-                   </th>
-                   <th className="px-5 md:px-8 py-[10px] md:py-[20px] md:text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                    Status
-                   </th>
-                   
-                    
-                 </tr>
-          </thead>
-          <motion.tbody
-  initial="hidden"
-  animate="visible"
-  variants={containerVariants}
+{
+  transactions && <>
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+    className="overflow-x-auto  scroll-container border rounded-[15px]"
+  >
+    <table className="min-w-full  bg-white shadow-md border border-[#F9FAFB] rounded-lg">
+      <thead>
+      <tr className="bg-[#fff] ">
+               
+               <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                 Timestamp
+               </th>
+              
+               <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                 Sender
+               </th>
+               <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                 Phone Number
+               </th>
+               <th className="px-2 md:px-4 py-[10px] md:py-[20px] text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                 Amount
+               </th>
+               <th className="px-5 md:px-8 py-[10px] md:py-[20px] md:text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                Status
+               </th>
+               
+                
+             </tr>
+      </thead>
+      <motion.tbody
+initial="hidden"
+animate="visible"
+variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
-              <motion.tr
-                key={index}
-                variants={rowAnimation}
-                initial="hidden"
-                animate="visible"
+        {transactions && transactions.map((row, index) => (
+          <motion.tr
+            key={index}
+            variants={rowAnimation}
+            initial="hidden"
+            animate="visible"
+            className={`${
+              index % 2 === 0 ? "bg-gray-100" : " bg-white" 
+            } border-b hover:bg-gray-50`}
+        >
+             <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
+              {row.created_at}
+            </td>
+             <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.sender}</td>
+            <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.phone}</td>
+            <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
+              {row.amount}               
+              </td>
+              <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
+              <span
                 className={`${
-                  index % 2 === 0 ? "bg-gray-100" : " bg-white" 
-                } border-b hover:bg-gray-50`}
-            >
-                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Timestamp}
-                </td>
-                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.sender}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.phone}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
-                  {row.Amount}               
-                  </td>
-                  <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
-                  <span
-                    className={`${
-                      row.Status === "complete"
-                        ? "text-[#3ECF8E]"
-                        : row.Status === "pending"
-                        ? "text-[#FFC13C]"
-                        : row.Status === "Rejected"
-                        ? "text-[#F66F68]"
-                        : " text-[#F66F68]"
-                    } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
-                  >
-                    {row.Status}
-                  </span>
-                </td>
-                  
-              </motion.tr>
-            ))}
-         </motion.tbody>
-        </table>
-      </motion.div>
+                  row.status === "Received"
+                    ? "text-[#3ECF8E]"
+                    : row.Status === "Pending"
+                    ? "text-[#FFC13C]"
+                    : row.Status === "Rejected"
+                    ? "text-[#F66F68]"
+                    : " text-[#F66F68]"
+                } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
+              >
+                {row.status}
+              </span>
+            </td>
+              
+          </motion.tr>
+        ))}
+     </motion.tbody>
+    </table>
+  </motion.div>
+  <Pagination
+    count={transactions.length}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+    pageSize={PAGE_SIZE}
+  />
+  </>
+}
+      {/* Responsive Table Container */}
       
-      <Pagination
-        count={tableData.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        pageSize={PAGE_SIZE}
-      />
+      
+      
+      
          
 
  

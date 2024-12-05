@@ -2,7 +2,7 @@ import  { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WelcomeLottie from "./Admin-Website/welcomLoading/welcomLoading";
- import Login from "./Admin-Website/Auth/LoginSection/Login";
+import Login from "./Admin-Website/Auth/LoginSection/Login";
 import Signup from "./Admin-Website/Auth/SignUpSection/SignUp";
 import ProtectedRoute from "./Ul/Admin/Layout/ProtectedRoute";
 import AppLayout from "./Ul/Admin/Layout/AppLayout";
@@ -22,7 +22,6 @@ import Teamsmanagement from "./pages/Admin/Teamsmanagement/Teamsmanagement";
 import TeamsDetails from "./pages/Admin/Teamsmanagement/TeamsDetails";
 import PageNotFound from "./pages/Admin/PageNotFound";
 
-
 // website
 import AppLayouts from "./Ul/Website/Layout/AppLayouts";
 import PageTransitionin from "./Ul/Website/Layout/PageTransition";
@@ -36,273 +35,165 @@ import Customermangemen from "./pages/Website/Customermangement/Customermangemen
 import Successful from "./Screens/Website/Kyc/Successful";
 import PageTransition from "./Ul/Admin/Layout/PageTransition";
 import Dashboard from "./pages/Website/Dashboard/Dashboards";
+import { AuthProvider } from "./context/AuthContext";
 // import Received from "./Admin-Website/Admin/users/Received/Receive";
- 
 
-
- 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
-    {isLoading ? (
-      <WelcomeLottie onComplete={() => setIsLoading(false)} />
-    ) : (
-    <BrowserRouter>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/login" element={  <PageTransition> <Login />  </PageTransition>  } />
-        <Route path="/Signup" element={<Signup />} />
+      {isLoading ? (
+        <WelcomeLottie onComplete={() => setIsLoading(false)} />
+      ) : (
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              {/* Public Routes */}
+              <Route
+                path="/login"
+                element={
+                  <PageTransition>
+                    {" "}
+                    <Login />{" "}
+                  </PageTransition>
+                }
+              />
+              <Route path="/Signup" element={<Signup />} />
 
+              {/* Starting Website Route */}
 
+              {/* Website Route */}
 
-{/* Starting Website Route */}
+              <Route path="Kyc/details" element={<Customermangemen />} />
 
-        {/* Website Route */}
+              <Route path="Kyc/successful" element={<Successful />} />
 
-        
-         <Route
-            path="Kyc/details"
-            element={
-              <Customermangemen />
-            }
-          />
-          
-           <Route
-            path="Kyc/successful"
-            element={
-              <Successful />
-            }
-          />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <AppLayouts />
+                  </ProtectedRoute>
+                }
+              >
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <PageTransitionin>
+                        <Dashboard />
+                      </PageTransitionin>
+                    </ProtectedRoute>
+                  }
+                />
 
-         <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <AppLayouts  />
-            </ProtectedRoute>
-          }
-        >
-          
-          <Route
-            path="/dashboard"
-            element={
-              <PageTransitionin >
-              <Dashboard />
-              </PageTransitionin>
-            }
-          /> 
+                <Route index element={<Dashboard />} />
+                <Route path="inbox-contents" element={<InboxContent />} />
 
-         <Route
-            index
-            element={
-              <Dashboard />
-            }
-          />
-           <Route
-            path="inbox-contents"
-            element={
-              <InboxContent />
-            }
-          />
+                <Route path="/payoutDetails" element={<PayoutDetail />} />
 
-            <Route
-            path="/payoutDetails"
-            element={
-              <PayoutDetail />
-            }
-          />
+                <Route path="/Payments" element={<Payments />} />
 
-            <Route
-            path="/Payments"
-            element={
-              <Payments  />
-            }
-          />
+                <Route path="payout" element={<PayoutPag />} />
 
-         <Route
-            path="payout"
-            element={
-              <PayoutPag />
-            }
-          />
+                <Route path="transactions" element={<TransactionPag />} />
 
-             <Route
-            path="transactions"
-            element={
-              <TransactionPag />
-            }
-          />
+                <Route path="settings" element={<SettingsManagemen />} />
+              </Route>
 
-           <Route
-            path="settings"
-            element={
-              <SettingsManagemen/>
-            }
-          />
+              {/* End of website Route */}
 
+              {/* start Admin Route */}
 
+              {/* Admin Routes */}
 
-        </Route>
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                {/* Default Dashboard Route */}
+                <Route index element={<Dashboards />} />
 
+                {/* Dashboard Route */}
+                <Route
+                  path="/admin/dashboard"
+                  element={
+                    // <PageTransition >
+                    <Dashboards />
+                    // </PageTransition>
+                  }
+                />
 
-        {/* End of website Route */}
+                {/* Inbox Management */}
+                <Route path="/admin/inbox" element={<Customermangement />} />
 
+                {/* Inbox Contents */}
+                <Route
+                  path="/admin/inbox-contents"
+                  element={<InboxContents />}
+                />
 
+                {/* Product Details */}
+                <Route path="/admin/product/:id" element={<ProductDetails />} />
 
+                {/* Transactions */}
+                <Route
+                  path="/admin/transactions"
+                  element={<TransactionPage />}
+                />
 
+                {/* Payouts */}
+                <Route path="/admin/payout" element={<PayoutPage />} />
 
+                {/* Payout Details */}
+                <Route path="/admin/pays" element={<PayoutDetails />} />
 
+                {/* Settings */}
+                <Route
+                  path="/admin/settings"
+                  element={<SettingsManagement />}
+                />
 
-{/* start Admin Route */}
+                {/* User Management */}
+                <Route path="/admin/users" element={<UserManagement />} />
 
-        {/* Admin Routes */}
+                {/* User Details */}
+                <Route path="/admin/userBoard" element={<UserDetailsPage />} />
 
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AppLayout />
-            </ProtectedRoute>
-          }
-        >
-          {/* Default Dashboard Route */}
-          <Route
-            index
-            element={
-              <Dashboards />
-            }
-          />
+                {/* Facilities */}
+                <Route path="/admin/facilities" element={<Facilities />} />
+                {/* Receive */}
+                {/* <Route
+    path="/admin/Received"
+    element={
+      <Received />
+    }
+  /> */}
 
-          {/* Dashboard Route */}
-          <Route
-            path="/admin/dashboard"
-            element={
-              // <PageTransition >
-              <Dashboards />
-              // </PageTransition>
-            }
-          />
+                {/* Health Facility */}
+                <Route
+                  path="/admin/healthFacility"
+                  element={<HealthDetailsPage />}
+                />
 
-          {/* Inbox Management */}
-          <Route
-            path="/admin/inbox"
-            element={
-              <Customermangement />
-            }
-          />
+                {/* Teams Management */}
+                <Route path="/admin/team" element={<Teamsmanagement />} />
 
-          {/* Inbox Contents */}
-          <Route
-            path="/admin/inbox-contents"
-            element={
-              <InboxContents />
-            }
-          />
+                {/* Team Details */}
+                <Route path="/admin/teamUser" element={<TeamsDetails />} />
+              </Route>
 
-          {/* Product Details */}
-          <Route
-            path="/admin/product/:id"
-            element={
-              <ProductDetails />
-            }
-          />
-
-          {/* Transactions */}
-          <Route
-            path="/admin/transactions"
-            element={
-              <TransactionPage />
-            }
-          />
-
-          {/* Payouts */}
-          <Route
-            path="/admin/payout"
-            element={
-              <PayoutPage />
-            }
-          />
-
-          {/* Payout Details */}
-          <Route
-            path="/admin/pays"
-            element={
-              <PayoutDetails />
-            }
-          />
-
-          {/* Settings */}
-          <Route
-            path="/admin/settings"
-            element={
-              <SettingsManagement />
-            }
-          />
-
-          {/* User Management */}
-          <Route
-            path="/admin/users"
-            element={
-              <UserManagement />
-            }
-          />
-
-          {/* User Details */}
-          <Route
-            path="/admin/userBoard"
-            element={
-              <UserDetailsPage />
-            }
-          />
-
-          {/* Facilities */}
-          <Route
-            path="/admin/facilities"
-            element={
-              <Facilities />
-            }
-          />
-          {/* Receive */}
-          {/* <Route
-            path="/admin/Received"
-            element={
-              <Received />
-            }
-          /> */}
-          
-          {/* Health Facility */}
-          <Route
-            path="/admin/healthFacility"
-            element={
-              <HealthDetailsPage />
-            }
-          />
-
-          {/* Teams Management */}
-          <Route
-            path="/admin/team"
-            element={
-              <Teamsmanagement />
-            }
-          />
-
-          {/* Team Details */}
-          <Route
-            path="/admin/teamUser"
-            element={
-              <TeamsDetails />
-            }
-          />
-        </Route>
-
-        {/* Fallback Route */}
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
-    )
-}
+              {/* Fallback Route */}
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      )}
     </>
   );
 }

@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
     // Check authentication status from localStorage
-    const isAuthenticated = localStorage.getItem("isAuthenticated");
- 
+    const isAuthenticated = localStorage.getItem('ACCESS_TOKEN')
     if (!isAuthenticated) {
       // Redirect to login after a delay
       const timer = setTimeout(() => {
@@ -16,10 +16,10 @@ function ProtectedRoute({ children }) {
 
       return () => clearTimeout(timer); // Cleanup timer
     }
-  }, [navigate]);
+  }, []);
 
   // Render children if authenticated
-  const isAuthenticated = localStorage.getItem("isAuthenticated");
+  const isAuthenticated = localStorage.getItem('ACCESS_TOKEN')
   if (isAuthenticated) {
     return <>{children}</>;
   }

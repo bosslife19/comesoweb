@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { PiHandWavingFill } from "react-icons/pi";
@@ -7,11 +7,17 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ClipLoader } from 'react-spinners'; // Example spinner from react-spinners
 
 import DashboardModal from "./Modal/DashboardModal";
+import { AuthContext } from "../../../context/AuthContext";
+import axiosClient from "../../../axios-client";
 
 const DashboardMain = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
     const [isModalOpens, setIsModalOpens] = useState(false);
     const [buttonSpinner, setButtonSpinner] = useState(false);
+    // const [transactions, setTransactions] = useState([]);
+    const [user, setUser] = useState(null)
+    const {userDetails} = useContext(AuthContext)
+    const baseUrl = import.meta.env.VITE_BASE_URL
 
   const toggleVisibility = () => {
     setIsTextVisible(!isTextVisible);
@@ -29,6 +35,21 @@ const DashboardMain = () => {
   const closeModals = () => {
     setIsModalOpens(false);
   };
+  useEffect(()=>{
+ const getUser = async ()=>{
+  try {
+    const response = await axiosClient.get('/user');
+    
+    setUser(response.data.user);
+    // setTransactions(response.data.transactions)
+  } catch (error) {
+    console.log(error);
+  }
+  
+
+ }
+ getUser();
+  }, []);
 
   return (
     <div>
@@ -60,7 +81,7 @@ const DashboardMain = () => {
             <div className="flex justify-between items-center gap-3 px-[20px] py-4">
               <div className="space-y-3">
                 <span className="font-[600] leading-[21.82px] text-[14px] md:text-[16px] text-[#33333399] font-poppins">
-                  OASIS MEDICAL CLINIC
+                  {user?.name}
                 </span>
                 <p className="font-[700] flex gap-2 leading-[38.19px] text-[18px] items-center md:text-[28px] text-[#202224] font-poppins">
                   Welcome back! <PiHandWavingFill className=" text-[#FFDC5D]" />
