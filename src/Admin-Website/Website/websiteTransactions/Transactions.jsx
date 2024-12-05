@@ -1,10 +1,11 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   
 import Pagination from "../websitePagnations/Paginations";
 import { BsCalendar2 } from "react-icons/bs";   
  import ModalTransactions from "../../../Screens/Website/Transactions/ModalTransactions";
+import axiosClient from "../../../axios-client";
  // import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
     const PAGE_SIZE = 11; 
  
@@ -14,6 +15,35 @@ const Transactions  = () => {
   const [filterStatus] = useState("All");
   const [selectedRow, setSelectedRow] = useState(null); // State to track selected row
   const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [transactions, setTransactions] = useState([]);
+
+  const date = transactions?.map(item=>{
+    const date = new Date(item.created_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
+
+   useEffect(()=>{
+    const getUser = async ()=>{
+     try {
+       const response = await axiosClient.get('/user');
+       
+       
+        setTransactions(response.data.transactions)
+     } catch (error) {
+       console.log(error);
+     }
+     
+   
+    }
+    getUser();
+     }, []);
  
   
   const tableData = [
@@ -219,7 +249,9 @@ Amount:"$150",
         
 
         {/* Responsive Table Container */}
-        <motion.div
+        {
+          transactions && 
+          <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -246,7 +278,7 @@ Amount:"$150",
               </tr>
             </thead>
             <motion.tbody>
-              {paginatedData.map((row, index) => (
+              {transactions.map((row, index) => (
                 <motion.tr
                   key={index}
                   onClick={() => handleRowClick(row)}
@@ -255,30 +287,30 @@ Amount:"$150",
                   } border-b hover:bg-gray-50 cursor-pointer`}
                 >
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                    {row.Timestamp}
+                    {date[index]}
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                    {row.Sender}
+                    {row.sender}
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
-                    {row.PhoneNumber || "-"}
+                    {row.phone || "-"}
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
-                    {row.Amount || "-"}
+                    {row.amount || "-"}
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
                     <span
                       className={`${
-                        row.Status === "complete"
+                        row.status === "Received"
                           ? "text-[#3ECF8E]"
-                          : row.Status === "pending"
+                          : row.Status === "Pending"
                           ? "text-[#FFC13C]"
                           : row.Status === "Failed"
                           ? "text-[#F66F68]"
                           : "text-[#F66F68]"
                       }`}
                     >
-                      {row.Status}
+                      {row.status}
                     </span>
                   </td>
                 </motion.tr>
@@ -286,6 +318,8 @@ Amount:"$150",
             </motion.tbody>
           </table>
         </motion.div>
+        }
+
 
         <Pagination
           count={tableData.length}

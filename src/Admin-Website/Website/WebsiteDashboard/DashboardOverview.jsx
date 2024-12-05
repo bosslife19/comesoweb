@@ -17,6 +17,17 @@ const DashboardList  = () => {
     setSelectedAction(event.target.value);
     console.log("Selected action:", event.target.value);
   };
+  const date = transactions?.map(item=>{
+    const date = new Date(item.created_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
   useEffect(()=>{
     const getUser = async ()=>{
      try {
@@ -33,125 +44,18 @@ const DashboardList  = () => {
     getUser();
      }, []);
    
-  const tableData = [
-    {
-      
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-       phone: "0810031976",
-      Amount: "$2,000",
-      Status: "complete",
-     
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-      phone: "0810031976",
-      Amount: "$1,500",
-      Status: "pending",
-     
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-      phone: "08100319760",
-      Amount: "$837639",
-      Status: "complete",
-     
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "Rejected",
-     
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-     
-      
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-       sender:"mako",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    {
-      Timestamp: "09/08/24, 12:0018pm",
-      phone: "08100319760",
-      Amount: "$3,000",
-      Status: "pending",
-      
-    },
-    
-    
-    
-  ];
+ 
 
-  const filteredData = tableData.filter((row) => {
-    const matchesQuery = row.Amount.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = filterStatus === "All" || row.Status.toLowerCase() === filterStatus.toLowerCase();
-    return matchesQuery && matchesStatus;
-  });
+  // const filteredData = tableData.filter((row) => {
+  //   const matchesQuery = row.Amount.toLowerCase().includes(searchQuery.toLowerCase());
+  //   const matchesStatus = filterStatus === "All" || row.Status.toLowerCase() === filterStatus.toLowerCase();
+  //   return matchesQuery && matchesStatus;
+  // });
 
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
-  );
+  // const paginatedData = filteredData.slice(
+  //   (currentPage - 1) * PAGE_SIZE,
+  //   currentPage * PAGE_SIZE
+  // );
 
   const containerVariants = {
     hidden: { opacity: 1 },
@@ -243,7 +147,7 @@ variants={containerVariants}
             } border-b hover:bg-gray-50`}
         >
              <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-              {row.created_at}
+              {date[index]}
             </td>
              <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.sender}</td>
             <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">{row.phone}</td>
