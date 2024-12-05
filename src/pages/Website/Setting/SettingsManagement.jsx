@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import CustomLottiePlayer from '../../../Admin-Website/welcomLoading/MainLoading';
 import SettingsBoard from '../../../Admin-Website/Website/Settings/SettingsBoard';
 // import SettingsBoard from '../../components/Settings/SettingsBoard'
