@@ -24,7 +24,7 @@ const TeamForm = () => {
   };
 
   return (
-    <div className="w-full md:w-[342px] font-inter p-5 border rounded-lg shadow">
+    <div className="w-full md:w-[342px] bg-[#fff] font-inter p-5 border rounded-lg shadow">
        <form onSubmit={handleSubmit} className="space-y-7">
         {/* Name Input */}
         <div>

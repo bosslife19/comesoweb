@@ -13,7 +13,7 @@ const CustomLottiePlayer = ({ onComplete }) => {
  
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>     
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" }}>     
         <lottie-player
           src="https://lottie.host/46c75b6b-fe9d-4cd6-8336-de119079d8b9/pTZ1gKQb8t.json"
           speed="1"

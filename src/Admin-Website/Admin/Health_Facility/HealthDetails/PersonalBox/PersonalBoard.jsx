@@ -63,7 +63,7 @@ const PersonalBoard = () => {
        </div>
 
       {/* Top-right input */}
-      <div className="flex my-4 flex-col   p-4 md:w-[100%] md:h-[387px] rounded-[12px]">
+      <div className="flex my-4 flex-col bg-[#fff]  p-4 md:w-[100%] md:h-[387px] rounded-[12px]">
       <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">
       Account Number
         </label>

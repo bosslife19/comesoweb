@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import WebAppTab from "./WebAppTab/WebAppTab";
 import ProfileT from "./Profile/ProfileT";
 import ContactUs from "./Contact/ContactUs";
@@ -7,7 +7,7 @@ const SettingsBoard = () => {
   const [activeTab, setActiveTab] = useState("Profile");
 
   return (
-    <div className="px-[20px]  scroll-container   overflow-x-auto">
+    <div className=" ">
       {/* Page Title */}
       <h1 className="text-[#000] font-inter font-[600] pt-3 md:text-[24px] leading-[28.8px]">Settings</h1>
       <p className="text-[#667185] font-[400] text-[12px] leading-[20px] font-inter">

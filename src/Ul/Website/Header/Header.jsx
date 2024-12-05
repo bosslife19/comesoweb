@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Search from "../Input/components/Search";
-import { FaUserLarge } from "react-icons/fa6";
+ import { FaUserLarge } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import AvatarDropdown from "./AvatarDropdown";
  import bell from "../../../assets/icon.png";
 import "flag-icons/css/flag-icons.min.css"; // Import flag icons CSS
+import Search from "../Input/components/Search";
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -92,7 +92,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
 
           {/* Language Selector */}
-          <div className="relative">
+          <div className="relative hidden sm:block">
             <button
               className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
               onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}

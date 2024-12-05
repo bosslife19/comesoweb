@@ -12,7 +12,7 @@ const HealthDetailsPage = () => {
     {isLoading ? (
         <CustomLottiePlayer onComplete={() => setIsLoading(false)} />
       ) : ( 
-    <div className='lg:h-[100vh] mt-[20px] h-full mb-0 md:mb-[90%] md:pb-[63%]'>    
+    <div className=''>    
     <HealthHeader/>
       <HealthBottom/>
     </div>

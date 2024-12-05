@@ -8,11 +8,11 @@ export const SettingsManagemen = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <>
+    <> 
     {isLoading ? (
         <CustomLottiePlayer onComplete={() => setIsLoading(false)} />
       ) : (
-        <div className="   my-[20px]">
+        <div className="">
     <SettingsBoard/>
     </div>
       )}

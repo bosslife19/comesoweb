@@ -1,5 +1,5 @@
 import {   FaRegEye, FaRegEyeSlash } from 'react-icons/fa6'
- import { BiEdit } from 'react-icons/bi'
+ import { BiEdit, BiPencil } from 'react-icons/bi'
  import logo   from "../../../../assets/imglogo.png"
 import { useState } from 'react';
  import { SlArrowLeft } from 'react-icons/sl';
@@ -22,7 +22,7 @@ const DetailsPayMain = () => {
 
   return (
     <div >
-        <div  onClick={goBack} className='flex  cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]'>
+        <div  onClick={goBack} className='flex w-[50px] cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]'>
         <SlArrowLeft className='  text-[12px]' /><span className='font-[400] md:text-[16px] leading-[24px]'>Back</span>
         </div>
      {/* flex */}
@@ -34,8 +34,8 @@ const DetailsPayMain = () => {
               <div className='relative' >
               <img src={logo} className=' w-[40px] h-[40px] rounded-full' />
               </div>  
-              <div className='text-[10px] absolute bottom-0 right-0 p-1 rounded-full bg-[#000]'>
-                <BiEdit/>
+              <div className='text-[10px] absolute bottom-[-5px] right-[-5px] p-1 rounded-full bg-[#1671D9] text-[#fff]'>
+                <BiPencil/>
                 </div>         
             </div>
             <div className="p-1 border border-[#FF2B2B] text-[#FF2B2B] rounded-[5px] md:text-[15px]">

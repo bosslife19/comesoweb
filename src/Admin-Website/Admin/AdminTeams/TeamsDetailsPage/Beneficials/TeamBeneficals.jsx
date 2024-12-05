@@ -49,8 +49,8 @@ const TeamBeneficals = () => {
   };
 
   return (
-    <div className="w-full md:w-[330px] shadow-md scroll-container border overflow-y-auto h-[440px] rounded-[10px] font-sans">
-      <h3 className="py-3 px-3   text-[#191B1C] font-[500] text-[16px] leading-[24px]">
+    <div className="w-full bg-[#fff] md:w-[330px] shadow-md scroll-container border overflow-y-auto h-[440px] rounded-[10px] font-sans">
+      <h3 className="py-3 px-3 border-b  text-[#191B1C] font-[500] text-[16px] leading-[24px]">
         Functions
       </h3>
       <div className="p-3 ">
@@ -74,7 +74,7 @@ const TeamBeneficals = () => {
             </label>
           </div>
         ))}
-        <button className="bg-[#0A2EE2] font-[600] text-[14px] leading-[40px] rounded-[20px] text-center justify-center flex text-white mt-4 py-[5px] px-[24px]">
+        <button className="bg-[#0A2EE2] font-[600] text-[12px] md:text-[14px] leading-[20px] md:leading-[40px] rounded-[10px] md:rounded-[20px] text-center justify-center flex text-white mt-4 py-[5px] px-[24px]">
             Save Changes
         </button>
       </div>

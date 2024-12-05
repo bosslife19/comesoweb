@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import UsersDetails from './UsersDetails';
 import PersonalManagement from '../Management/personalManagement';
 
@@ -7,21 +7,21 @@ const UserBottom = () => {
   const [activeContent, setActiveContent] = useState(1);
 
   return (
-    <div className=''>
+    <div className='py-[20px]'>
       {/* Button 1 */}
       <button
         onClick={() => setActiveContent(activeContent === 1 ? null : 1)}  // Toggle content 1
-        className={`py-[10px] px-[40px] my-[20px] border rounded-[30px] bg-[#fff] ${
+        className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
           activeContent === 1 ?  'border-[#413B89] text-[#212121]' : ''
         }`}
       > 
         Personal
-      </button>
+      </button> 
 
       {/* Button 2 */}
       <button
         onClick={() => setActiveContent(activeContent === 2 ? null : 2)}  // Toggle content 2
-        className={`py-[10px] mx-4 px-[40px] my-[20px] border rounded-[30px] bg-[#fff] ${
+        className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
           activeContent === 2 ? 'border-[#413B89] text-[#212121]' : ''
         }`}
       >

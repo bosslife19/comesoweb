@@ -1,5 +1,4 @@
-import React from "react";
-import { TbDotsVertical } from "react-icons/tb";
+ import { TbDotsVertical } from "react-icons/tb";
 import logo from "../../../../assets/imglogo.png";
 import { CgSoftwareDownload } from 'react-icons/cg';
 import { BiEdit, BiUser } from "react-icons/bi";
@@ -7,7 +6,7 @@ import {  MdOutlineEmail, MdLockOutline } from "react-icons/md";
  
 const ProfileT = () => {
   return (
-    <div className="lg:flex md:justify-between  gap-[20px] h-screen  max-2xl:h-ful  ">
+    <div className="lg:flex md:justify-between  gap-[20px] px-[20px] mb-[60%] md:h-screen ">
     <div className="  gap-8 m-auto lg:md:m-0 font-inter flex flex-col    ">
       {/* Left Side Form */}
       <div className=" px-[20px] border py-[20px] bg-[#FFFFFF] rounded-[12px]">
