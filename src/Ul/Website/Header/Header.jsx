@@ -25,8 +25,8 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
       icon: HiOutlineLogout,
       color: "text-red",
       handler: () => {
-        console.log("User logged out");
-        navigate("/");
+        localStorage.clear();
+        navigate("/login");
       },
     },
   ];
@@ -71,13 +71,14 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         {/* Search Bar */}
-        <div className="hidden sm:block">
+        <div className="hidden sm:block opacity-0">
           <Search
             id="search"
             placeholder="Search"
             name="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            
           />
         </div>
 

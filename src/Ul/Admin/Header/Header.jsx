@@ -25,8 +25,8 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
       icon: HiOutlineLogout,
       color: "text-red",
       handler: () => {
-        console.log("User logged out");
-        navigate("/");
+        localStorage.clear();
+        navigate("/login");
       },
     },
   ];

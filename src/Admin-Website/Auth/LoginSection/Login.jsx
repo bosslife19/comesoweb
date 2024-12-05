@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import COMESOLOGO from "../../../assets/COMESOLOGO.png";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css"; // for default styling
@@ -40,7 +40,19 @@ const sliderData = [
 
 function Login() {
   const navigate = useNavigate();
-
+useEffect(()=>{
+const getAuth = ()=>{
+  const user = localStorage.getItem("ACCESS_TOKEN");
+  const isAdmin = localStorage.getItem('isAdmin');
+  if(user && isAdmin){
+    return navigate("/admin/dashboard");
+  }else if(user && !isAdmin){
+    return navigate('/dashboard');
+  }
+  
+}
+getAuth();
+}, [])
   // States for form inputs
   const [email, setEmail] = useState("");
 
@@ -80,6 +92,7 @@ function Login() {
         
        
          if(response.data.user.isAdmin){
+          localStorage.setItem('isAdmin', true);
           navigate("/admin/dashboard");
          }else{
           navigate('/dashboard');
