@@ -2,9 +2,9 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdMoveToInbox, MdStar } from "react-icons/md";
-import Search from "../../../../Ul/Admin/Input/components/Search";
-import { CiStar } from "react-icons/ci";
+ import { CiStar } from "react-icons/ci";
 import "../../../../styles/Admin/overflow_hidden.css"; // Assuming the CSS file for truncation is imported
+import Search from "../../../../Ul/Admin/Input/components/Search";
 
 export const InboxContents = () => {
   const messages = [

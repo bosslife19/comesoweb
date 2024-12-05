@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const FacilitiesModals = ({closeModals,}) => {
     const router = useNavigate()
     const handlechange =()=>{
-        router("/HealthFacility") 
+        router("/admin/healthFacility") 
     }
   return (
     <div className="fixed z-[200] p-4 inset-0 bg-black bg-opacity-30 flex items-center justify-center">

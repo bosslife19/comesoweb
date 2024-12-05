@@ -129,7 +129,7 @@ Ending Date Period
               <button
                onClick={handProceedSecond} 
                 className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]">
-                Proceed 
+                Confirm & Pay 
                 <BsArrowRight/>
               </button>
             </div>

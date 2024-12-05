@@ -35,7 +35,7 @@ const MonthPicker = () => {
         onBlur={() => setIsFocused(false)} // Show placeholder when not focused
         onClick={() => setShowCalendar(!showCalendar)} // Toggle calendar visibility on input click
         placeholder={!isFocused && !date ? 'This Month' : ''}
-        className="border text-[#0000]   border-[#D0D5DD] rounded-[50px] px-3 py-2 w-[160px] pl-10" // Add padding left for the icon
+        className="border text-[#0000] text-[12px] md:text-[17px]  border-[#D0D5DD] rounded-[50px] px-3 py-2 w-[100px] md:w-[160px] md:pl-10" // Add padding left for the icon
       />
 
       {/* Calendar icon inside input */}

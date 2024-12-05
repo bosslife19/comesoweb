@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import Pagination from '../../AdminPagnations/Paginations';
+ import Pagination from '../../AdminPagnations/Paginations';
  
 import logo from '../../../../assets/imglogo.png'
 import { motion } from "framer-motion";   
@@ -8,7 +7,7 @@ import MonthPicker from '../../../../Screens/Admin/Calendar/MonthPicker';
 // import { HiDotsVertical } from 'react-icons/hi';
 // import { BsCalendar } from 'react-icons/bs';
  import AccountDetails from '../../../../Screens/Admin/UserModalScreen/AccountDetails';
-import ButtonToggle from '../ButtonToggle/ButtonToggler';
+ import ReceivedDetails from '../Receiving/Received';
 
 const UsersDetails = () => {
    const [currentPage, setCurrentPage] = useState(1);
@@ -16,8 +15,19 @@ const UsersDetails = () => {
   const [filterStatus] = useState("All");
   const [selectedAction, setSelectedAction] = useState("");
    const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
- 
+  const [ SelectedRow,setSelectedRow] = useState(null);
+  const [activeTab, setActiveTab] = useState("pending"); // Set default active tab as "pending"
+  const [showContent, setShowContent] = useState(true); // Initially show content for Pending Payout
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    if (tab === "pending") {
+      setShowContent(true); // Show additional content when "Pending" is clicked
+    } else {
+      setShowContent(false); // Hide additional content when "Completed" is clicked
+    }
+  };
+
     
    const PAGE_SIZE = 7;
    const handleChange = (event, row) => {
@@ -209,32 +219,45 @@ const UsersDetails = () => {
   return ( 
     <div>
      
-    <div className='flex justify-between'>
-    <ButtonToggle/>
+     <div className='md:flex justify-between'>
+        {/* Secondary Navigation */}
+       <div>
+       <div className="flex space-x-4 md:mb-6">
+        {/* Pending Payout Button */}
+        <button
+          onClick={() => handleTabClick("pending")}
+          className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
+            activeTab === "pending" ? "border-[#413B89] text-[#222222E5]" : ""
+          }`}
+        >
+          Sent
+        </button>
 
+        {/* Completed Button */}
+        <button
+          onClick={() => handleTabClick("completed")}
+          className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
+            activeTab === "completed" ? "border-[#413B89] text-[#222222E5]" : ""
+          }`}
+        >
+          Received
+        </button>
+      </div>
 
-    <div>
+      {/* Secondary Content Rendering */}
+      
+       </div>
+       <div>
       <MonthPicker/> 
     </div>
     </div>
+    <div className=''>
+        {activeTab === "pending" && ""} {/* Pending Payout Content */}
+        {activeTab === "completed" && <ReceivedDetails  />} {/* Completed Content */}
+      </div>
+    
+    {showContent && (
     <div className=" w-full  bg-white rounded-lg shadow-md mt-[20px]">
-    <div className=" md:flex justify-between items-center mb-2 font-sans">
-  {/* Left Section: Title and Tag */}
-  
-<div className="flex justify-between px-[10px] flex-wrap items-center">
-<div className="flex gap-2 items-center ">
- 
-
-
-</div>
-
-</div>
- 
-{/* Right Section: Search Bar and Filter Button */}
- 
-</div>
-
-
       {/* Responsive Table Container */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -247,7 +270,7 @@ const UsersDetails = () => {
           <tr className="">
                   
                    <th className="md:px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     ID
+                    Payment ID
                    </th>
                    <th className="md:px-4 py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                    Timestamp   
@@ -350,6 +373,7 @@ const UsersDetails = () => {
 
  
     </div>
+    )}
     </div>
   );
 };

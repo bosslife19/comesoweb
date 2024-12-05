@@ -30,10 +30,10 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
     }
   };
 
-  const clearAll = () => {
-    setOtp(["", "", "", ""]);
-    inputRefs.current[0].focus();
-  };
+  // const clearAll = () => {
+  //   setOtp(["", "", "", ""]);
+  //   inputRefs.current[0].focus();
+  // };
 
   return (
     <div className="fixed inset-0 font-sans p-3 bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
@@ -70,9 +70,9 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
               </button>
               <button
                onClick={handProceedThird}  
-               className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-[11px] md:text-[14px]  text-white px-2 md:px-4 md:py-2 rounded-full font-[500]">
+               className="bg-[#0A2EE2] items-center  justify-between flex gap-1 font-sans text-[11px] md:text-[14px]  text-white px-2 md:px-4 md:py-2 rounded-full font-[500]">
                 Pay 
-                <BsArrowRight/>
+               <span> <BsArrowRight className='mt-1 '/></span>
               </button>
             </div>
           </div>

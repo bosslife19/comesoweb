@@ -22,7 +22,7 @@ const HealthHeader = () => {
  
   return (
     <div >
-        <div  onClick={goBack} className='flex  cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]'>
+        <div  onClick={goBack} className='flex w-[60px] cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]'>
         <SlArrowLeft className='  text-[12px]' /><span className='font-[400] md:text-[16px] leading-[24px]'>Back</span>
         </div>
      {/* flex */}

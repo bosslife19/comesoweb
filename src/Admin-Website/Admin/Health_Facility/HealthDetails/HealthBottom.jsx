@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import HealthDetai from './HealthDetailss';
 import PersonalBoard from './PersonalBox/PersonalBoard';
  
@@ -7,12 +7,12 @@ const HealthBottom = () => {
   const [activeContent, setActiveContent] = useState(1);
 
   return (
-    <div className=''>
+    <div className=' py-[20px]'>
       {/* Button 1 */}
       <button
         onClick={() => setActiveContent(activeContent === 1 ? null : 1)}  // Toggle content 1
-        className={`py-[10px] px-[40px] my-[20px] border rounded-[30px] ${
-          activeContent === 1 ? 'bg-blue-500 text-white' : ''
+        className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
+          activeContent === 1 ? 'border border-[#413B89] text-[#222222E5]' : ''
         }`}
       >
         Personal
@@ -21,8 +21,8 @@ const HealthBottom = () => {
       {/* Button 2 */}
       <button
         onClick={() => setActiveContent(activeContent === 2 ? null : 2)}  // Toggle content 2
-        className={`py-[10px] mx-4 px-[40px] my-[20px] border rounded-[30px] ${
-          activeContent === 2 ? 'border border-blue-500 text-[#000]' : ''
+        className={`py-[5px] md:py-[10px] px-[20px] md:px-[40px] mb-[20px] border rounded-[15px] md:rounded-[30px] text-[12px] md:text-[17px] ${
+          activeContent === 2 ? 'border border-[#413B89] text-[#222222E5]' : ''
         }`}
       >
         Transactions
