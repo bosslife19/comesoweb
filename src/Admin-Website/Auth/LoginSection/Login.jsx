@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import COMESOLOGO from "../../../assets/COMESOLOGO.png";
 import PhoneInput from "react-phone-number-input";
@@ -13,6 +13,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { BiArrowBack, BiArrowFromRight, BiHide, BiShow } from "react-icons/bi";
 import Spinner from "../../../Ul/Admin/Spinner";
+import axios from "axios";
+import { AuthContext } from "../../../context/AuthContext";
 
 // Sample data for the auto slider
 const sliderData = [
@@ -39,24 +41,72 @@ const sliderData = [
 function Login() {
   const navigate = useNavigate();
 
-   // States for form inputs
-   const [email, setEmail] = useState("");
-   const [phoneNumber, setPhoneNumber] = useState("");
-   const [password, setPassword] = useState("");
-   const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
-   const [isLoading, setIsLoading] = useState(true);
+  // States for form inputs
+  const [email, setEmail] = useState("");
 
-   const handleLogin = () => {
-     // Simulate authentication success
-     localStorage.setItem("isAuthenticated", "true");
-     navigate("/dashboard"); // Redirect to the dashboard
-   };
- 
-   // Handle password input to accept only numbers
-   const handlePasswordChange = (e) => {
-     const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-     setPassword(value);
-   };
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+  const {userDetails, setUserDetails} = useContext(AuthContext)
+
+  const handleLogin = async () => {
+
+    if (!password || !email) {
+     
+      return setError("All fields are required");
+    }
+
+    try {
+      
+      setButtonSpinner(true)
+      
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/login`,
+        {
+          email,
+          password,
+        }
+      );
+      
+      if(response.data.status){
+        setButtonSpinner(false);
+        localStorage.setItem('ACCESS_TOKEN', response.data.token);
+        setUserDetails({
+          name:response.data.user.name,
+          email:response.data.user.email,
+        })
+        
+       
+         if(response.data.user.isAdmin){
+          navigate("/admin/dashboard");
+         }else{
+          navigate('/dashboard');
+         }
+        
+      }
+    
+    } catch (error) {
+      setButtonSpinner(false);
+
+      if(error.response.data){
+        setError(error.response?.data.message)
+      }else{
+        setError('Some network error occured, try again')
+      }
+      
+    }
+
+    // Redirect to the dashboard
+  };
+
+  // Handle password input to accept only numbers
+  const handlePasswordChange = (e) => {
+    setError("");
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    setPassword(value);
+  };
   // Slick settings for the slider
   const settings = {
     infinite: true,
@@ -79,14 +129,12 @@ function Login() {
     ),
   };
 
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000); // Simulate a 2-second loading time
     return () => clearTimeout(timer);
   }, []);
-
 
   if (isLoading) {
     return (
@@ -99,27 +147,32 @@ function Login() {
 
   return (
     <div className="flex justify-between  h-screen  relative overflow-hidden ">
-     <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
+      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
       {/* Login Form */}
 
-       {/* Login Form */}
-       <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2">
+      {/* Login Form */}
+      <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2">
         <span className="flex items-center font-poppins text-[#333333] font-[500] md:text-[32px] leading-[48px]">
           Welcome to
           <img src={COMESOLOGO} className="ml-2" alt="COME SO LOGO" />
         </span>
         <form className="space-y-4 mt-6">
           <div>
-            <label className="block text-[#666666] text-sm font-medium">Email</label>
+            <label className="block text-[#666666] text-sm font-medium">
+              Email
+            </label>
             <input
               type="email"
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setError("");
+                setEmail(e.target.value);
+              }}
               required
             />
           </div>
-          <div>
+          {/* <div>
             <label className="block text-[#666666] text-sm font-medium">Phone Number</label>
             <PhoneInput
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
@@ -129,7 +182,7 @@ function Login() {
               international
               required
             />
-          </div>
+          </div> */}
           <div className="relative">
             <label className="block text-[#666666] text-sm font-medium">
               Password (Numbers Only)
@@ -146,25 +199,30 @@ function Login() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute top-[15%] right-4 gap-1 font-poppins font-[400] leading-[27px]  flex transform -translate-y-[50%] cursor-pointer text-gray-600"
             >
-              {showPassword ? <BiShow size={24} />  : <BiHide size={24} />}
+              {showPassword ? <BiShow size={24} /> : <BiHide size={24} />}
               {showPassword ? "Show" : "Hide"}
             </span>
           </div>
         </form>
-        <div className="absolute bottom-0 flex flex-col pb-3 ">
-          <span className=" font-[400] text-[16px] leading-[24px] text-[#666666]">
-            By creating an account, you agree to the Terms of use and Privacy Policy.
-          </span>
-
+        {error && <p className="text-red-400 my-2 font-semibold ">{error}</p>}
+        <div className="absolute bottom-[15%] md:bottom-[33%] flex flex-col pb-3 ">
           <button
             onClick={handleLogin}
             className="mt-6 px-5 py-[10px] font-[500] leading-[33px] font-poppins w-[200px]  bg-[#0A2EE2]  text-white rounded-[30px]"
           >
-            Login
+            {buttonSpinner ? (
+              <div className="flex text-white items-center justify-center w-full h-full">
+                <Spinner />
+                {/* <div className="animate-spin border-4 border-blue-500 border-t-transparent rounded-full w-12 h-12"></div> */}
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
-          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">Don’t have an account? 
+          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">
+            Don’t have an account?
             <Link to="/Signup" className=" underline">
-            Sign Up
+              Sign Up
             </Link>
           </span>
         </div>
@@ -184,8 +242,12 @@ function Login() {
                 alt={`Slide ${index}`}
                 className="w-full h-[300px] object-contain mb-4"
               />
-              <h3 className="md:text-[20px] leading-[24px] font-[600] text-[#0A2EE2]">{data.semiHeader}</h3>
-              <p className="text-[24px] pt-2 font-[600] leading-[38.4px] text-[#333333]">{data.paragraph}</p>
+              <h3 className="md:text-[20px] leading-[24px] font-[600] text-[#0A2EE2]">
+                {data.semiHeader}
+              </h3>
+              <p className="text-[24px] pt-2 font-[600] leading-[38.4px] text-[#333333]">
+                {data.paragraph}
+              </p>
             </div>
           ))}
         </Slider>
