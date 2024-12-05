@@ -9,8 +9,9 @@ import MonthPicker from '../../../../Screens/Admin/Calendar/MonthPicker';
 // import { BsCalendar } from 'react-icons/bs';
  import AccountDetails from '../../../../Screens/Admin/UserModalScreen/AccountDetails';
 import ButtonToggle from '../ButtonToggle/ButtonToggler';
+import UserBottom from '../UserDetails/UserBottom';
 
-const UsersDetails = () => {
+const Received = () => {
    const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery] = useState("");
   const [filterStatus] = useState("All");
@@ -204,11 +205,13 @@ const UsersDetails = () => {
       transition: { delay: i * 0.05, type: "spring", stiffness: 300 },
     }),
   };
-
+ 
  
   return ( 
     <div>
-     
+        <div>
+            {/* <UserBottom/> */}
+        </div>
     <div className='flex justify-between'>
     <ButtonToggle/>
 
@@ -354,4 +357,4 @@ const UsersDetails = () => {
   );
 };
 
-export default UsersDetails
+export default Received

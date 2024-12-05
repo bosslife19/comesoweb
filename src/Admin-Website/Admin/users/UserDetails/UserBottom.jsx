@@ -11,8 +11,8 @@ const UserBottom = () => {
       {/* Button 1 */}
       <button
         onClick={() => setActiveContent(activeContent === 1 ? null : 1)}  // Toggle content 1
-        className={`py-[10px] px-[40px] my-[20px] border rounded-[30px] ${
-          activeContent === 1 ? 'bg-blue-500 text-white' : ''
+        className={`py-[10px] px-[40px] my-[20px] border rounded-[30px] bg-[#fff] ${
+          activeContent === 1 ?  'border-[#413B89] text-[#212121]' : ''
         }`}
       > 
         Personal
@@ -21,8 +21,8 @@ const UserBottom = () => {
       {/* Button 2 */}
       <button
         onClick={() => setActiveContent(activeContent === 2 ? null : 2)}  // Toggle content 2
-        className={`py-[10px] mx-4 px-[40px] my-[20px] border rounded-[30px] ${
-          activeContent === 2 ? 'bg-blue-500 text-white' : ''
+        className={`py-[10px] mx-4 px-[40px] my-[20px] border rounded-[30px] bg-[#fff] ${
+          activeContent === 2 ? 'border-[#413B89] text-[#212121]' : ''
         }`}
       >
         Transactions

@@ -24,7 +24,7 @@ const UserForm = () => {
   };
 
   return (
-    <div className="w-full md:w-[342px] font-inter p-5 border rounded-lg shadow">
+    <div className="w-full bg-[#fff] md:w-[342px] font-inter p-5 border rounded-lg shadow">
        <form onSubmit={handleSubmit} className="space-y-7">
         {/* Name Input */}
         <div>
@@ -40,7 +40,7 @@ const UserForm = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Enter your name"
-            className="w-full outline-none ml-2 h-[40px]"
+            className="w-full outline-none ml-2 h-[40px] bg-transparent"
             required
           />
           </div>

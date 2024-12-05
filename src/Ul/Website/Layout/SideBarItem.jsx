@@ -63,13 +63,13 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
 
   const allItems = useMemo(
     () => [
-      { text: "Dashboard", link: "dashboard", icon: IoMdClock },
+      { text: "Dashboard", link: "/dashboard", icon: IoMdClock },
       { text: "Payments", link: "Payments", icon: MdOutlineAccountBalanceWallet },
       { text: "Transactions", link: "transactions", icon: IoCalendarOutline  },
       { text: "Payout", link: "payout", icon: GrTransaction  },
       { text: "Settings", link: "settings", icon: IoMdSettings },
       { text: "Logout", link: "Logout", icon: LuClock12 },
-    ],
+    ], 
     []
   );
 

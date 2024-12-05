@@ -45,9 +45,9 @@ const Beneficals = () => {
         },
     ]
   return (
-    <div className='w-full md:w-[330px] shadow-md scroll-container border overflow-y-auto h-[440px] rounded-[10px] font-sans'>
+    <div className='w-full  md:w-[330px] shadow-md scroll-container border overflow-y-auto h-[440px] rounded-[10px] font-sans bg-[#fff]'>
      <h3 className='py-3 px-3 border-b text-[#191B1C] font-[500] text-[16px] leading-[24px] '>Beneficiaries</h3>
-     <div className='px-4'>
+     <div className='px-4 '>
         {Benefits.map((items, index)=>(
              <div key={index} className='flex items-center py-2 gap-2'>
              <img src={items.img} className='w-[50px] h-[50px] rounded-full'/>
