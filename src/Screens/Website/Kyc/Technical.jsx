@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TbArrowDownCircle, TbChevronDown, TbChevronUp, TbDotsVertical, TbUserPlus } from "react-icons/tb";
 import { RxUpload } from 'react-icons/rx';
 import { useDropzone } from "react-dropzone";  
+import axiosClient from '../../../axios-client';
 
 const Technical = ({ handleNext }) => {
   const [profiles, setProfiles] = useState([{}]); // Initial profile is empty to begin with.
   const [isOpen, setIsOpen] = useState(false); // Track dropdown open/close state
   const [selectedValue, setSelectedValue] = useState(''); // Track selected value
+  const [name, setName] = useState('')
+  const [jobTitle, setJobTitle] = useState("")
+ 
 
   // Function to handle adding a new profile at the top, ensuring there are at least three profiles
   const addNewProfile = () => {
@@ -15,12 +19,36 @@ const Technical = ({ handleNext }) => {
     }
   };
 
- 
   // Function to handle the change in the selected option
   const handleSelection = (value) => {
     setSelectedValue(value); // Update selected value
     setIsOpen(false); // Close dropdown after selection
   };
+ useEffect(()=>{
+  const updateJobTitle = async ()=>{
+    try {
+      const res = await axiosClient.post('/user/update-profile', {jobTitle});
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+  updateJobTitle();
+ }, [jobTitle]);
+  
+useEffect(()=>{
+  const updateName = async ()=>{
+    try {
+      const res = await axiosClient.post('/user/update-profile', {name});
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+  updateName();
+}, [name])
 
   // Toggle dropdown open/close
   const toggleDropdown = () => {
@@ -29,9 +57,24 @@ const Technical = ({ handleNext }) => {
 
   const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } = useDropzone({
     accept: ".pdf, .jpg, .png", // Define accepted file types
-    onDrop: (acceptedFiles) => {
-      console.log("First box files:", acceptedFiles);
-    },
+    onDrop: async (acceptedFiles) => {
+      const formData = new FormData();
+      formData.append('file', acceptedFiles[0]);
+      formData.append('fileType', 'healthComp');
+      
+      
+      try {
+          const response = await axiosClient.post('/user/upload-details', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+              },
+          });
+         
+      } catch (error) {
+          console.error('File upload failed:', error);
+          
+      }
+  },
   });
 
  
@@ -60,21 +103,31 @@ const Technical = ({ handleNext }) => {
               <input
                 type='text'
                 name='name'
-                value={profile.name}
+                value={name}
                  className='pl-6 font-poppins font-[400]  text-[12px] md:text-[16px] leading-[10px] md:leading-[24px] border text-[#33333380] rounded-[5px] h-[49px]'
                 placeholder='Type here'
+                onChange={(e)=>{
+                  setName(e.target.value);
+                  
+                }}
               />
 
               <label className='font-[400] text-[#333333] font-poppins  text-[12px] md:text-[16px] leading-[10px] md:leading-[24px]'>
                 Job Title
               </label>
-              <select
+              <input
+                type='text'
                 name='jobTitle'
-                value={profile.jobTitle}
+                value={jobTitle}
                  className='pl-6 font-poppins font-[400]  text-[12px] md:text-[16px] leading-[10px] md:leading-[24px] border text-[#33333380] rounded-[5px] h-[49px]'
-              >
-                <option>ddd</option>
-              </select>
+                placeholder='Type here'
+                onChange={(e)=>{
+                  setJobTitle(e.target.value);
+                  
+                }}
+              />
+
+              
             </div>
 
             {/* Certificate and compliance */}

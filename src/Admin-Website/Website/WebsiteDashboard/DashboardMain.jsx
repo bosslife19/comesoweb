@@ -14,6 +14,7 @@ const DashboardMain = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
     const [isModalOpens, setIsModalOpens] = useState(false);
     const [buttonSpinner, setButtonSpinner] = useState(false);
+    const [kyc, setKyc] = useState(false);
     // const [transactions, setTransactions] = useState([]);
     
     const {userDetails, setUserDetails} = useContext(AuthContext)
@@ -38,6 +39,10 @@ const DashboardMain = () => {
   useEffect(()=>{
  const getUser = async ()=>{
   try {
+    const checkKyc = localStorage.getItem('kycComplete');
+    if(checkKyc){
+      setKyc(true);
+    }
     const response = await axiosClient.get('/user');
     
     
@@ -61,16 +66,19 @@ const DashboardMain = () => {
         <h3 className="text-[#202224] font-[700] font-nunito leading-[43.65px] md:text-[32px]">
           Home
         </h3>
-        <button
-        disabled={buttonSpinner} 
-        onClick={handleChanges} className="bg-[#031AED] py-[11px] md:py-[14px] px-[10px] rounded-[30px] w-[104px] md:w-[204px] flex items-center text-center justify-center">
-           {buttonSpinner ? (
-            <ClipLoader size={20} color="#fff" />
-          ) : (
-            <span className=" items-center text-center m-auto font-poppins font-[600] text-[12px] md:text-[18px] leading-[10px]  md:leading-[27px] flex gap-2 text-[#fff]"> <IoCheckmarkDoneSharp />
-          Finish KYC </span>
-        )}
-        </button>
+        {
+          !kyc &&<button
+          disabled={buttonSpinner} 
+          onClick={handleChanges} className="bg-[#031AED] py-[11px] md:py-[14px] px-[10px] rounded-[30px] w-[104px] md:w-[204px] flex items-center text-center justify-center">
+             {buttonSpinner ? (
+              <ClipLoader size={20} color="#fff" />
+            ) : (
+              <span className=" items-center text-center m-auto font-poppins font-[600] text-[12px] md:text-[18px] leading-[10px]  md:leading-[27px] flex gap-2 text-[#fff]"> <IoCheckmarkDoneSharp />
+            Finish KYC </span>
+          )}
+          </button>
+        }
+        
         {isModalOpens && ( 
         <DashboardModal
         isOpen={isModalOpens}

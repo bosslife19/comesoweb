@@ -27,9 +27,24 @@ const Operational = ({ handleNext }) => {
   const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } =
     useDropzone({
       accept: ".pdf, .jpg, .png", // Define accepted file types
-      onDrop: (acceptedFiles) => {
-        console.log("First box files:", acceptedFiles);
-      },
+      onDrop: async (acceptedFiles) => {
+        const formData = new FormData();
+        formData.append('file', acceptedFiles[0]);
+        formData.append('fileType', 'proofOfLoc');
+        
+        
+        try {
+            const response = await axiosClient.post('/user/upload-details', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+           
+        } catch (error) {
+            console.error('File upload failed:', error);
+            
+        }
+    },
     });
 
   return (

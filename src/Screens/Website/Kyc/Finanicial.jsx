@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axiosClient from "../../../axios-client";
 
 const Financial = ({ handleNext }) => {
   const [selectedBank, setSelectedBank] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [accountNumber, setAccountNumber] = useState('');
 
   // List of Nigerian banks with their logos
   const banks = [
@@ -16,8 +18,33 @@ const Financial = ({ handleNext }) => {
   const handleBankSelect = (bank) => {
     setSelectedBank(bank.name);
     setIsOpen(false);
+    
+    const updateBank = async ()=>{
+      try {
+        const res = await axiosClient.post('/user/update-profile', {bank:selectedBank});
+        
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+    setTimeout(()=>{
+      updateBank();
+    }, 3000)
   };
-
+useEffect(()=>{
+  const updateAccountNumber = async ()=>{
+    try {
+      const res = await axiosClient.post('/user/update-profile', {accountNumber});
+      console.log(res.data)
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+  updateAccountNumber();
+}, [accountNumber])
   return (
     <div className="w-full md:w-[600px]">
       {/* Bank Account Details */}
@@ -55,6 +82,11 @@ const Financial = ({ handleNext }) => {
         <input  type="text"
         className="w-full h-full bg-transparent"
         placeholder="56765456"
+        onChange={(e)=>{
+          setAccountNumber(e.target.value);
+          
+          
+        }}
          />
          
       </div>

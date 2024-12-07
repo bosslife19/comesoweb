@@ -23,7 +23,7 @@ export const Inboxcontainer = () => {
     setSelectedItem(item);
   };
 
-  const handleNext = () => {
+  const handleNext = (first, second) => {
     // Get the index of the current item
     const currentIndex = menuItems.indexOf(selectedItem);
     if (currentIndex < menuItems.length - 1) {
