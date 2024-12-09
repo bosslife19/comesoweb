@@ -156,7 +156,7 @@ useEffect(()=>{
       </div>
 
       {/* Button to Add Another Profile */}
-      <div
+      {/* <div
         className='flex items-center rounded-md shadow-md border border-[#f4f5fa] p-3 mt-6 justify-between text-[#333333] font-[500] font-poppins text-[18px] leading-[27px]'
         onClick={addNewProfile} // Add new profile on click
         style={{ cursor: profiles.length < 3 ? 'pointer' : 'not-allowed', opacity: profiles.length >= 3 ? 0.5 : 1 }} // Disable button if there are 3 profiles
@@ -165,9 +165,9 @@ useEffect(()=>{
           <TbUserPlus />
           Add Another Pharmacist Profile
         </span>
-      </div>
+      </div> */}
 
-      {/* Additional Information Section */}
+      
       <div  >
        
       

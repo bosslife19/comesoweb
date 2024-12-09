@@ -10,18 +10,20 @@ const Financial = ({ handleNext }) => {
   const banks = [
     { name: "Access Bank", logo: "https://via.placeholder.com/20?text=A" },
     { name: "First Bank", logo: "https://via.placeholder.com/20?text=F" },
-    { name: "GT Bank", logo: "https://via.placeholder.com/20?text=G" },
-    { name: "UBA", logo: "https://via.placeholder.com/20?text=U" },
+    { name: "Guaranty Trust Bank", logo: "https://via.placeholder.com/20?text=G" },
+    { name: "United Bank for Africa", logo: "https://via.placeholder.com/20?text=U" },
     { name: "Zenith Bank", logo: "https://via.placeholder.com/20?text=Z" },
   ];
 
   const handleBankSelect = (bank) => {
     setSelectedBank(bank.name);
     setIsOpen(false);
-    
+    console.log(bank.name)
     const updateBank = async ()=>{
       try {
+       
         const res = await axiosClient.post('/user/update-profile', {bank:selectedBank});
+        console.log(res.data);
         
       } catch (error) {
         console.log(error);

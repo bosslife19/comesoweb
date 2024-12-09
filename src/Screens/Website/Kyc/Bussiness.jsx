@@ -4,8 +4,10 @@ import { RxUpload } from "react-icons/rx";
 import { TbDotsVertical, TbUserPlus } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/Website/Spinner.css";
-import { ClipLoader } from "react-spinners"; // Example spinner from react-spinners
+import { ClipLoader } from "react-spinners";
+
 import axiosClient from "../../../axios-client";
+import axios from "axios";
 
 const Bussiness = ({ handleNext }) => {
   const [buttonSpinner, setButtonSpinner] = useState(false);
@@ -20,7 +22,7 @@ const Bussiness = ({ handleNext }) => {
   const handleSuccess = async () => {
     setButtonSpinner(true);
     try {
-      const response = await axiosClient.post("/user/update-profile", {
+      await axiosClient.post("/user/update-profile", {
         name,
         companyName,
         numPatients,
@@ -29,7 +31,6 @@ const Bussiness = ({ handleNext }) => {
         email,
       });
 
-      setButtonSpinner(false);
       const res = await axiosClient.get("/user");
       const user = res.data.user;
       if (
@@ -37,15 +38,84 @@ const Bussiness = ({ handleNext }) => {
         user.company_logo &&
         user.health_regulations_compliance &&
         user.proof_of_registration &&
-        user.registration_document
-      ){
-        localStorage.setItem('kycComplete', true);
-        navigate("/Kyc/successful");
-      }else{
-        alert('Please upload all relevant files to complete KYC')
+        user.registration_document &&
+        user.bank_name &&
+        user.account_number
+      ) {
+        await axiosClient.patch("/user/update-kyc");
+
+        try {
+          const response = await axios.get(
+            `https://api.paystack.co/bank?country=nigeria&perPage=100`,
+            {
+              headers: {
+                Authorization: `Bearer ${
+                  import.meta.env.VITE_PAYSTACK_TEST_SECRET
+                }`,
+              },
+            }
+          );
+          // console.log(response.data.data);
+          const bankList = response.data.data;
+  
+          // Normalize input (optional: to improve match robustness)
+          const normalize = (str) => str.toLowerCase().replace(/\s+/g, "");
+  
+          // Find the best match
+          const matchedBank = bankList.find((bankEntity) =>
+            normalize(bankEntity.name).includes(normalize(user.bank_name))
+          );
+          // console.log(user.bank_name);
+          if (matchedBank) {
+            // console.log("Matched Bank:", matchedBank);
+            const resp = axios.post(
+              "https://api.paystack.co/transferrecipient",
+              {
+                type: "nuban",
+                name: user.name,
+                account_number: user.account_number,
+                bank_code: matchedBank.code,
+                currency: "NGN",
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${
+                    import.meta.env.VITE_PAYSTACK_TEST_SECRET
+                  }`,
+                },
+              }
+            );
+             
+            return  console.log((await resp).data.data)
+            await axiosClient.post('/recipient/create',{
+              name: user.name,
+              bank_code:matchedBank.code,
+              reciepient_code:(await resp).data.data.recipient_code,
+              account_number:user.account_number
+            });
+          } else {
+            console.log("No similar bank found.");
+          }
+          setButtonSpinner(false);
+          //  navigate("/Kyc/successful");
+          
+        } catch (error) {
+          setButtonSpinner(false)
+          console.log(error);
+          if(error.response.data.message){
+            alert(error.response.data.message)
+          }else{
+            alert('An error occured in the server');
+          }
+          
+         
+        }
+       
+
+       
+      } else {
+        alert("Please upload all relevant files to complete KYC");
       }
-        
-      
     } catch (error) {
       setButtonSpinner(false);
       alert("An error occured in the server!");
@@ -54,7 +124,8 @@ const Bussiness = ({ handleNext }) => {
 
   const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } =
     useDropzone({
-      accept: ".pdf, .jpg, .png", // Define accepted file types
+      accept: ".pdf, .jpg, .png",
+
       onDrop: async (acceptedFiles) => {
         const formData = new FormData();
         formData.append("file", acceptedFiles[0]);
@@ -70,7 +141,6 @@ const Bussiness = ({ handleNext }) => {
               },
             }
           );
-          console.log(response.data);
         } catch (error) {
           console.error("File upload failed:", error);
         }
@@ -168,17 +238,13 @@ const Bussiness = ({ handleNext }) => {
         </div>
       </div>
 
-      {/* 2 */}
-
       <div className="px-[20px] my-[20px] pb-[20px] border  shadow-md rounded-[10px]">
-        {/* Pharmacist Profile Section */}
         <div className="flex space-y-4 py-2 items-center justify-between text-[#333333] font-[500] font-poppins md:text-[18px] leading-[27px]">
           <span className="flex items-center gap-[10px]">
             Business Size Information
           </span>
         </div>
 
-        {/* Dynamic Profile Form */}
         <div className="py-4 flex flex-col space-y-3 mt-2">
           <label className="font-[400] text-[#333333] font-poppins text-[12px] md:text-[16px]  leading-[10px] md:leading-[24px]">
             Yearly Revenue
@@ -211,17 +277,13 @@ const Bussiness = ({ handleNext }) => {
         </div>
       </div>
 
-      {/* 3 */}
-
       <div className="px-[20px] pb-[20px] border  shadow-md rounded-[10px]">
-        {/* Pharmacist Profile Section */}
         <div className="flex space-y-4 items-center justify-between text-[#333333] font-[500] font-poppins md:text-[18px] leading-[27px]">
           <span className="flex items-center gap-[10px] pt-[20px]">
             Company’s Logo Name & Certification Documents
           </span>
         </div>
 
-        {/* Dynamic Profile Form */}
         <div className="flex flex-col space-y-2 mt-2">
           <label className="font-[400] text-[#333333] font-poppins text-[12px] md:text-[16px] leading-[10px] md:leading-[24px]">
             Company’s Name
@@ -235,7 +297,6 @@ const Bussiness = ({ handleNext }) => {
           />
         </div>
 
-        {/*2 Certificate and compliance */}
         <div className="md:space-y-3 py-3">
           <span className="font-poppins font-[400] text-[12px] md:text-[16px] leading-[10px] md:leading-[24px] text-[#333333] ">
             Company’s Logo
@@ -252,16 +313,13 @@ const Bussiness = ({ handleNext }) => {
               </span>
             </div>
           </div>
-
-          {/*3 Certificate and compliance */}
         </div>
       </div>
 
-      {/* Next Button */}
       <button
         onClick={handleSuccess}
         className="text-[#fff] w-[139px] md:w-[209px] py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] md:mt-[20%]"
-        disabled={buttonSpinner} // Disable button when spinner is active
+        disabled={buttonSpinner}
       >
         {buttonSpinner ? (
           <ClipLoader size={20} color="#fff" />

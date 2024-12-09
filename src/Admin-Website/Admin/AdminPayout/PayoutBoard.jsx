@@ -11,6 +11,8 @@ import { Modal2 } from "./ModalDetails2/ModalDetails2";
 import { ModalOtpPage } from "./ModalOTP/ModalOTP";
 import { ModalSuccess } from "./ModalSuccess/ModalSuccess";
 import {  useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axiosClient from "../../../axios-client";
 const PAGE_SIZE = 10; 
  
 const PayoutBoardList  = () => {
@@ -23,6 +25,7 @@ const PayoutBoardList  = () => {
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
   const [isThirdModalOpen, setIsThirdModalOpen] = useState(false);
   const [isLastModalOpen, setIsLastModalOpen] = useState(false);
+  const [paymentRequests, setPaymentRequests] = useState([])
 
   // Modal Handlers
   const closeModal = () => {
@@ -31,7 +34,7 @@ const PayoutBoardList  = () => {
     setSelectedAction("");
   };
 
-  const handProceed = () => {
+  const handProceed = (bank, accountNumber, amount) => {
     setIsModalOpen(false); // Close the first modal
     setIsSecondModalOpen(true); // Open the second modal
   };
@@ -67,12 +70,24 @@ const PayoutBoardList  = () => {
 
   
  
-  
+  useEffect(()=>{
+    const getPaymentRequests = async ()=>{
+      try {
+        const response = await axiosClient.get('/payout-requests/all')
+        console.log(response.data);
+        setPaymentRequests(response.data.requests)
+      } catch (error) {
+        console.log(error)
+      }
+      
+    }
+    getPaymentRequests();
+  },[]);
   const tableData = [
     {
         id: 1,
         img:logo,
-        name:"South Royal Park Health Centre",
+        name:"South Royals Park Health Centre",
       ID: "#4443873",
       Timestamp: "09/08/24, 12:0018pm",
 
@@ -280,7 +295,7 @@ Health Faclity
                      ID
                    </th>
                    <th className="md:px-4 py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Transactions   
+                     Bank  
                      </th>
                    <th className="md:px-4 py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Payout
@@ -299,7 +314,7 @@ Health Faclity
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {paymentRequests?.map((row, index) => (
               <motion.tr
               onClick={(e) => {
                 // Check if the click happened on the select element or its child elements
@@ -317,30 +332,30 @@ Health Faclity
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
               >
-                  <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] items-center gap-2 md:flex font-sans leading-[20px] text-start text-[#384250]">
-                    <img src={row.img}  className=" w-[30px] h-[30px] rounded-full "/>
-                     {row.name}
+                  <td className="px-4 py-4 text-[11px] md:text-[13px] font-[500] items-center gap-2 md:flex font-sans leading-[20px] text-start text-[#384250]">
+                    {/* <img src={row.img}  className=" w-[30px] h-[30px] rounded-full "/> */}
+                     {row.user.company_name}
                 </td>
-               <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.ID}</td>
+               <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.id}</td>
                
                 {/* <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row}</td>              */}
-                <td className=" md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{row.Transactions}</td>
+                <td className=" md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{row.user.bank_name}</td>
                  <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Payout}               
+                  {row.amount}               
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "complete"
+                      row.status === "accepted"
                         ? "text-[#3ECF8E]"
                         : row.Status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.Status === "Rejected"
+                        : row.Status === "rejected"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status||'pending'}
                   </span>
                 </td>
                 <td className="  md:px-4 py-2">
@@ -360,6 +375,12 @@ Health Faclity
               {isModalOpen && (
         <Modal
           // isOpen={isModalOpen}
+          company={row.user.company_name}
+          bank={row.user.bank_name}
+          accountNumber={row.user.account_number}
+          amount={row.amount}
+          row={row}
+          phone={row.user.phone}
           closeModal={closeModal}
           handProceed={handProceed}
           // row={selectedRow}

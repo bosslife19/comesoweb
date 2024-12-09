@@ -43,13 +43,10 @@ const DashboardMain = () => {
   useEffect(()=>{
  const getUser = async ()=>{
   try {
-    const checkKyc = localStorage.getItem('kycComplete');
-    if(checkKyc){
-      setKyc(true);
-    }
+    
     const response = await axiosClient.get('/user');
     
-    
+    setKyc(response.data.user.kycCompleted);
     setUserDetails({
       ...response.data.user
     })
