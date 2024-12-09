@@ -82,8 +82,7 @@ function Signup() {
         setButtonSpinner(false);
         localStorage.setItem('ACCESS_TOKEN', res.data.token);
         setUserDetails({
-          name:res.data.user.name,
-          email:res.data.user.email,
+          ...res.data.user
         });
         navigate("/dashboard");
         

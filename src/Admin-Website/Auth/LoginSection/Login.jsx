@@ -86,8 +86,7 @@ getAuth();
         setButtonSpinner(false);
         localStorage.setItem('ACCESS_TOKEN', response.data.token);
         setUserDetails({
-          name:response.data.user.name,
-          email:response.data.user.email,
+          ...response.data.user
         })
         
        

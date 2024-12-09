@@ -16,10 +16,15 @@ function ProtectedRoute({ children }) {
 
       return () => clearTimeout(timer); // Cleanup timer
     }
+    const isAdmin = localStorage.getItem('isAdmin');
+  if(isAdmin){
+    return navigate('/admin/dashboard')
+  }
   }, []);
 
   // Render children if authenticated
   const isAuthenticated = localStorage.getItem('ACCESS_TOKEN')
+  
   if (isAuthenticated) {
     return <>{children}</>;
   }

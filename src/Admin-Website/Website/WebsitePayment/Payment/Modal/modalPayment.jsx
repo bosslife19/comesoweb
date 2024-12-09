@@ -10,7 +10,7 @@ const ModalPayment = ({handProceed} ) => {
       Payment Successful
       </h2>
      <p className=' font-alata font-[400] text-[12px] md:text-[20px] leading-[29.3px] text-[#A4A9AE]'>
-     You have successfully made payment request from Gloria Niiquaye’s account.
+     You have successfully made a payment request. We will review and respond accordingly
      </p>
      <div className='px-[10px] m-auto'>
      <img src={success} className=' '/>
@@ -21,7 +21,7 @@ const ModalPayment = ({handProceed} ) => {
            className="text-[#fff]  w-full  py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] "
          >
             
-            <span> View Receipt</span>
+            <span>Go back</span>
           
      </button>
     </div>

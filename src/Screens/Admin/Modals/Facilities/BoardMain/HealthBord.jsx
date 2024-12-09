@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   import logo from "../../../../../assets/imglogo.png"
@@ -7,6 +7,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { BiUserPlus } from "react-icons/bi";
  import Pagination from "../../../../../Admin-Website/Admin/AdminPagnations/Paginations"; 
 import FacilitiesModals from "../../../facilitiesModal/FacilitiesModals";
+import axiosClient from "../../../../../axios-client";
    
 
 const PAGE_SIZE = 10;
@@ -19,7 +20,7 @@ const HealthBord  = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedRow, setSelectedRow] = useState(null);
    const [isModalOpens, setIsModalOpens] = useState(false);
-
+const [facilities, setFacilities] = useState([])
   
  
   const handleChange = (event, row) => {
@@ -193,7 +194,30 @@ const closeModals = () => {
   setIsModalOpens(false);
 };
  
+useEffect(()=>{
+  const getUsers = async () => {
+    try {
+      const res = await axiosClient.get("/user/all");
 
+      
+      setFacilities(res.data.facilities);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getUsers();
+},[])
+const date = facilities?.map(item=>{
+  const date = new Date(item.last_visited); // Example date
+
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    month: 'long',  // Full month name
+    day: 'numeric', // Day of the month
+    year: 'numeric' // Year
+  }).format(date);
+  
+  return formattedDate;
+ })
   return (
     
     <div className="  w-full p-4 rounded-lg   ">
@@ -235,7 +259,7 @@ Health Facilities
           <thead>
           <tr className="bg-[#fff] border-t shadow-sm rounded-[30px] ">
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                   User ID
+                   ID
                    </th>
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      PhoneNumber
@@ -252,7 +276,7 @@ Health Facilities
                    
                    
                    <th className="px-4 py-[20px] text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Amount
+                     Balance
                    </th>
                    <th className="px-4  py-[20px] text-end text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                     Status
@@ -268,7 +292,7 @@ Health Facilities
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {facilities?.map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}
@@ -279,27 +303,27 @@ Health Facilities
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
               >
-               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.UserID || "N/A"}</td>
-                <td className="px-4 flex gap-2 items-center py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  <img src={logo} className="w-[30px] h-[30px] rounded-full" />
-                  {row.PhoneNumber}
+               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.id || "N/A"}</td>
+                <td className="px-4 flex gap-2 items-center py-4 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
+                  {/* <img src={logo} className="w-[30px] h-[30px] rounded-full" /> */}
+                  {row.phone}
                 </td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.name}</td>      
-                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250] ">{row.LastVisted}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">{row.Amount}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.company_name}</td>      
+                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250] ">{date[index]}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">{row.balance}</td>
                   <td className="px-4 py-2 text-[11px]  md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "Active"
+                      row.status === "active"
                         ? "text-[#3ECF8E]"
-                        : row.Status === "pending"
+                        : row.status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.Status === "Rejected"
+                        : row.status === "Rejected"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     }  text-[#384250] font-bold     rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span>
                 </td>
                 <td className=" px-2 py-2 text-end">

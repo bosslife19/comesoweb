@@ -68,7 +68,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
       { text: "Transactions", link: "transactions", icon: IoCalendarOutline  },
       { text: "Payout", link: "payout", icon: GrTransaction  },
       { text: "Settings", link: "settings", icon: IoMdSettings },
-      { text: "Logout", link: "Logout", icon: LuClock12 },
+      // { text: "Logout", link: "Logout", icon: LuClock12 },
     ], 
     []
   );

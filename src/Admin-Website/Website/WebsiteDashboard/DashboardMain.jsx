@@ -9,6 +9,7 @@ import { ClipLoader } from 'react-spinners'; // Example spinner from react-spinn
 import DashboardModal from "./Modal/DashboardModal";
 import { AuthContext } from "../../../context/AuthContext";
 import axiosClient from "../../../axios-client";
+import { useNavigate } from "react-router-dom";
 
 const DashboardMain = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
@@ -16,8 +17,11 @@ const DashboardMain = () => {
     const [buttonSpinner, setButtonSpinner] = useState(false);
     const [kyc, setKyc] = useState(false);
     // const [transactions, setTransactions] = useState([]);
-    
+    const navigate = useNavigate()
     const {userDetails, setUserDetails} = useContext(AuthContext)
+    const handleRequestPaymet = ()=>{
+      navigate('/Payments')
+    }
     const baseUrl = import.meta.env.VITE_BASE_URL
 
   const toggleVisibility = () => {
@@ -47,8 +51,7 @@ const DashboardMain = () => {
     
     
     setUserDetails({
-      name:response.data.user.name,
-      email:response.data.user.email,
+      ...response.data.user
     })
     // setTransactions(response.data.transactions)
   } catch (error) {
@@ -93,7 +96,7 @@ const DashboardMain = () => {
             <div className="flex justify-between items-center gap-3 px-[20px] py-4">
               <div className="space-y-3">
                 <span className="font-[600] leading-[21.82px] text-[14px] md:text-[16px] text-[#33333399] font-poppins">
-                  {userDetails?.name}
+                  {userDetails?.company_name||userDetails.name}
                 </span>
                 <p className="font-[700] flex gap-2 leading-[38.19px] text-[18px] items-center md:text-[28px] text-[#202224] font-poppins">
                   Welcome back! <PiHandWavingFill className=" text-[#FFDC5D]" />
@@ -104,7 +107,7 @@ const DashboardMain = () => {
               <span className="font-normal font-poppins text-[#33333399] flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
                 What would you like us to do for you today?
               </span>
-              <button className="bg-[#031AED] justify-center w-full py-[12px] px-[19px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
+              <button onClick={handleRequestPaymet} className="bg-[#031AED] justify-center w-full py-[12px] px-[19px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
                 Request Payment
               </button>
             </div>
@@ -121,7 +124,7 @@ const DashboardMain = () => {
                 </span>
                 <div className="font-[700] p leading-[38.19px] text-[18px] gap-2 md:text-[28px] text-[#202224] font-poppins flex items-center md:gap-[50px]">
                    
-                  {isTextVisible ? "GHC 15,200.00" : "******"}
+                  {isTextVisible ? `GHC ${userDetails?.balance}.00` : "******"}
                   <button
                     onClick={toggleVisibility}
                     className="text-[#6B788E] hover:text-[#202224]"
@@ -140,7 +143,7 @@ const DashboardMain = () => {
                 Due tomorrow, Mar 6th, 2024
               </span>
 
-              <button className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
+              <button onClick={handleRequestPaymet} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
                 Request Payment
               </button>
             </div>

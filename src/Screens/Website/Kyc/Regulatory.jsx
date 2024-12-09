@@ -34,13 +34,15 @@ const Regulatory = ({ handleNext }) => {
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
       formData.append('fileType', 'certOfComp');
-      setSecond(acceptedFiles[0])
+      
       try {
           const response = await axiosClient.post('/user/upload-details', formData, {
               headers: {
                   'Content-Type': 'multipart/form-data',
               },
           });
+
+          
          
          
       } catch (error) {

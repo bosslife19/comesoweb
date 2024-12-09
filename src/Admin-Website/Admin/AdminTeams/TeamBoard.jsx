@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
    import logo from "../../../assets/imglogo.png"
 import Pagination from "../AdminPagnations/Paginations";
@@ -37,6 +37,8 @@ const TeamBoard  = () => {
     setSelectedRow(null);
     setSelectedAction("");
   };
+
+  
   const tableData = [
     {
       

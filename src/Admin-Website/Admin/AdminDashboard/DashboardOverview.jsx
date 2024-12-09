@@ -1,9 +1,10 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   
  import Pagination from "../../../Admin-Website/Admin/AdminPagnations/Paginations";
  import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
+import axiosClient from "../../../axios-client";
  
 const PAGE_SIZE = 10;
  
@@ -12,15 +13,31 @@ const DashboardList  = () => {
    const [searchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [selectedAction, setSelectedAction] = useState("");
+  const [transactions, setTransactions] = useState([]);
 
   const handleChange = (event) => {
     setSelectedAction(event.target.value);
     console.log("Selected action:", event.target.value);
   };
+
+  useEffect(()=>{
+    const getTransactions = async () => {
+      try {
+        const response = await axiosClient.get("/transaction/all");
+        
+        setTransactions(response.data.transactions);
+        
+      
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTransactions();
+  },[])
   
   const tableData = [
     {
-      PaymentID: "@3873",
+      PaymentID: "@38734",
       Timestamp: "09/08/24, 12:0018pm",
       pending:"sent Voucher",
 
@@ -160,6 +177,17 @@ const DashboardList  = () => {
     
     
   ];
+  const date = transactions?.map(item=>{
+    const date = new Date(item.created_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
 
   const filteredData = tableData.filter((row) => {
     const matchesQuery = row.PaymentID.toLowerCase().includes(searchQuery.toLowerCase());
@@ -210,7 +238,7 @@ const DashboardList  = () => {
   Recent Transactions
 </motion.h2>
 <div className="flex justify-between items-center flex-wrap">
-<div className="flex gap-2 mt-2">
+{/* <div className="flex gap-2 mt-2">
 <button
 onClick={() => handleFilterChange("All")}
 className={`border md:px-[0px] px-[20px] md:w-[118px] md:h-[42px] rounded-[30px] ${filterStatus === "All" ? "border-blue-500 text-[#222222E5]" : "bg-white text-black"} font-[500] text-[14px] md:text-[17px] leading-[21.42px]`}
@@ -228,14 +256,14 @@ All
 onClick={() => handleFilterChange("Rejected")}>
   Rejected
 </button>
-</div>
+</div> */}
 
 </div>
 </div>
 
 {/* Right Section: Search Bar and Filter Button */}
 <div className="flex items-center gap-3  mt-[35px]">
-<ButtonsWithPopup/>
+{/* <ButtonsWithPopup/> */}
 </div>
 </div>
 
@@ -282,7 +310,7 @@ onClick={() => handleFilterChange("Rejected")}>
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {transactions?.map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}
@@ -292,29 +320,29 @@ onClick={() => handleFilterChange("Rejected")}>
                   index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                 } border-b hover:bg-gray-50`}
             >
-               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.PaymentID || "N/A"}</td>
+               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.transaction_id || "N/A"}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Timestamp}
+                  {date[index]}
                 </td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.type}</td>             
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.Sender}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.Beneficiary}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.sender||'N/A'}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.beneficiary||'N/A'}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Amount}               
+                  {row.amount}               
                   </td>
                   <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "complete"
+                      row.status === "Received"
                         ? "text-[#3ECF8E]"
-                        : row.Status === "pending"
+                        : row.status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.Status === "Rejected"
+                        : row.status === "Rejected"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span>
                 </td>
                   <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
@@ -331,7 +359,7 @@ onClick={() => handleFilterChange("Rejected")}>
       </motion.div>
       
       <Pagination
-        count={tableData.length}
+        count={transactions?.length}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         pageSize={PAGE_SIZE}

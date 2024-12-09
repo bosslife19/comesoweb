@@ -71,7 +71,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
       { text: "Facilities", link: "/admin/facilities", icon: FaHouseMedical },
       { text: "Team", link: "/admin/team", icon: BsMicrosoftTeams },
       { text: "Settings", link: "/admin/settings", icon: IoMdSettings },
-      { text: "Logout", link: "Logout", icon: LuClock12 },
+      // { text: "Logout", link: "Logout", icon: LuClock12 },
     ],
     []
   );

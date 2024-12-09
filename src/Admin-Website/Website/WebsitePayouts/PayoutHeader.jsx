@@ -1,13 +1,16 @@
 import {   FaArrowTrendUp } from 'react-icons/fa6'
-import { useState } from "react";
+import { useEffect, useState } from "react";
  import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
  
 import ButtonsWithPopup from './SideButtons/ButtonWithProps';
 import { useNavigate } from 'react-router-dom';
+import axiosClient from '../../../axios-client';
 
 const PayoutBoardMain = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isTextVisible2, setIsTextVisible2] = useState(true);
+  const [paymentRequests, setPaymentRequests] = useState(0);
+  const [balance, setBalance] = useState(0)
 
   const toggleVisibilities = () => {
     setIsTextVisible2(!isTextVisible2);
@@ -21,6 +24,16 @@ const PayoutBoardMain = () => {
     // Use navigate to go to a page with the product or detail
     navigate("/payoutDetails");
   };
+
+  useEffect(()=>{
+    const getRequests = async ()=>{
+      const res = await axiosClient.get('/user/requests');
+
+      setPaymentRequests(res.data.requests.length);
+      setBalance(res.data.balance);
+    }
+    getRequests();
+  },[]);
  
   
 
@@ -41,7 +54,7 @@ const PayoutBoardMain = () => {
                 </span>
                 <div className={`font-[700] p leading-[38.19px] text-[18px] gap-2 md:text-[28px]  ${isTextVisible2 ? "text-[#0A2EE2]" : "text-[#000]"} font-poppins flex items-center md:gap-[50px]`}>
                  GHC  
-                  {isTextVisible2 ? "15,200.00" : "********"}
+                  {isTextVisible2 ? `${balance}` : "********"}
                   
                   <button
                     onClick={toggleVisibilities}
@@ -73,7 +86,7 @@ const PayoutBoardMain = () => {
                 </span>
                 <div className="font-[700] p leading-[38.19px] text-[18px]   md:text-[28px] text-[#202224] font-poppins flex items-center md:gap-[50px]">
                
-                  {isTextVisible ? " 40 Requests" : "******"}
+                  {isTextVisible ? ` ${paymentRequests} Requests`  : "******"}
                   <button
                     onClick={toggleVisibility}
                     className="text-[#6B788E] hover:text-[#202224]"

@@ -14,12 +14,12 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
 
   const dropdownOptions = [
-    {
-      text: "Add User",
-      icon: FaUserLarge,
-      color: "text-gray",
-      handler: () => navigate("/AddUser"),
-    },
+    // {
+    //   text: "Add User",
+    //   icon: FaUserLarge,
+    //   color: "text-gray",
+    //   handler: () => navigate("/AddUser"),
+    // },
     {
       text: "Logout",
       icon: HiOutlineLogout,
