@@ -46,7 +46,7 @@ const Bussiness = ({ handleNext }) => {
 
         try {
           const response = await axios.get(
-            `https://api.paystack.co/bank?country=nigeria&perPage=100`,
+            `https://api.paystack.co/bank?country=ghana&perPage=100`,
             {
               headers: {
                 Authorization: `Bearer ${
@@ -67,6 +67,7 @@ const Bussiness = ({ handleNext }) => {
           );
           // console.log(user.bank_name);
           if (matchedBank) {
+            
             // console.log("Matched Bank:", matchedBank);
             const resp = axios.post(
               "https://api.paystack.co/transferrecipient",
@@ -75,7 +76,7 @@ const Bussiness = ({ handleNext }) => {
                 name: user.name,
                 account_number: user.account_number,
                 bank_code: matchedBank.code,
-                currency: "NGN",
+                currency: "GHS",
               },
               {
                 headers: {
@@ -86,7 +87,7 @@ const Bussiness = ({ handleNext }) => {
               }
             );
              
-            return  console.log((await resp).data.data)
+            // return  console.log((await resp).data.data)
             await axiosClient.post('/recipient/create',{
               name: user.name,
               bank_code:matchedBank.code,
@@ -95,16 +96,20 @@ const Bussiness = ({ handleNext }) => {
             });
           } else {
             console.log("No similar bank found.");
+            setButtonSpinner(false)
+            Alert('Your bank was not found');
           }
           setButtonSpinner(false);
-          //  navigate("/Kyc/successful");
+         navigate("/Kyc/successful");
           
         } catch (error) {
           setButtonSpinner(false)
           console.log(error);
           if(error.response.data.message){
+            setButtonSpinner(false)
             alert(error.response.data.message)
           }else{
+            setButtonSpinner(false)
             alert('An error occured in the server');
           }
           
@@ -115,6 +120,7 @@ const Bussiness = ({ handleNext }) => {
        
       } else {
         alert("Please upload all relevant files to complete KYC");
+        setButtonSpinner(false);
       }
     } catch (error) {
       setButtonSpinner(false);

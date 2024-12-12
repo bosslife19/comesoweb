@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
  
-export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
+export const ModalOtpPage  = ({  closeThirdModal,handProceedThird, name, token}) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -22,6 +22,12 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
     }
   };
 
+  const handleProceed = () => {
+    const otpString = otp.join(""); // Combine OTP values into a single string
+
+     handProceedThird(otpString, name, token); 
+  };
+
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !otp[index]) {
       if (index > 0) {
@@ -30,10 +36,7 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
     }
   };
 
-  // const clearAll = () => {
-  //   setOtp(["", "", "", ""]);
-  //   inputRefs.current[0].focus();
-  // };
+
 
   return (
     <div className="fixed inset-0 font-sans p-3 bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
@@ -45,7 +48,7 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
             <span onClick={closeThirdModal} className='className="bg-[#F5F6F7] border border-[#F5F6F7] text-[#191B1C] px-3 font-[600] md:px-[13px] py-3 mb-2 rounded-full'><IoMdClose/></span>
              </div>
 
-            <h3 className='px-4 py-4 font-[500] text-[18px] leading-[24px]'>Input Your 4-digit Passcode</h3>
+            <h3 className='px-4 py-4 font-[500] text-[18px] leading-[24px]'>Input Your OTP</h3>
             <div className="flex justify-center gap-4 my-6 px-4">
           {otp.map((value, index) => (
             <input
@@ -69,7 +72,7 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird }) => {
                 Cancel
               </button>
               <button
-               onClick={handProceedThird}  
+               onClick={handleProceed}  
                className="bg-[#0A2EE2] items-center  justify-between flex gap-1 font-sans text-[11px] md:text-[14px]  text-white px-2 md:px-4 md:py-2 rounded-full font-[500]">
                 Pay 
                <span> <BsArrowRight className='mt-1 '/></span>

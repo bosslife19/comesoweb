@@ -8,7 +8,8 @@ export const ModalSuccess = ({closeLastModal}) => {
 const navigate = useNavigate()
   const handles = () => {
     // Use navigate to go to a page with the product or detail
-    navigate("/admin/pays");
+    closeLastModal()
+    navigate("/admin/payout");
   };
   return (
     <div className="fixed inset-0 font-sans p-[20px] bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
@@ -28,7 +29,7 @@ const navigate = useNavigate()
           You have successfully approved payout for the month of November fo Gloria Niiquaye Health Centre</p>
          <img src={logo}  className=' object-contain h-[100px] md:h-[200px]' />
          <button onClick={handles} className='flex gap-2 items-center rounded-[20px] text-center justify-center font-sans font-[600] leading-[40px] text-[12px] md:text-[14px] text-[#fff] bg-[#0A2EE2] md:py-[10px] '>
-          View Receipt
+          Continue
           <HiOutlineArrowRight/>
          </button>
        </div>

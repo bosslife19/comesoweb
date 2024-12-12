@@ -87,7 +87,7 @@ Request Date
 <h4 className=" font-[600]">Company’s Bank</h4>
 <div className=" space-x-2 flex  items-center">
 <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
-<span className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
+<span className="border pt-2 text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
  {/* {row.name} */}
  {bank}
 </span>
@@ -134,7 +134,7 @@ Ending Date Period
  </div>
         <div className="mt-4 flex justify-between">
           <button onClick={closeModal}   className="bg-[#F5F6F7] text-[#191B1C] px-3 font-[500] md:px-[30px] py-2 rounded-full">Close</button>
-          <button onClick={()=>{handProceed(bank, accountNumber, amount)}}   className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]">Proceed
+          <button onClick={()=>{handProceed(amount, accountNumber)}}   className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]">Proceed
           <BsArrowRight/>
           </button>
         </div>

@@ -173,19 +173,19 @@ useEffect(()=>{
       
       <div className="relative w-full mb-[32%] md:mb-[0px]">
       {/* Custom Dropdown */}
-      <div
+      {/* <div
         className="w-full flex items-center shadow-md gap-[10px] border-[#f4f5fa] appearance-none p-3 mt-6 font-poppins text-[18px] leading-[27px] text-[#33333380] rounded-[5px] h-[49px] border cursor-pointer"
-        onClick={toggleDropdown} // Open/close the dropdown on click
+        onClick={toggleDropdown} 
       >
         <span className="flex-grow flex gap-5 items-center text-[#212121] text-[12px] md:text-[17px]">
-        <TbUserPlus />  {selectedValue || 'Minimum Inventory of Medical Supplies'} {/* Display selected value */}
+        <TbUserPlus />  {selectedValue || 'Minimum Inventory of Medical Supplies'} Display selected value
         </span>
 
-        {/* Arrow Icon */}
+        
         <div className="text-[#33333380] text-[12px] md:text-[20px]">
-          {isOpen ? <TbChevronUp /> : <TbChevronDown />} {/* Toggle arrow */}
+          {isOpen ? <TbChevronUp /> : <TbChevronDown />} 
         </div>
-      </div>
+      </div> */}
 
       {/* Dropdown Menu */}
       {isOpen && (

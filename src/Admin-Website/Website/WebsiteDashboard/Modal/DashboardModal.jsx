@@ -21,7 +21,7 @@ const DashboardModal = ({closeModals,}) => {
        </div>
 
        <div className='px-[10%] py-[30px] text-center flex flex-col justify-center'>
-        <h3 className='font-[400] font-alata text-[#456EFE]  text-[32px] leading-[39.52px]'>Payout Successful</h3>
+        <h3 className='font-[400] font-alata text-[#456EFE]  text-[32px] leading-[39.52px]'>KYC Verification</h3>
 
         <p className='text-[#A4A9AE] font-[400] text-[18px] leading-[26.37px] md:px-[16%] mt-2'>
         Proceed to complete your KYC verification Process in order to enjoy the full benefits and features of our platform
