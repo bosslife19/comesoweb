@@ -36,7 +36,8 @@ import Successful from "./Screens/Website/Kyc/Successful";
 import PageTransition from "./Ul/Admin/Layout/PageTransition";
 import Dashboard from "./pages/Website/Dashboard/Dashboards";
 import { AuthProvider } from "./context/AuthContext";
-// import Received from "./Admin-Website/Admin/users/Received/Receive";
+import SignMessage from "./Admin-Website/Auth/SignupMessage/SignMessage";
+ // import Received from "./Admin-Website/Admin/users/Received/Receive";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +69,10 @@ function App() {
               <Route path="Kyc/details" element={<Customermangemen />} />
 
               <Route path="Kyc/successful" element={<Successful />} />
+
+              <Route path="/OTPSignUp" element={<SignMessage />} />
+
+  
 
               <Route
                 path="/"
@@ -168,13 +173,7 @@ function App() {
                 {/* Facilities */}
                 <Route path="/admin/facilities" element={<Facilities />} />
                 {/* Receive */}
-                {/* <Route
-    path="/admin/Received"
-    element={
-      <Received />
-    }
-  /> */}
-
+  
                 {/* Health Facility */}
                 <Route
                   path="/admin/healthFacility"

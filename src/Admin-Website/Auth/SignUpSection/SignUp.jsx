@@ -84,7 +84,7 @@ function Signup() {
         setUserDetails({
           ...res.data.user
         });
-        navigate("/dashboard");
+        navigate("/OTPSignUp");
         
        
         
