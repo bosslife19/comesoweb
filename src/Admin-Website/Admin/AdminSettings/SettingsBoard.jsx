@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import WebAppTab from "./WebAppTab/WebAppTab";
 import ProfileT from "./Profile/ProfileT";
 
@@ -23,7 +23,7 @@ const SettingsBoard = () => {
             }`}
             onClick={() => setActiveTab("Profile")}
           >
-            Profile
+            Profile 
           </button>
            
           <button
