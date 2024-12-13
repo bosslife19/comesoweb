@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import ButtonsWithPopup from './SideButtons/ButtonWithProps';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../../axios-client';
+import { ClipLoader } from 'react-spinners';
 
 const PayoutBoardMain = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
   const [isTextVisible2, setIsTextVisible2] = useState(true);
   const [paymentRequests, setPaymentRequests] = useState(0);
   const [balance, setBalance] = useState(0)
+  const [buttonSpinner, setButtonSpinner] = useState(false);
 
   const toggleVisibilities = () => {
     setIsTextVisible2(!isTextVisible2);
@@ -21,9 +23,12 @@ const PayoutBoardMain = () => {
 
   const navigate = useNavigate()
   const handles = () => {
-    // Use navigate to go to a page with the product or detail
-    navigate("/payoutDetails");
-  };
+    setButtonSpinner(true);
+    setTimeout(() => {
+      navigate("/payoutDetails");
+      setButtonSpinner(false)
+    }, 1000);
+   };
 
   useEffect(()=>{
     const getRequests = async ()=>{
@@ -40,7 +45,7 @@ const PayoutBoardMain = () => {
   return (
     <div >
         <div className='flex justify-between py-[20px] flex-wrap gap-4'>
-            <h3 className=' text-[#202224] font-[700] text-[22px] md:text-[32px] leading-[43.65px]'>Payout</h3>
+            <h3 className=' text-[#202224] font-[700] text-[22px] md:text-[32px] leading-[43.65px]'>Payment Request </h3>
           
         </div>
      {/* flex */}
@@ -109,7 +114,15 @@ const PayoutBoardMain = () => {
         </div>
 
         <div className='flex justify-end flex-col '>
-          <button onClick={handles} className='px-[20px] md:px-[60px] py-[8px] md:py-[15px] font-poppins font-[600] text-[12px] md:text-[20px] md:leading-[30px] rounded-[30px] bg-[#000] text-[#fff]'>Payout History</button>
+          <button
+           disabled={buttonSpinner}
+          onClick={handles} className='w-[100px] md:w-[200px] h-[50px] font-poppins font-[600] text-[12px] md:text-[20px] md:leading-[30px] rounded-[30px] bg-[#000] text-[#fff]'>
+             {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+                <span>Payout History</span>
+              )}
+            </button>
         </div>
      
       </div>

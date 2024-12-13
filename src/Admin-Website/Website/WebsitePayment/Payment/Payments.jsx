@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Payments = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [buttonSpinner, setButtonSpinner] = useState(false);
-  const [amount, setAmount] = useState();
+   const [amount, setAmount] = useState();
 
   // Modal States
   const [isModalOpens, setIsModalOpens] = useState(false);
@@ -22,6 +21,9 @@ const Payments = () => {
   const [isLastModalOpen, setIsLastModalOpen] = useState(false);
   const [numError, setNumError] = useState("")
   const [userDets, setUserDets] = useState(null);
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+  const [buttonSpinners, setButtonSpinners] = useState(false);
+
   const navigate = useNavigate()
  
   const [token, setToken] = useState(null);
@@ -45,6 +47,7 @@ const Payments = () => {
     e.preventDefault();
     setNumError('')
     try {
+      setButtonSpinners(true)
       const response = await axiosClient.post('/user/verify-number', {phone:phoneNumber})
       
       if(response.data.error){
@@ -88,9 +91,14 @@ const Payments = () => {
   };
 
   const handProceed = () => {
+    setButtonSpinner(true);
+    setTimeout(() => {
+      navigate('/dashboard')
+      setButtonSpinner(false)
+    }, 1000);
     // setIsModalOpens(false); // Close the first modal
     // setIsSecondModalOpen(true); // Open the second modal
-    navigate('/dashboard')
+   
     
   };
 
@@ -139,8 +147,13 @@ const Payments = () => {
                   international
                   required
                 />
-                <button onClick={handleVerifyNumber} className="px-[30px] rounded-[12px] h-full py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
-                  Verify
+                <button  disabled={buttonSpinners} onClick={handleVerifyNumber} className="px-[30px] rounded-[12px] h-full py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
+                {buttonSpinners ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+                <span>Verify</span>
+              )}
+                  
                 </button>
               </div>
             </div>
@@ -218,6 +231,7 @@ const Payments = () => {
             isOpen={isModalOpens}
             closeModal={closeModals}
             handProceed={handProceed}
+            buttonSpinner={buttonSpinner}
           />
         )}
         {isSecondModalOpen && (

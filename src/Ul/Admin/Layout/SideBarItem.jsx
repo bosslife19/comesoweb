@@ -5,7 +5,7 @@ import {  BsMicrosoftTeams } from "react-icons/bs";
  import { IoMdClock, IoMdClose, IoMdSettings } from "react-icons/io";
 import "../../../styles/Admin/overflow_hidden.css";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { LuCalendarDays, LuClock12 } from "react-icons/lu";
+import { LuCalendarDays } from "react-icons/lu";
 import { BiSolidCopyAlt } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { FaHouseMedical } from "react-icons/fa6";
@@ -65,7 +65,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
     () => [
       { text: "Dashboard", link: "/admin/dashboard", icon: IoMdClock },
       { text: "Inbox", link: "/admin/inbox", icon: RiErrorWarningLine },
-      { text: "Transactions", link: "/admintransactions", icon: LuCalendarDays },
+      { text: "Transactions", link: "/admin/transactions", icon: LuCalendarDays },
       { text: "Payout", link: "/admin/payout", icon: BiSolidCopyAlt },
       { text: "Users", link: "/admin/users", icon: FaUsers },
       { text: "Facilities", link: "/admin/facilities", icon: FaHouseMedical },

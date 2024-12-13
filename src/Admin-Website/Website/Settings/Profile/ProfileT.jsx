@@ -5,6 +5,7 @@ import { BiEdit, BiUser } from "react-icons/bi";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
+import { ClipLoader } from "react-spinners";
 
 const ProfileT = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -20,17 +21,22 @@ const ProfileT = () => {
   const [error, setError] = useState('')
   const [bank, setBank] = useState('');
   const [accountNumber, setAccountNumber] = useState('')
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+   
   
+
+
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await axiosClient.get("/user");
       console.log(response);
       setUserInfo(response.data.user);
-    };
+    }; 
     getUserInfo();
   }, []);
 
   const handleNormalUpdate = async(e)=>{
+   
     e.preventDefault();
     setError('')
     const formData = new FormData();
@@ -69,10 +75,15 @@ const ProfileT = () => {
       formData.append('newPassword', newPassword)
     }
 try {
+  setButtonSpinner(true);
+ 
+
   const response = await axiosClient.post('/user/update-profile', formData);
   if(response.data.error){
     return setError(response.data.error);
   }
+  setButtonSpinner(false)
+  
   alert('Your settings are saved successfully')
 } catch (error) {
   console.log(error)
@@ -326,7 +337,14 @@ try {
 
           <div className="flex justify-end ">
             <button onClick={handleNormalUpdate} className="bg-[#0A2EE2] text-[12px] md:text-[15px] w-full  md:w-[250px] my-2 md:py-0 py-2  md:h-[55px] rounded-[8px] text-white">
-              Update
+            {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update</span>
+               </>
+              )}
+              
             </button>
           </div>
         </div>
@@ -380,7 +398,14 @@ try {
             </div>
             <div className="flex justify-end gap-[20px]">
               <button onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
-                Update Password
+               {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update Password</span>
+               </>
+              )}
+                
               </button>
             </div>
           </form>
@@ -429,7 +454,14 @@ try {
 
           <div className="justify-end flex pt-2">
             <button onClick={handleNormalUpdate} className="bg-[#0A2EE2]   justify-center items-center w-full md:w-[200px] flex my-2 md:py-1 py-3 md:h-[55px] rounded-[8px] text-white">
-              Update
+            {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update </span>
+               </>
+              )}
+               
             </button>
           </div>
         </div>
@@ -473,9 +505,16 @@ try {
           </div>
 
           <div className="justify-end flex pt-2">
-            <button className="bg-[#0A2EE2]   justify-center items-center w-full md:w-[200px] flex my-2 md:py-1 py-3 md:h-[55px] rounded-[8px] text-white">
-              Update
-            </button>
+          <button onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+               {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update</span>
+               </>
+              )}
+                
+              </button>
           </div>
         </div>
       </div>

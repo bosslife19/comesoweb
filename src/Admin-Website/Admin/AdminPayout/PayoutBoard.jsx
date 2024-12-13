@@ -28,6 +28,7 @@ const PayoutBoardList = () => {
   const [isLastModalOpen, setIsLastModalOpen] = useState(false);
   const [paymentRequests, setPaymentRequests] = useState([]);
   const [transferCode, setTransferCode] = useState('');
+  const [buttonSpinner, setButtonSpinner] = useState(false);
 
   // Modal Handlers
   const closeModal = () => {
@@ -40,6 +41,7 @@ const PayoutBoardList = () => {
      
     
     try {
+      setButtonSpinner(true);
       const res = await axiosClient.post("/recipients", { accountNumber });
       if (res.data.status) {
         
@@ -59,7 +61,7 @@ const PayoutBoardList = () => {
             },
           }
         );
-
+        setButtonSpinner(false);
         if(response.data.status){
           setTransferCode(response.data.data.transfer_code)
           setIsModalOpen(false); // Close the first modal
@@ -77,13 +79,19 @@ const PayoutBoardList = () => {
   };
 
   const handProceedSecond = () => {
-    setIsSecondModalOpen(false);
-    setIsThirdModalOpen(true);
+    setButtonSpinner(true);
+    setTimeout(() => {
+      setIsSecondModalOpen(false);
+      setIsThirdModalOpen(true);
+      setButtonSpinner(false)
+
+    }, 1000);
+   
   };
 
   const handProceedThird = async(otp, name, token) => {
     try {
-      
+      setButtonSpinner(true);
       const response = await axios.post(
         "https://api.paystack.co/transfer/finalize_transfer",
         {
@@ -102,6 +110,7 @@ const PayoutBoardList = () => {
       setIsThirdModalOpen(false);
     setIsLastModalOpen(true);
     } catch (error) {
+      setButtonSpinner(false)
       console.log(error);
       if(error.response.data){
         alert(error.response.data.message)
@@ -115,6 +124,7 @@ const PayoutBoardList = () => {
           name,
           token
         });
+       
         if(res.data.status){
           setIsThirdModalOpen(false);
           setIsLastModalOpen(true);
@@ -443,7 +453,7 @@ Health Faclity
                       phone={row.user.phone}
                       closeModal={closeModal}
                       handProceed={handProceed}
-                      // row={selectedRow}
+                      buttonSpinner={buttonSpinner}
                     />
                   )}
                   {isSecondModalOpen && (
@@ -451,6 +461,7 @@ Health Faclity
                       isOpen={isSecondModalOpen}
                       closeSecondModal={closeSecondModal}
                       handProceedSecond={handProceedSecond}
+                      buttonSpinner={buttonSpinner}
                     />
                   )}
                   {isThirdModalOpen && (
@@ -460,13 +471,14 @@ Health Faclity
                       handProceedThird={handProceedThird}
                       name={row.user.name}
                       token={row.token}
+                      buttonSpinner={buttonSpinner}
                     />
                   )}
                   {isLastModalOpen && (
                     <ModalSuccess
                       isOpen={isLastModalOpen}
                       closeLastModal={closeLastModal}
-                    />
+                     />
                   )}
                 </motion.tr>
               ))}

@@ -4,8 +4,9 @@
 import { useRef, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
+import { ClipLoader } from 'react-spinners';
  
-export const ModalOtpPage  = ({  closeThirdModal,handProceedThird, name, token}) => {
+export const ModalOtpPage  = ({buttonSpinner,  closeThirdModal,handProceedThird, name, token}) => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -74,8 +75,17 @@ export const ModalOtpPage  = ({  closeThirdModal,handProceedThird, name, token})
               <button
                onClick={handleProceed}  
                className="bg-[#0A2EE2] items-center  justify-between flex gap-1 font-sans text-[11px] md:text-[14px]  text-white px-2 md:px-4 md:py-2 rounded-full font-[500]">
-                Pay 
-               <span> <BsArrowRight className='mt-1 '/></span>
+               
+               {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Pay</span>
+                <span> <BsArrowRight className='mt-1 '/></span>
+              </>
+              )}
+                 
+               
               </button>
             </div>
           </div>

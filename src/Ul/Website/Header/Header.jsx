@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
- import { FaUserLarge } from "react-icons/fa6";
+//  import { FaUserLarge } from "react-icons/fa6";
 import { HiOutlineLogout } from "react-icons/hi";
 import AvatarDropdown from "./AvatarDropdown";
- import bell from "../../../assets/icon.png";
+//  import bell from "../../../assets/icon.png";
 import "flag-icons/css/flag-icons.min.css"; // Import flag icons CSS
 import Search from "../Input/components/Search";
 
@@ -84,13 +84,12 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
         {/* Header Actions */}
         <div className="flex items-center gap-5">
-          {/* Notifications Icon */}
-          <div className=" relative">
+           {/* <div className=" relative">
           <img src={bell} alt="Notifications" className="h-6 w-6" />
           <div className="w-[13px] absolute top-[-5px] right-0 text-[9px] h-[13px] text-center rounded-full bg-[#F93C65] text-[#fff]">
             6
           </div>
-          </div>
+          </div> */}
 
           {/* Language Selector */}
           <div className="relative hidden sm:block">

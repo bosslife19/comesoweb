@@ -1,10 +1,33 @@
-import React from "react";
+import { useState } from "react";
 import { TbDotsVertical } from "react-icons/tb";
 import logo from "../../../../assets/imglogo.png";
 import { BiEdit, BiUser } from "react-icons/bi";
-import { MdEmail, MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
+import { ClipLoader } from "react-spinners";
 
 const ProfileT = () => {
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+  const [buttonSpinners, setButtonSpinners] = useState(false);
+
+  const handProceed = () => {
+    setButtonSpinner(true);
+    setTimeout(() => {
+      
+      setButtonSpinner(false)
+
+    }, 1000);
+   
+  };
+
+  const handUpdatePassword = () => {
+    setButtonSpinners(true);
+    setTimeout(() => {
+      
+      setButtonSpinners(false)
+
+    }, 1000);
+   
+  };
   return (
     <div className="flex flex-col md:flex-row justify-between gap-8 font-inter ">
       {/* Left Side Form */}
@@ -75,8 +98,16 @@ const ProfileT = () => {
             <button className="flex font-[600] text-[16px] leading-[23.2px] w-[150px] md:w-[220px] h-[33px] text-sm border-[1.5px] border-[#0A2EE2] md:text-[15px] md:h-[43px] bg-[#fff] text-[#0A2EE2] rounded-[8px] items-center gap-2 font-nunito justify-center">
               Cancel
             </button>
-            <button className="flex w-[150px] md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
-              Save Changes
+            <button onClick={handProceed} className="flex w-[150px] md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+             
+            {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Save Changes</span>
+               </>
+              )}
+              
             </button>
           </div>
         </form>
@@ -117,8 +148,19 @@ const ProfileT = () => {
           </div>
           <div className="flex justify-end gap-[20px]">
             
-            <button className="flex w-[150px] md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
-              Update Password
+            <button
+             onClick={handUpdatePassword}
+             className="flex w-[150px] md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+             
+               
+            {buttonSpinners ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update Password</span>
+               </>
+              )}
+              
             </button>
           </div>
         </form>

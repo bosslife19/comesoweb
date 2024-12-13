@@ -1,12 +1,32 @@
-import React  from "react";
-import { BiEdit, BiUser } from "react-icons/bi";
+ import { useState } from "react";
+import {   BiUser } from "react-icons/bi";
 import { MdOutlineEmail } from "react-icons/md";
-import { TbDotsVertical } from "react-icons/tb";
-import logo from "../../../../assets/imglogo.png";
-
+import { ClipLoader } from "react-spinners";
+ 
 const WebAppTab = () => {
  
- 
+  const [buttonSpinner, setButtonSpinner] = useState(false);
+  // const [buttonSpinners, setButtonSpinners] = useState(false);
+
+  const handProceed = () => {
+    setButtonSpinner(true);
+    setTimeout(() => {
+      
+      setButtonSpinner(false)
+
+    }, 1000);
+   
+  };
+
+  // const handUpdatePassword = () => {
+  //   setButtonSpinners(true);
+  //   setTimeout(() => {
+      
+  //     setButtonSpinners(false)
+
+  //   }, 1000);
+   
+  // };
   return (
     <div className="lg:flex md:justify-between  gap-[20px] h-screen  max-2xl:h-ful  ">
 
@@ -52,9 +72,15 @@ const WebAppTab = () => {
             <button className="flex font-[600] md:text-[15px] text-[12px] md:leading-[23.2px] w-[150px] md:w-[220px] h-[33px] border-[1.5px] border-[#0A2EE2]  md:h-[43px] bg-[#fff] text-[#0A2EE2] rounded-[8px] items-center gap-2 font-nunito justify-center">
               Cancel
             </button>
-            <button className="flex  w-full h-[33px] text-[12px]   md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
-              Save Changes
-            </button>
+            <button onClick={handProceed} className="flex  w-full h-[33px] text-[12px]   md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+            {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Save Changes</span>
+               </>
+              )}
+             </button>
           </div>
         </form>
       </div>

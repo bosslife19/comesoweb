@@ -7,7 +7,7 @@ const PayoutBoardMain = () => {
   return (
     <div >
         <div className='flex justify-between py-[20px] flex-wrap gap-4'>
-            <h3 className=' text-[#202224] font-[700] text-[22px] md:text-[32px] leading-[43.65px]'>Payout</h3>
+            <h3 className=' text-[#202224] font-[700] text-[22px] md:text-[32px] leading-[43.65px]'>Payment Request</h3>
             <ButtonsWithPopup/>
         </div>
      {/* flex */} 

@@ -75,7 +75,7 @@ const WebAppTab = () => {
             >
               <div
                 className={`w-4 h-4 bg-white rounded-full transform duration-200 ${
-                  toggles[index] ? "translate-x-6" : ""
+                  toggles[index] ? "translate-x-[12px]" : ""
                 }`}
               ></div>
             </button>

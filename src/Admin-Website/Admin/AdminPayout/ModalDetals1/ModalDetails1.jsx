@@ -3,10 +3,11 @@
 import { HiDotsVertical } from 'react-icons/hi';
 import logo from "../../../../assets/imglogo.png"
  import { IoMdClose } from 'react-icons/io';
+import { ClipLoader } from 'react-spinners';
 
  
 
-export const Modal = ({ row, closeModal, handProceed, company, bank, accountNumber, amount, phone }) =>{
+export const Modal = ({ row, closeModal, handProceed, company, bank, accountNumber, amount, phone ,buttonSpinner}) =>{
   const date =new Date(row.created_at); // Example date
 
     
@@ -133,8 +134,15 @@ Ending Date Period
 </div>
  </div>
         <div className="mt-4 flex justify-between">
-          <button onClick={closeModal}   className="bg-[#F5F6F7] text-[#191B1C] px-3 font-[500] md:px-[30px] py-2 rounded-full">Close</button>
-          <button onClick={()=>{handProceed(amount, accountNumber)}}   className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]">Proceed
+          <button onClick={closeModal}  
+           className="bg-[#F5F6F7] text-[#191B1C] px-3 font-[500] md:px-[30px] py-2 rounded-full">Close</button>
+          <button onClick={()=>{handProceed(amount, accountNumber)}}   className="bg-[#0A2EE2] items-center flex gap-1 font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]">
+          {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+                <span>Proceed</span>
+              )}
+            
           <BsArrowRight/>
           </button>
         </div>
