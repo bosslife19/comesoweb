@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../axios-client";
+import first from "../../../assets/first-bank.png"
+import access from "../../../assets/access.png"
+import gtb from "../../../assets/GTBank_logo.svg.png"
+import uba from "../../../assets/uba-logo-1CFD25002D-seeklogo.com.png"
+import zenith from "../../../assets/Zenith-Bank-Logo.jpg"
+import Eco from "../../../assets/ecobank.png"
 
 const Financial = ({ handleNext }) => {
   const [selectedBank, setSelectedBank] = useState("");
@@ -8,12 +14,12 @@ const Financial = ({ handleNext }) => {
 
   // List of Nigerian banks with their logos
   const banks = [
-    { name: "Access Bank", logo: "https://via.placeholder.com/20?text=A" },
-    { name: "First Bank", logo: "https://via.placeholder.com/20?text=F" },
-    { name: "Guaranty Trust Bank", logo: "https://via.placeholder.com/20?text=G" },
-    { name: "United Bank for Africa", logo: "https://via.placeholder.com/20?text=U" },
-    { name: "Zenith Bank", logo: "https://via.placeholder.com/20?text=Z" },
-    {name:'Eco Bank', logo:"https://via.placeholder.com/20?text=E"}
+    { name: "Access Bank", logo: access },
+    { name: "First Bank", logo: first },
+    { name: "Guaranty Trust Bank", logo: gtb  },
+    { name: "United Bank for Africa", logo: uba },
+    { name: "Zenith Bank", logo: zenith },
+    {name:'Eco Bank', logo:Eco }
   ];
 
   const handleBankSelect = (bank) => {
@@ -71,7 +77,7 @@ useEffect(()=>{
                   onClick={() => handleBankSelect(bank)}
                   className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  <img src={bank.logo} alt={`${bank.name} logo`} className="w-6 h-6" />
+                  <img src={bank.logo} alt={`${bank.name} logo`} className="w-6 h-6 object-contain" />
                   <span>{bank.name}</span>
                 </li>
               ))}

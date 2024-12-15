@@ -27,7 +27,7 @@ const Rightside = ({ selectedItem, menuItems,handleNext  }) => {
   const currentPage = pages[selectedItem] || pages["Regulatory Requirements"];
 
   return (
-    <div className="p-5 bg-white rounded-md">
+    <div className="p-5 bg-white rounded-md ">
       <h2 className="text-[24px] font-nunito font-bold text-[#202224] mb-4">
         {selectedItem}
       </h2>

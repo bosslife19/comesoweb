@@ -9,7 +9,8 @@ import {
 } from '@mui/material';
 import { CheckCircle, Error } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import EmailLoading from '../../welcomLoading/emailLoading';
+ 
 const OTPMain =()=> {
   const [otp, setOtp] = useState(Array(4).fill(''));
   const [otpLength, setOtpLength] = useState(4); // Default OTP length
@@ -84,7 +85,7 @@ const OTPMain =()=> {
         setSuccessMessage('Phone number verification successful.');
         setError('');
         setOtpVerified(true);
-        router("/dashboard");
+        router("/SucessEmail");
       } else {
         setError('Invalid Code');
         setSuccessMessage('');
@@ -111,10 +112,15 @@ const OTPMain =()=> {
     const seconds = timer % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
-
+  const navigate = useNavigate()
+  const handlechange = () =>{
+    navigate("")
+  }
   return (
-    <Box sx={{ p: 3 }} px={"20px"}>
+    <Box sx={{ p: 1 }} px={"20px"}>
+      
       <Grid container spacing={2} justifyContent="center">
+      
         {otp.map((value, index) => (
           <Grid item key={index}>
             <TextField

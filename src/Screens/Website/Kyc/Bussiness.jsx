@@ -324,7 +324,7 @@ const Bussiness = ({ handleNext }) => {
 
       <button
         onClick={handleSuccess}
-        className="text-[#fff] w-[139px] md:w-[209px] py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] md:mt-[20%]"
+        className="text-[#fff] w-[139px] md:w-[209px] py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] mt-[20px] md:mt-[20%]"
         disabled={buttonSpinner}
       >
         {buttonSpinner ? (

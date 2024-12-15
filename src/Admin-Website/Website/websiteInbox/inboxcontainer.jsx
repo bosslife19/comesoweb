@@ -40,7 +40,7 @@ export const Inboxcontainer = () => {
     <div className="w-full   mb-[10%] bg-[#fff]">
       <div
         onClick={goBack}
-        className="flex px-[20px] font-[600] cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]"
+        className="flex px-[20px] w-[100px] font-[600] cursor-pointer items-center py-[20px] flex-wrap gap-1 text-[#333333]"
       >
         <SlArrowLeft className="text-[12px]" />
         <span className="font-[400] md:text-[16px] leading-[24px]">Back</span>

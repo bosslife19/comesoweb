@@ -190,7 +190,7 @@ function Signup() {
               className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               // value={phoneNumber}
               onChange={setPhoneNumber}
-              defaultCountry="US"
+              defaultCountry="NG"
               international
               required
             />
