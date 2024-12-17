@@ -37,7 +37,6 @@ import PageTransition from "./Ul/Admin/Layout/PageTransition";
 import Dashboard from "./pages/Website/Dashboard/Dashboards";
 import { AuthProvider } from "./context/AuthContext";
 import SignMessage from "./Admin-Website/Auth/SignupMessage/SignMessage";
-import SucessEmail from "./Admin-Website/welcomLoading/SuccessEmail";
  // import Received from "./Admin-Website/Admin/users/Received/Receive";
 
 function App() {
@@ -73,7 +72,7 @@ function App() {
 
               <Route path="/OTPSignUp" element={<SignMessage />} />
 
-              <Route path="/SucessEmail" element={<SucessEmail />} />
+              <Route path="/SucessEmal" element={<SucessEmai  />} />
 
               
   
