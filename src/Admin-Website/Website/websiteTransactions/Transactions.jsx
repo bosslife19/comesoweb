@@ -240,10 +240,10 @@ Amount:"$150",
       <div className="flex justify-between pl-2 pt-[15px] items-center">
           <h2 className="text-[#23303B] font-poppins font-[500] text-[15px] md:text-[24px] md:leading-[35.16px]">
           Transactions          </h2>
-          <span className="flex gap-2 text-[#23303B] px-4 py-2 rounded-[30px] border items-center">
+          {/* <span className="flex gap-2 text-[#23303B] px-4 py-2 rounded-[30px] border items-center">
             <BsCalendar2 />
             This Month
-          </span>
+          </span> */}
         </div>
       <div className="w-full   bg-white shadow-md rounded-[20px] mt-[20px]">
         

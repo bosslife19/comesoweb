@@ -79,11 +79,13 @@ function Signup() {
       );
       
       
-        setButtonSpinner(false);
-        localStorage.setItem('ACCESS_TOKEN', res.data.token);
+        
+        // localStorage.setItem('ACCESS_TOKEN', res.data.token);
         setUserDetails({
           ...res.data.user
         });
+         await axios.post(`${import.meta.env.VITE_BASE_URL}/api/send-otp`,{email});
+         setButtonSpinner(false);
         navigate("/OTPSignUp");
         
        

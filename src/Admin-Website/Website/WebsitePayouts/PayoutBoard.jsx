@@ -1,8 +1,9 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   
 import Pagination from "../../Website/websitePagnations/Paginations";
+import axiosClient from "../../../axios-client";
  // import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
 //  import logo from "../../../assets/imglogo.png"   
    const PAGE_SIZE = 10;
@@ -28,6 +29,27 @@ const PayoutBoardList  = () => {
   //   }
   // };
 
+  const [requests, setRequests] = useState([]);
+
+  useEffect(()=>{
+const getRequests = async()=>{
+  const res = await axiosClient.get('/user/requests');
+  setRequests(res.data.requests);
+}
+getRequests();
+  });
+
+  const date = requests?.map(item=>{
+    const date = new Date(item.created_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
 
   
  
@@ -241,9 +263,9 @@ Health Faclity
                    <th className="md:px-4 w-[100px]  py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                   Timestamp
                    </th>
-                   <th className="md:px-4 w-[100px] py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                   {/* <th className="md:px-4 w-[100px] py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Sender
-                   </th>
+                   </th> */}
                    <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Phone Number   
                      </th>
@@ -262,7 +284,7 @@ Health Faclity
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {requests?.map((row, index) => (
               <motion.tr
               // onClick={(e) => {
               //   // Check if the click happened on the select element or its child elements
@@ -281,28 +303,28 @@ Health Faclity
                   } border-b hover:bg-gray-50`}
               >
                   
-               <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.Timestamp}</td>
+               <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{date[index]}</td>
                
-                 <td className=" md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{row.Sender}</td>
+                 {/* <td className=" md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{row.Sender}</td> */}
                  <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.PhoneNumber}               
+                  {row.phone}               
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Amount}               
+                  {row.amount}               
                   </td>
                   <td className="md:px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "complete"
+                      row.status === "accepted"
                         ? "text-[#3ECF8E]"
                         : row.Status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.Status === "Failed"
+                        : row.Status === "rejected"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span>
                 </td>
                 

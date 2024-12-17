@@ -72,10 +72,10 @@ const PayoutBoardMain = () => {
               
             </div>
             <div className="px-[20px] space-y-4">
-              <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
+              {/* <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
                 <FaArrowTrendUp size={20} color="#2FC271" />
                 Due tomorrow, Mar 6th, 2024
-              </span>
+              </span> */}
 
                
             </div>
@@ -102,14 +102,14 @@ const PayoutBoardMain = () => {
               </div>
              
             </div>
-            <div className="px-[20px] space-y-4">
-              <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-                <FaArrowTrendUp size={20} color="#2FC271" />
-                Due tomorrow, Mar 6th, 2024
-              </span>
+            {/* <div className="px-[20px] space-y-4"> */}
+              {/* <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
+                <FaArrowTrendUp size={20} color="#2FC271" /> */}
+                {/* Due tomorrow, Mar 6th, 2024 */}
+              {/* </span> */}
 
              
-            </div>
+            {/* </div> */}
           </div>
         </div>
 
@@ -120,14 +120,14 @@ const PayoutBoardMain = () => {
              {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
-                <span>Payout History</span>
+                <span>Requests History</span>
               )}
             </button>
         </div>
      
       </div>
       <div className='flex justify-between pl-2 pt-[15px] items-center'>
-        <h2 className='text-[#23303B] font-poppins font-[500] text-[15px] md:text-[24px] md:leading-[35.16px]'>Payout Details</h2>
+        <h2 className='text-[#23303B] font-poppins font-[500] text-[15px] md:text-[24px] md:leading-[35.16px]'>Request Details</h2>
       <span><ButtonsWithPopup/></span>
       </div>
     </div>

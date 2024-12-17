@@ -29,8 +29,8 @@ const ButtonsWithPopup = () => {
           className="border items-center flex gap-1 w-[118px] h-[42px] rounded-[30px] border-[#EBEBEE] bg-[#f5f6fa] text-[#222222E5] font-[500] justify-center text-[14px] leading-[21.42px]"
           onClick={() => togglePopup("calendar")}
         >
-          <BiCalendar />
-          This Month
+          {/* <BiCalendar />
+          This Month */}
         </button>
         {openPopup === "calendar" && (
           <div className="absolute top-full mt-2 bg-white shadow-lg border rounded-[30px] p-4 z-10">

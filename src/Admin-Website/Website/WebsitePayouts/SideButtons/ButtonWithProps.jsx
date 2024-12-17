@@ -22,13 +22,13 @@ const ButtonsWithPopup = () => {
     <div className=" lg:flex gap-4 md:space-y-3 items-center">
       {/* Calendar Button */}
       <div className="relative">
-        <button
+        {/* <button
           className="border items-center flex gap-1 w-[118px] h-[42px] rounded-[30px] border-[#EBEBEE] bg-[#f5f6fa] text-[#222222E5] font-[500] justify-center text-[14px] leading-[21.42px]"
           onClick={() => togglePopup("calendar")}
         >
           <BiCalendar />
           This Month
-        </button>
+        </button> */}
         {openPopup === "calendar" && (
           <div className="absolute top-full right-0 mt-2 bg-white shadow-lg border rounded-lg p-4 z-10">
             <div className="text-center text-gray-700">

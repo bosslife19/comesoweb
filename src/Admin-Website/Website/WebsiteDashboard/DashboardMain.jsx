@@ -130,14 +130,14 @@ const DashboardMain = () => {
                   </button>
                 </div>
               </div>
-              <div className="p-2 absolute top-0 right-2 bg-[#D9F3DF] text-[#04AD29] rounded-[5px] md:text-[20px]">
+              {/* <div className="p-2 absolute top-0 right-2 bg-[#D9F3DF] text-[#04AD29] rounded-[5px] md:text-[20px]">
                 <FiArrowDownLeft />
-              </div>
+              </div> */}
             </div>
             <div className="px-[20px] space-y-4">
               <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-                <FaArrowTrendUp size={20} color="#2FC271" />
-                Due tomorrow, Mar 6th, 2024
+                {/* <FaArrowTrendUp size={20} color="#2FC271" />
+                Due tomorrow, Mar 6th, 2024 */}
               </span>
 
               <button onClick={handleRequestPaymet} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
