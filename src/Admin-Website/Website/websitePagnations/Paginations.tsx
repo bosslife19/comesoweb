@@ -80,13 +80,13 @@ const Pagination: React.FC<PaginationProps> = ({
       <div className="flex items-center md:mt-[0px] mt-[10px] md:justify-between space-x-4 ">
       <div className="flex items-center space-x-4">
       <div className="flex items-center space-x-4 mr-[20px]">
-          <button
+          {/* <button
              className="flex rounded-[30px] items-center space-x-2 px-4 py-2 border  bg-[#F9FAFB] text-gray-700 hover:bg-gray-200"
-          >
-            <span className="text-sm">Export</span>
+          > */}
+            {/* <span className="text-sm">Export</span>
             <BsFiletypeCsv className="text-gray-700" />
-            <GrDocumentMissing/>
-          </button>
+            <GrDocumentMissing/> */}
+          {/* </button> */}
           
         </div>
         <div className="flex items-center space-x-2">

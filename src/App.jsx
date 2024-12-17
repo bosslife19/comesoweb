@@ -67,11 +67,21 @@ function App() {
 
               {/* Website Route */}
 
-              <Route path="Kyc/details" element={<Customermangemen />} />
+              <Route path="Kyc/details" element={
+                <ProtectedRoute>
+                     <Customermangemen />
+                </ProtectedRoute>
+             
+                
+                } />
 
-              <Route path="Kyc/successful" element={<Successful />} />
+              <Route path="Kyc/successful" element={<ProtectedRoute>
+                     <Successful />
+                </ProtectedRoute>} />
 
-              <Route path="/OTPSignUp" element={<SignMessage />} />
+              <Route path="/OTPSignUp" element={
+                     <SignMessage />
+               } />
 
               <Route path="/SucessEmail" element={<SucessEmail />} />
 

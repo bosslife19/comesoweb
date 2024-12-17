@@ -84,9 +84,9 @@ const DashboardMain = () => {
             </div>
           </div>
           <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-            <FaArrowTrendUp size={20} color="#2FC271" />
+            {/* <FaArrowTrendUp size={20} color="#2FC271" />
             <span className="text-[#2FC271]">8.5% </span>
-            Up from yesterday
+            Up from yesterday */}
           </span>
         </div>
       </div>
@@ -107,9 +107,9 @@ const DashboardMain = () => {
             </div>
           </div>
           <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-            <FaArrowTrendUp size={20} color="#2FC271" />
+            {/* <FaArrowTrendUp size={20} color="#2FC271" />
             <span className="text-[#2FC271]">1.5% </span>
-            Up from yesterday
+            Up from yesterday */}
           </span>
         </div>
       </div>
@@ -129,9 +129,9 @@ const DashboardMain = () => {
             </div>
           </div>
           <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-            <FaArrowTrendDown size={20} color="#F93C65" />
+            {/* <FaArrowTrendDown size={20} color="#F93C65" />
             <span className="text-[#F93C65]">8.5% </span>
-            Up from yesterday
+            Up from yesterday */}
           </span>
         </div>
       </div>
@@ -152,9 +152,9 @@ const DashboardMain = () => {
             </div>
           </div>
           <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-            <FaArrowTrendDown size={20} color="#2FC271" />
+            {/* <FaArrowTrendDown size={20} color="#2FC271" />
             <span className="text-[#2FC271]">8.5% </span>
-            Up from yesterday
+            Up from yesterday */}
           </span>
         </div>
       </div>

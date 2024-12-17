@@ -23,6 +23,9 @@ const Payments = () => {
   const [userDets, setUserDets] = useState(null);
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [buttonSpinners, setButtonSpinners] = useState(false);
+  const {userDetails} = useContext(AuthContext);
+
+ 
 
   const navigate = useNavigate()
  
@@ -48,20 +51,24 @@ const Payments = () => {
     setNumError('')
     try {
       setButtonSpinners(true)
+      console.log('heress');
       const response = await axiosClient.post('/user/verify-number', {phone:phoneNumber})
       
       if(response.data.error){
+        setButtonSpinners(false)
         return setNumError(response.data.error)
       }
-
+      setButtonSpinners(false)
       setUserDets(response.data.user);
      
 
     } catch (error) {
       if(error.response.data){
+        setButtonSpinners(false)
         setNumError(error.response?.data?.message)
       }
      else{
+      setButtonSpinners(false)
       setNumError('Some error occured')
      }
       
@@ -72,6 +79,17 @@ const Payments = () => {
     e.preventDefault();
     setButtonSpinner(true);
     try {
+      if(!amount||!phoneNumber){
+        setButtonSpinner(false);
+        return alert('All fields are required')
+      }
+
+      if(amount > userDetails.balance){
+        
+        setButtonSpinner(false)
+        return alert('You do not have sufficient funds to request');
+      }
+    
       const res = await axiosClient.post('/user/create-payment-request',{
         token: token[0],amount,phone:phoneNumber
       })

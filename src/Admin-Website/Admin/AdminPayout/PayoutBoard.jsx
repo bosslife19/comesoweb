@@ -106,9 +106,19 @@ const PayoutBoardList = () => {
           },
         }
       );
-      
-      setIsThirdModalOpen(false);
-    setIsLastModalOpen(true);
+     
+      const res = await axiosClient.post('/update-payment-request', {
+        status:'accepted',
+        name,
+        token
+      });
+     
+      if(res.data.status){
+        setIsThirdModalOpen(false);
+        setIsLastModalOpen(true);
+      }
+    //   setIsThirdModalOpen(false);
+    // setIsLastModalOpen(true);
     } catch (error) {
       setButtonSpinner(false)
       console.log(error);
@@ -117,19 +127,9 @@ const PayoutBoardList = () => {
       }else{
         alert('An error occured in the server. Try again');
       }
-      if(error.response.data.message=='OTP could not be verified'){
-        setIsThirdModalOpen(false);
-        const res = await axiosClient.post('/update-payment-request', {
-          status:'accepted',
-          name,
-          token
-        });
+      // if(error.response.data.message=='OTP could not be verified'){
        
-        if(res.data.status){
-          setIsThirdModalOpen(false);
-          setIsLastModalOpen(true);
-        }
-      }
+      // }
     }
    
     

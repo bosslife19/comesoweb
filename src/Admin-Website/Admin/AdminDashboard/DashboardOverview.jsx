@@ -279,7 +279,7 @@ onClick={() => handleFilterChange("Rejected")}>
           <thead>
           <tr className="bg-[#F9FAFB]">
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                   Payment ID
+                   Transaction ID
                    </th>
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Timestamp

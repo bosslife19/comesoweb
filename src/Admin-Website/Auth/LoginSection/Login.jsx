@@ -64,7 +64,7 @@ getAuth();
   const {userDetails, setUserDetails} = useContext(AuthContext)
 
   const handleLogin = async () => {
-
+      
     if (!password || !email) {
      
       return setError("All fields are required");
@@ -93,8 +93,10 @@ getAuth();
          if(response.data.user.isAdmin){
           localStorage.setItem('isAdmin', true);
           navigate("/admin/dashboard");
-         }else{
+         }else if(response.data.user.email_verified_at){
           navigate('/dashboard');
+         }else{
+          alert('Please verify your email');
          }
         
       }

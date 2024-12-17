@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   import logo from "../../../assets/imglogo.png"
@@ -6,6 +6,7 @@ import Pagination from "../AdminPagnations/Paginations";
 import ButtonsWithPopup from "./sideButtons/ButtonWithProps";
 import { BsCalendar } from "react-icons/bs";
 import { HiDotsVertical } from "react-icons/hi";
+import axiosClient from "../../../axios-client";
    
 const PAGE_SIZE = 10;
  
@@ -17,7 +18,17 @@ const Transactions  = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedRow, setSelectedRow] = useState(null);
 
-  
+   const date = transactions?.map(item=>{
+    const date = new Date(item.created_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
 
   // const handleChange = (event) => {
   //   setSelectedAction(event.target.value);
@@ -172,10 +183,18 @@ const Transactions  = () => {
     
     
   ];
-
-  const filteredData = tableData.filter((row) => {
-    const matchesQuery = row.PaymentID.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = filterStatus === "All" || row.Status.toLowerCase() === filterStatus.toLowerCase();
+  const [transactions, setTransactions] = useState([])
+useEffect(()=>{
+const getAlltransactions = async ()=>{
+  const res = await axiosClient.get('/transaction/all');
+  
+  setTransactions(res.data.transactions)
+}
+getAlltransactions()
+},[]);
+  const filteredData = transactions.filter((row) => {
+    const matchesQuery = row.transaction_id.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = filterStatus === "All" || row.status.toLowerCase() === filterStatus.toLowerCase();
     return matchesQuery && matchesStatus;
   });
 
@@ -278,7 +297,7 @@ onClick={() => handleFilterChange("Rejected")}>
           <thead>
           <tr className=" ">
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                   Payment ID
+                   Transaction ID
                    </th>
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Timestamp
@@ -320,29 +339,29 @@ onClick={() => handleFilterChange("Rejected")}>
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
               >
-               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.PaymentID || "N/A"}</td>
+               <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.transaction_id || "N/A"}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Timestamp}
+                  {date[index]}
                 </td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.type}</td>             
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.Sender}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.Beneficiary}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.sender}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.beneficiary}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   {row.Amount}               
                   </td>
                   <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "complete"
+                      row.status === "Received"
                         ? "text-[#3ECF8E]"
-                        : row.Status === "pending"
+                        : row.status === "pending"
                         ? "text-[#FFC13C]"
                         : row.Status === "Rejected"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span> 
                 </td>
                 <td className=" px-4 py-2">

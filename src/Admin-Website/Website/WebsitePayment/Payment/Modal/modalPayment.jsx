@@ -1,7 +1,7 @@
  
 import { ClipLoader } from "react-spinners"
 import success from "../../../../../assets/successful.png"
-const ModalPayment = ({handProceed,buttonSpinner} ) => {
+const ModalPayment = ({handProceed} ) => {
       
   return (
     <div className="fixed inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
@@ -19,13 +19,11 @@ const ModalPayment = ({handProceed,buttonSpinner} ) => {
      <div className='flex justify-center '>
     <button
     onClick={handProceed}
-    disabled={buttonSpinner}
+    // disabled={buttonSpinner}
            className="text-[#fff]  w-full  py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] "
-         > {buttonSpinner ? (
-          <ClipLoader size={20} color="#fff" />
-        ) : (
+         > 
           <span>Go back</span>
-        )}
+        
             
            
      </button>
