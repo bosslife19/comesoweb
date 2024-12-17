@@ -150,46 +150,46 @@ function Signup() {
 
   return (
     <div className="flex justify-between    relative overflow-hidden ">
-      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1]"></div>
+      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#DDDFE1] z-[-100]"></div>
       {/* Login Form */}
 
       {/* Login Form */}
-      <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2 scroll-container  lg:h-screen overflow-y-auto">
-        <span className="flex items-center font-poppins text-[#333333] font-[500] md:text-[32px] leading-[48px]">
-          Welcome Back
-          <img src={COMESOLOGO} className="ml-2" alt="COME SO LOGO" />
-        </span>
+      <div className="px-[20px] md:px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2 scroll-container  lg:h-screen overflow-y-auto">
+        <div className="flex flex-col-reverse md:flex-row items-center ">
+          <h2 className="font-poppins text-[#333333] font-[500] text-[12px] md:text-[32px] md:leading-[48px]">Welcome Back</h2>
+          <img src={COMESOLOGO} className="md:ml-2" alt="COME SO LOGO" />
+        </div>
         <form className="space-y-4 mt-6">
           <div>
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Company Name
             </label>
             <input
               type="text"
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px]  p-2 border border[#f2f2f2] mt-2"
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               required
             />
           </div>
           <div>
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Email
             </label>
             <input
               type="email"
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div>
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Phone Number
             </label>
             <PhoneInput
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               // value={phoneNumber}
               onChange={setPhoneNumber}
               defaultCountry="NG"
@@ -198,24 +198,24 @@ function Signup() {
             />
           </div>
           <div>
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Company Location
             </label>
             <input
               type="text"
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               value={companyLocation}
               onChange={(e) => setCompanyLocation(e.target.value)}
               required
             />
           </div>
           <div className="relative">
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px]  md:text-[16px] font-medium">
               Password (Numbers Only)
             </label>
             <input
               type={showPassword ? "text" : "password"} // Switch input type based on visibility
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               value={password}
               onChange={handlePasswordChange}
               required
@@ -223,23 +223,23 @@ function Signup() {
             {/* Eye icon for toggling password visibility */}
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[15%] right-4 gap-1 font-poppins font-[400] leading-[27px]  flex transform -translate-y-[50%] cursor-pointer text-gray-600"
+              className="absolute top-[15%] right-4 gap-1 text-[12px] md:text-[16px] font-poppins font-[400] items-center   flex transform -translate-y-[50%] cursor-pointer text-gray-600"
             >
-              {showPassword ? <BiShow size={24} /> : <BiHide size={24} />}
+              {showPassword ? <BiShow  className="text-[12px] md:text-[16px]" /> : <BiHide className="text-[12px] md:text-[16px]" />}
               {showPassword ? "Show" : "Hide"}
             </span>
           </div>
-          {error && <p className="text-red-400 font-bold my-3">{error}</p>}
+          {error && <p className="text-red-400 font-bold my-3 text-[12px] md:text-[16px]">{error}</p>}
         </form>
         <div className="  pt-[20%] flex flex-col pb-3 ">
-          <span className=" font-[400] text-[16px] leading-[24px] text-[#666666]">
+          <span className=" font-[400] text-[12px] md:text-[16px]  md:leading-[24px] text-[#666666]">
             By creating an account, you agree to the Terms of use and Privacy
             Policy.
           </span>
 
           <button
             onClick={handleSignup}
-            className="mt-6 px-5 py-[10px] font-[500] leading-[33px] font-poppins w-[200px]  bg-[#0A2EE2]  text-white rounded-[30px]"
+            className="mt-6  md:px-5 py-[7px] md:py-[10px] font-[500] md:leading-[33px] font-poppins  md:w-[200px]  bg-[#0A2EE2]  text-white rounded-[30px]"
           >
             {buttonSpinner ? (
                 <div className="flex text-white items-center justify-center h-full w-full">
@@ -250,7 +250,7 @@ function Signup() {
                 "Signup"
               )}
           </button>
-          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">
+          <span className=" font-[400] text-[12px] md:text-[16px] leading-[24px] py-1 text-[#666666]">
             Already have an ccount?
             <Link to="/login" className=" underline">
               Login

@@ -14,16 +14,16 @@ const ContactUs = () => {
             <label htmlFor="fullname" className="block text-[12px] py-2 md:text-[14px] font-medium text-gray-700">
             Call Us 
             </label>
-            <div className='shadow-md flex gap-4py-[13px] md:py-[18px] px-[14px] rounded-[10px] border  border-[#f4f5fa] items-center'>
+            <div className='shadow-md flex gap-4 py-[12px] leading-[20px] md:py-[18px] px-[14px] rounded-[10px] border  border-[#f4f5fa] items-center'>
                 <BiPhone/>
-                <span className='text-[#98A2B3] text-[14px] md:text-[12px]'>+44 567 547 8907</span>
+                <span className='text-[#98A2B3] text-[12px] md:text-[14px]'>+44 567 547 8907</span>
             </div>
-            <label htmlFor="fullname" className="block text-[12px] py-2 md:text-[14px] font-medium text-gray-700">
+            <label htmlFor="fullname" className="block text-[12px] py-2 md:text-[14px] font-medium text-gray-700 leading-[20px]">
             Company Name
             </label>
             <div className='shadow-md flex gap-4 border border-[#f4f5fa] items-center py-[13px] md:py-[18px] px-[14px] rounded-[10px]'>
                 <BiPhone/>
-                <span className='text-[#98A2B3] text-[14px] md:text-[12px]'>+44 567 547 8907</span>
+                <span className='text-[#98A2B3] md:text-[14px] text-[12px]'>+44 567 547 8907</span>
             </div>
             </div>
           </div>

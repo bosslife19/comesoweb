@@ -72,7 +72,7 @@ const WebAppTab = () => {
             <button className="flex font-[600] md:text-[15px] text-[12px] md:leading-[23.2px] w-[150px] md:w-[220px] h-[33px] border-[1.5px] border-[#0A2EE2]  md:h-[43px] bg-[#fff] text-[#0A2EE2] rounded-[8px] items-center gap-2 font-nunito justify-center">
               Cancel
             </button>
-            <button onClick={handProceed} className="flex  w-full h-[33px] text-[12px]   md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+            <button disabled={buttonSpinner} onClick={handProceed} className="flex  w-full h-[33px] text-[12px]   md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
             {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (

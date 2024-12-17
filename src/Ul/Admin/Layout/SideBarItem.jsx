@@ -155,7 +155,7 @@ const SideBarItem = ({ sidebarOpen, setSidebarOpen }) => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between gap-2 px-2 py-5.5 lg:py-2.5">
+        <div className="flex items-center justify-between gap-2 px-2 py-[30px] lg:py-[20px]">
           <Link to="dashboard" >
             <img src={logo} /> 
           </Link>

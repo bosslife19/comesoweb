@@ -9,7 +9,7 @@ import Search from "../Input/components/Search";
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null); // State to track which dropdown is open
   const [selectedLanguage, setSelectedLanguage] = useState("en-US");
   const navigate = useNavigate();
 
@@ -40,7 +40,15 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
     console.log(`Language changed to: ${language}`);
-    setLanguageDropdownOpen(false);
+    setDropdownOpen(null); // Close both dropdowns
+  };
+
+  const toggleDropdown = (dropdownType) => {
+    if (dropdownOpen === dropdownType) {
+      setDropdownOpen(null); // Close the dropdown if it is already open
+    } else {
+      setDropdownOpen(dropdownType); // Open the selected dropdown and close the other
+    }
   };
 
   return (
@@ -84,18 +92,11 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
         {/* Header Actions */}
         <div className="flex items-center gap-5">
-           {/* <div className=" relative">
-          <img src={bell} alt="Notifications" className="h-6 w-6" />
-          <div className="w-[13px] absolute top-[-5px] right-0 text-[9px] h-[13px] text-center rounded-full bg-[#F93C65] text-[#fff]">
-            6
-          </div>
-          </div> */}
-
           {/* Language Selector */}
           <div className="relative hidden sm:block">
             <button
               className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-              onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+              onClick={() => toggleDropdown("language")}
             >
               <span
                 className={`fi ${
@@ -111,7 +112,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
               </span>
             </button>
 
-            {languageDropdownOpen && (
+            {dropdownOpen === "language" && (
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md">
                 {languages.map((lang) => (
                   <button
@@ -128,8 +129,12 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
 
           {/* Avatar Dropdown */}
-          <div className="">
-            <AvatarDropdown options={dropdownOptions} />
+          <div className="border-l-2 pl-4">
+            <button onClick={() => toggleDropdown("avatar")}>
+              <AvatarDropdown options={dropdownOptions} />
+            </button>
+
+            
           </div>
         </div>
       </div>
