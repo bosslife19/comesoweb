@@ -50,7 +50,7 @@ const Bussiness = ({ handleNext }) => {
             {
               headers: {
                 Authorization: `Bearer ${
-                  import.meta.env.VITE_PAYSTACK_TEST_SECRET
+                  import.meta.env.VITE_PAYSTACK_LIVE_SECRET
                 }`,
               },
             }
@@ -81,7 +81,7 @@ const Bussiness = ({ handleNext }) => {
               {
                 headers: {
                   Authorization: `Bearer ${
-                    import.meta.env.VITE_PAYSTACK_TEST_SECRET
+                    import.meta.env.VITE_PAYSTACK_LIVE_SECRET
                   }`,
                 },
               }

@@ -56,7 +56,7 @@ const PayoutBoardList = () => {
           {
             headers: {
               Authorization: `Bearer ${
-                import.meta.env.VITE_PAYSTACK_TEST_SECRET
+                import.meta.env.VITE_PAYSTACK_LIVE_SECRET
               }`,
             },
           }
@@ -101,7 +101,7 @@ const PayoutBoardList = () => {
         {
           headers: {
             Authorization: `Bearer ${
-              import.meta.env.VITE_PAYSTACK_TEST_SECRET
+              import.meta.env.VITE_PAYSTACK_LIVE_SECRET
             }`,
           },
         }

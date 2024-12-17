@@ -75,10 +75,10 @@ const PayoutHeaders = () => {
              
             </div>
             <div className="px-[20px] space-y-4">
-              <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
+              {/* <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
                 <FaArrowTrendUp size={20} color="#2FC271" />
                 Due tomorrow, Mar 6th, 2024
-              </span>
+              </span> */}
 
              
             </div>
