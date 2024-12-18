@@ -17,7 +17,7 @@ const Transactions  = () => {
   const [selectedAction, setSelectedAction] = useState("");
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [selectedRow, setSelectedRow] = useState(null);
-
+   const [transactions, setTransactions] = useState([])
    const date = transactions?.map(item=>{
     const date = new Date(item.created_at); // Example date
 
@@ -183,7 +183,7 @@ const Transactions  = () => {
     
     
   ];
-  const [transactions, setTransactions] = useState([])
+
 useEffect(()=>{
 const getAlltransactions = async ()=>{
   const res = await axiosClient.get('/transaction/all');
