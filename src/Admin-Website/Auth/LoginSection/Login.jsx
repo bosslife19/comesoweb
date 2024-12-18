@@ -15,6 +15,8 @@ import { BiArrowBack, BiArrowFromRight, BiHide, BiShow } from "react-icons/bi";
 import Spinner from "../../../Ul/Admin/Spinner";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Sample data for the auto slider
 const sliderData = [
@@ -88,7 +90,8 @@ getAuth();
         setUserDetails({
           ...response.data.user
         })
-        
+        toast.success("Login successful!");
+
        
          if(response.data.user.isAdmin){
           localStorage.setItem('isAdmin', true);
@@ -96,8 +99,8 @@ getAuth();
          }else if(response.data.user.email_verified_at){
           navigate('/dashboard');
          }else{
-          alert('Please verify your email');
-         }
+          toast.error("Please verify your email")
+          }
         
       }
     
@@ -106,8 +109,14 @@ getAuth();
 
       if(error.response.data){
         setError(error.response?.data.message)
+
+        toast.error(error.response?.data.message || "An error occurred!");
+
       }else{
         setError('Some network error occured, try again')
+
+        toast.error("Some network error occurred, try again");
+
       }
       
     }
@@ -161,23 +170,23 @@ getAuth();
 
   return (
     <div className="flex justify-between  h-screen  relative overflow-hidden ">
-      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
+      <div className="lg:w-0 w-[342px] h-[342px]   absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9] z-[-100]"></div>
       {/* Login Form */}
 
       {/* Login Form */}
-      <div className="px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2">
-        <span className="flex items-center font-poppins text-[#333333] font-[500] md:text-[32px] leading-[48px]">
-          Welcome to
-          <img src={COMESOLOGO} className="ml-2" alt="COME SO LOGO" />
-        </span>
+      <div className="px-[20px] md:px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2">
+        <div className="flex flex-col-reverse md:flex-row items-center ">
+                 <h2 className="font-poppins text-[#333333] font-[500] text-[12px] md:text-[32px] md:leading-[48px]">Welcome Back</h2>
+                 <img src={COMESOLOGO} className="md:ml-2" alt="COME SO LOGO" />
+               </div>
         <form className="space-y-4 mt-6">
           <div>
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Email
             </label>
             <input
               type="email"
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2 text-[12px] md:text-[16px]"
               value={email}
               onChange={(e) => {
                 setError("");
@@ -187,9 +196,9 @@ getAuth();
             />
           </div>
           {/* <div>
-            <label className="block text-[#666666] text-sm font-medium">Phone Number</label>
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">Phone Number</label>
             <PhoneInput
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2 text-[12px] md:text-[16px]"
               value={phoneNumber}
               onChange={setPhoneNumber}
               defaultCountry="US"
@@ -198,12 +207,12 @@ getAuth();
             />
           </div> */}
           <div className="relative">
-            <label className="block text-[#666666] text-sm font-medium">
+            <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
               Password (Numbers Only)
             </label>
             <input
               type={showPassword ? "text" : "password"} // Switch input type based on visibility
-              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              className="w-full h-[56px] rounded-[12px] p-2 border border[#f2f2f2] mt-2 text-[12px] md:text-[16px]"
               value={password}
               onChange={handlePasswordChange}
               required
@@ -211,18 +220,20 @@ getAuth();
             {/* Eye icon for toggling password visibility */}
             <span
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute top-[15%] right-4 gap-1 font-poppins font-[400] leading-[27px]  flex transform -translate-y-[50%] cursor-pointer text-gray-600"
+              className="absolute top-[15%] text-[12px] md:text-[16px] right-4 gap-1 font-poppins font-[400] items-center flex transform -translate-y-[50%] cursor-pointer text-gray-600"
             >
-              {showPassword ? <BiShow size={24} /> : <BiHide size={24} />}
+              {showPassword ? <BiShow className="text-[12px] md:text-[16px]" /> : <BiHide className="text-[12px] md:text-[16px]" />}
               {showPassword ? "Show" : "Hide"}
             </span>
           </div>
         </form>
-        {error && <p className="text-red-400 my-2 font-semibold ">{error}</p>}
-        <div className="absolute bottom-[15%] md:bottom-[33%] flex flex-col pb-3 ">
+        <div className=" ">
+        {error && <p className="text-red-400 my-2 font-semibold text-[12px] md:text-[16px]">{error}</p>}
+        </div>
+        <div className="    flex flex-col pb-3 ">
           <button
             onClick={handleLogin}
-            className="mt-6 px-5 py-[10px] font-[500] leading-[33px] font-poppins w-[200px]  bg-[#0A2EE2]  text-white rounded-[30px]"
+            className="mt-6 md:px-5 py-[6px] md:py-[10px] font-[500] leading-[33px] font-poppins md:w-[200px]  bg-[#0A2EE2]  text-white rounded-[30px]"
           >
             {buttonSpinner ? (
               <div className="flex text-white items-center justify-center w-full h-full">
@@ -233,7 +244,7 @@ getAuth();
               "Login"
             )}
           </button>
-          <span className=" font-[400] text-[16px] leading-[24px] py-1 text-[#666666]">
+          <span className=" font-[400] text-[12px] md:text-[16px] leading-[24px] py-5 text-[#666666]">
             Don’t have an account?
             <Link to="/Signup" className=" underline">
               Sign Up
@@ -241,12 +252,12 @@ getAuth();
           </span>
         </div>
 
-        <div className="lg:w-0 w-[342px] z-[-1] h-[342px] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
+        <div className="lg:w-0 w-[342px] z-[-100] h-[342px] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
       </div>
 
       {/* Image Slider */}
       <div className="w-0 lg:w-1/2 flex flex-col justify-center h-full relative overflow-hidden  ">
-        <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9]"></div>
+        <div className="w-[342px] h-[342px] absolute top-[-133px] right-[-203px] rounded-full bg-[#F8F9F9] z-[-100]"></div>
         <Slider {...settings}>
           {sliderData.map((data, index) => (
             <div key={index} className="text-center px-6 ">
@@ -265,7 +276,7 @@ getAuth();
             </div>
           ))}
         </Slider>
-        <div className="w-[342px] h-[342px] z-[-1] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
+        <div className="w-[342px] h-[342px] z-[-100] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>
       </div>
     </div>
   );

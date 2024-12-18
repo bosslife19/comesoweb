@@ -83,7 +83,7 @@ function App() {
                      <SignMessage />
                } />
 
-              <Route path="/SucessEmail" element={<SucessEmail />} />
+              <Route path="/SucessEmal" element={<SucessEmail  />} />
 
               
   

@@ -6,6 +6,8 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProfileT = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -82,11 +84,14 @@ try {
   if(response.data.error){
     return setError(response.data.error);
   }
-  setButtonSpinner(false)
   
-  alert('Your settings are saved successfully')
-} catch (error) {
+  toast.success("Your settings are saved successfully");
+  } catch (error) {
   console.log(error)
+  // setButtonSpinner(false)
+}finally{
+  setButtonSpinner(false)
+
 }
    
     
@@ -336,7 +341,7 @@ try {
           </div>
 
           <div className="flex justify-end ">
-            <button onClick={handleNormalUpdate} className="bg-[#0A2EE2] text-[12px] md:text-[15px] w-full  md:w-[250px] my-2 md:py-0 py-2  md:h-[55px] rounded-[8px] text-white">
+            <button disabled={buttonSpinner} onClick={handleNormalUpdate} className="bg-[#0A2EE2] text-[12px] md:text-[15px] w-full  md:w-[250px] my-2 md:py-0 py-2  md:h-[55px] rounded-[8px] text-white">
             {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
@@ -397,7 +402,7 @@ try {
               </div>
             </div>
             <div className="flex justify-end gap-[20px]">
-              <button onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+              <button disabled={buttonSpinner} onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
                {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
@@ -453,7 +458,7 @@ try {
           </div>
 
           <div className="justify-end flex pt-2">
-            <button onClick={handleNormalUpdate} className="bg-[#0A2EE2]   justify-center items-center w-full md:w-[200px] flex my-2 md:py-1 py-3 md:h-[55px] rounded-[8px] text-white">
+            <button disabled={buttonSpinner} onClick={handleNormalUpdate} className="bg-[#0A2EE2]   justify-center items-center w-full md:w-[200px] flex my-2 md:py-1 py-3 md:h-[55px] rounded-[8px] text-white">
             {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
@@ -505,7 +510,7 @@ try {
           </div>
 
           <div className="justify-end flex pt-2">
-          <button onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+          <button   disabled={buttonSpinner}  onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
                {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
