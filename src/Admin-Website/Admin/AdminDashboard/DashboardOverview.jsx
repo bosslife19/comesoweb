@@ -238,9 +238,9 @@ const DashboardList  = () => {
     setFilterStatus(status);
   };
   const exportToCSV = () => {
-    const csvData = transactions.map((transaction) => ({
+    const csvData = transactions.map((transaction, index) => ({
       TransactionID: transaction.transaction_id || "N/A",
-      Timestamp: formatDate(transaction.created_at),
+      Timestamp:date[index],
       Type: transaction.type || "N/A",
       Sender: transaction.sender || "N/A",
       Beneficiary: transaction.beneficiary || "N/A",
