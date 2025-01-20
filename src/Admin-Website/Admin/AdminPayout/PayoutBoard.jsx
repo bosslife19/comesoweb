@@ -157,7 +157,7 @@ const PayoutBoardList = () => {
     const getPaymentRequests = async () => {
       try {
         const response = await axiosClient.get("/payout-requests/all");
-
+        console.log(response.data);
         setPaymentRequests(response.data.requests);
       } catch (error) {
         console.log(error);

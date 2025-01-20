@@ -16,7 +16,7 @@ const PayoutBoardMain = () => {
       const resp = await axiosClient.get("/user/all");
       setFacilities(resp.data.facilities.length);
       const response = await axiosClient.get('/transaction/all');
-      setTransactions(response.data.transactions);
+      setTransactions(response.data.transactions.length);
       
 
     }
