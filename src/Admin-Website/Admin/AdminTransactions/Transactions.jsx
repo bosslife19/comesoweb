@@ -193,7 +193,7 @@ const getAlltransactions = async ()=>{
 getAlltransactions()
 },[]);
   const filteredData = transactions.filter((row) => {
-    const matchesQuery = row.transaction_id.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesQuery = row.beneficiary.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || row.status.toLowerCase() === filterStatus.toLowerCase();
     return matchesQuery && matchesStatus;
   });
@@ -347,7 +347,7 @@ onClick={() => handleFilterChange("Rejected")}>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.sender}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.beneficiary}</td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Amount}               
+                  {row.amount}               
                   </td>
                   <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span

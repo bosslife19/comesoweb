@@ -1,11 +1,12 @@
 import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import * as XLSX from "xlsx";
  // import Pagination from "../../Pagination/Paginations";
   
  import Pagination from "../../../Admin-Website/Admin/AdminPagnations/Paginations";
  import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
 import axiosClient from "../../../axios-client";
- 
+import Papa from "papaparse";
 const PAGE_SIZE = 10;
  
 const DashboardList  = () => {
@@ -18,6 +19,19 @@ const DashboardList  = () => {
   const handleChange = (event) => {
     setSelectedAction(event.target.value);
     console.log("Selected action:", event.target.value);
+  };
+  const handleExport = () => {
+    
+    // Create a new workbook and worksheet
+    
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(transactions);
+
+    // Append worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "transactions");
+
+    // Write workbook to a binary string and trigger download
+    XLSX.writeFile(workbook, `transactions.xlsx`);
   };
 
   useEffect(()=>{
@@ -223,43 +237,53 @@ const DashboardList  = () => {
   const handleFilterChange = (status) => {
     setFilterStatus(status);
   };
+  const exportToCSV = () => {
+    const csvData = transactions.map((transaction) => ({
+      TransactionID: transaction.transaction_id || "N/A",
+      Timestamp: formatDate(transaction.created_at),
+      Type: transaction.type || "N/A",
+      Sender: transaction.sender || "N/A",
+      Beneficiary: transaction.beneficiary || "N/A",
+      Amount: transaction.amount || "N/A",
+      Status: transaction.status || "N/A",
+    }));
+
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "transactions.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
-    <div className="border w-full p-4 bg-white rounded-lg shadow-md mt-[20px]">
+    <div className="border w-full p-4 rounded-lg  mt-[20px]">
     <div className=" md:flex justify-between items-center mb-6 font-sans">
   {/* Left Section: Title and Tag */}
-  <div className="flex-col gap-3 items-center md:mb-0 mb-5 space-y-4">
-<motion.h2
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.5 }}
-  className="text-[22px] text-[#49454FCC] leading-[27.72px] font-[500] font-inter  "
->
-  Recent Transactions
-</motion.h2>
-<div className="flex justify-between items-center flex-wrap">
-{/* <div className="flex gap-2 mt-2">
-<button
-onClick={() => handleFilterChange("All")}
-className={`border md:px-[0px] px-[20px] md:w-[118px] md:h-[42px] rounded-[30px] ${filterStatus === "All" ? "border-blue-500 text-[#222222E5]" : "bg-white text-black"} font-[500] text-[14px] md:text-[17px] leading-[21.42px]`}
->
-All
-</button>
+  <div className="border w-full p-4 rounded-lg  mt-[20px]">
+  <div className="flex justify-between items-center mb-6">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-[22px] text-[#49454FCC] font-[500]"
+        >
+          Recent Transactions
+        </motion.h2>
+        <button
+          onClick={()=>{
+            exportToCSV();
+            handleExport();
+          }}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow"
+        >
+          Export to CSV
+        </button>
+      </div>
+  </div>
 
-<button onClick={() => handleFilterChange("Complete")} className="border md:px-[0px] px-[20px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px] ">
-  Complete
-</button>
-<button className="border md:px-[0px] px-[20px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px] "onClick={() => handleFilterChange("Pending")}>
-  Pending
-</button>
-<button className="border md:px-[0px] px-[10px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px]"
-onClick={() => handleFilterChange("Rejected")}>
-  Rejected
-</button>
-</div> */}
-
-</div>
-</div>
 
 {/* Right Section: Search Bar and Filter Button */}
 <div className="flex items-center gap-3  mt-[35px]">

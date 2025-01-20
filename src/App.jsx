@@ -158,7 +158,7 @@ function App() {
                 />
 
                 {/* Product Details */}
-                <Route path="/admin/product/:id" element={<ProductDetails />} />
+                <Route path="/admin/message/:id" element={<ProductDetails />} />
 
                 {/* Transactions */}
                 <Route

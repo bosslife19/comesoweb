@@ -1,19 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdMoveToInbox, MdStar } from "react-icons/md";
  import { CiStar } from "react-icons/ci";
 import "../../../../styles/Admin/overflow_hidden.css"; // Assuming the CSS file for truncation is imported
 import Search from "../../../../Ul/Admin/Input/components/Search";
+import axiosClient from "../../../../axios-client";
 
 export const InboxContents = () => {
-  const messages = [
-    { id: 1, name: "John Doe", time: "10:30 AM", label: "Primary", paragraph: "Our Bachelor of Commerce program is ACBSP-accredited." },
-    { id: 2, name: "Jane Smith", time: "11:00 AM", label: "Work", paragraph: "Get Best Advertiser In Your Side Pocket" },
-    { id: 3, name: "Alice Johnson", time: "12:15 PM", label: "Friends", paragraph: "Vacation Home" },
-    { id: 4, name: "Bob Williams", time: "1:45 PM", paragraph: "Some text here that will be truncated." },
-  ];
+  const [messages, setMessages] = useState([]);
+  useEffect(()=>{
+      const getMessages = async ()=>{
+        const res = await axiosClient.get('/messages');
+       
+        setMessages(res.data.messages);
+      }
+      getMessages();
+    }, []);
+  // const messages = [
+  //   { id: 1, name: "John Doe", time: "10:30 AM", label: "Primary", paragraph: "Our Bachelor of Commerce program is ACBSP-accredited." },
+  //   { id: 2, name: "Jane Smith", time: "11:00 AM", label: "Work", paragraph: "Get Best Advertiser In Your Side Pocket" },
+  //   { id: 3, name: "Alice Johnson", time: "12:15 PM", label: "Friends", paragraph: "Vacation Home" },
+  //   { id: 4, name: "Bob Williams", time: "1:45 PM", paragraph: "Some text here that will be truncated." },
+  // ];
+  const date = messages?.map(item=>{
+    const date = new Date(item.created_at); // Example date
 
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
   const [checkedStates, setCheckedStates] = useState(
     messages.reduce((acc, message) => {
       acc[message.id] = false; // Initialize all as unchecked
@@ -73,7 +93,7 @@ export const InboxContents = () => {
         </div>
       </div>
       <ul className="py-3">
-        {messages.map((message) => (
+        {messages.map((message, index) => (
           <li
             key={message.id}
             className={`md:flex items-center p-3 shadow-sm border-b border-[#f3f3f3] ${
@@ -95,7 +115,7 @@ export const InboxContents = () => {
                   starredStates[message.id] ? "text-yellow-400" : "text-gray-400"
                 } p-1`}
               />
-              <Link to={`/product/${message.id}`} className="flex justify-between items-center w-full">
+              <Link to={`/admin/message/${message.id}`} className="flex justify-between items-center w-full">
                 <div className="flex items-center  gap-3">
                   <span className="text-[#202224] font-medium font-nunito text-[14px]">{message.name}</span>
                   <div className="flex justify-center items-center">
@@ -106,10 +126,10 @@ export const InboxContents = () => {
                   )}
                   </div>
                  <p className=" text-[#202224] text-[14px] font-nunito leading-[19.1px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[80px] md:max-w-[200px]">
-                    {message.paragraph}</p>
+                    {message.message}</p>
                 </div>
                 <p className="text-gray-500 text-sm font-nunito">
-                  {message.time}
+                  {date[index]}
                   </p>
               </Link>
             </div>

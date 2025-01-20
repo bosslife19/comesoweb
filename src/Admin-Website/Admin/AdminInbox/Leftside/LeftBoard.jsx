@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import { CiStar } from "react-icons/ci";
 import { FiPlus, FiSend, FiSquare } from "react-icons/fi";
@@ -9,19 +9,30 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { TbMessageCircleCog } from "react-icons/tb";
 import { TiWarningOutline } from "react-icons/ti";
 import { motion } from "framer-motion";
+import axiosClient from "../../../../axios-client";
 
 const LeftBoard = ({ onSelect }) => {
   const [selected, setSelected] = useState("Inbox");
   const [isMenuOpen, setIsMenuOpen] = useState(false); // For toggling the mobile menu
-
+  const [messageCount, setMessageCount] = useState(0)
+  
+  useEffect(()=>{
+    const getMessages = async ()=>{
+      const res = await axiosClient.get('/messages');
+      
+     setMessageCount(res.data.messages.length);
+      
+    }
+    getMessages();
+  }, []);
   const menuItems = [
-    { icon: MdOutlineEmail, label: "Inbox", count: 1253 },
-    { icon: CiStar, label: "Starred", count: 3938 },
-    { icon: FiSend, label: "Sent", count: 1253 },
-    { icon: GoPencil, label: "Draft", count: 8 },
-    { icon: TiWarningOutline, label: "Spam", count: 8 },
-    { icon: TbMessageCircleCog, label: "Important", count: 8 },
-    { icon: BiTrash, label: "Bin", count: 90 },
+    { icon: MdOutlineEmail, label: "Inbox", count: messageCount },
+    { icon: CiStar, label: "Starred", count: 0},
+    { icon: FiSend, label: "Sent", count: 0 },
+    { icon: GoPencil, label: "Draft", count: 0 },
+    { icon: TiWarningOutline, label: "Spam", count: 0 },
+    { icon: TbMessageCircleCog, label: "Important", count: 0 },
+    { icon: BiTrash, label: "Bin", count: 0 },
   ];
 
   const primaryItems = [

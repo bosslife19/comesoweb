@@ -381,7 +381,7 @@ Health Faclity
               animate="visible"
               variants={containerVariants}
             >
-              {paymentRequests?.map((row, index) => (
+              {paymentRequests.length > 0 && paymentRequests.map((row, index) => (
                 <motion.tr
                   onClick={(e) => {
                     // Check if the click happened on the select element or its child elements
@@ -419,9 +419,9 @@ Health Faclity
                       className={`${
                         row.status === "accepted"
                           ? "text-[#3ECF8E]"
-                          : row.Status === "pending"
+                          : row.status === "pending"
                           ? "text-[#FFC13C]"
-                          : row.Status === "rejected"
+                          : row.status === "rejected"
                           ? "text-[#F66F68]"
                           : " text-[#F66F68]"
                       } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}

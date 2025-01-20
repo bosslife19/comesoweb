@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";  
 import LeftBoard from "../../../Admin-Website/Admin/AdminInbox/Leftside/LeftBoard";
  import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -9,22 +9,44 @@ import { ImFilePicture, ImPrinter } from "react-icons/im";
 import { FiSend } from "react-icons/fi";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { IoIosWarning } from "react-icons/io";
+import axiosClient from "../../../axios-client";
+
 
 export const ProductDetails = () => {
   const { id } = useParams(); // Access the dynamic id
+  
   const [selectedItem, setSelectedItem] = useState("Inbox");
-
-  const messages = [
-    { sender: "You", text: "Hello! How can I help you today?", time: "10:30 AM", image: logo },
-    { sender: "John Doe", text: "I need more details about the product.", time: "10:32 AM", image: logo },
-    { sender: "You", text: "Sure, let me provide you with the information.", time: "10:35 AM", image: logo },
-    { sender: "John Doe", text: "Thanks, waiting for the details.", time: "10:36 AM", image: logo },
-    { sender: "You", text: "Here are the details you requested.", time: "10:38 AM", image: logo },
-    { sender: "John Doe", text: "This is helpful, thank you!", time: "10:40 AM", image: logo },
-    { sender: "You", text: "You're welcome!", time: "10:42 AM", image: logo },
-    { sender: "You", text: "Let me know if you have any other questions.", time: "10:45 AM", image: logo },
-    { sender: "John Doe", text: "This is helpful, thank you!", time: "10:40 AM", image: logo },
-  ];
+  const [messages, setMessages] = useState([])
+    useEffect(()=>{
+      const getMessage = async ()=>{
+        const res = await axiosClient.get(`/messages/${id}`);
+       
+        setMessages(res.data.message);
+      }
+      getMessage();
+    },[]);
+    const date = messages?.map(item=>{
+      const date = new Date(item.created_at); // Example date
+  
+      const formattedDate = new Intl.DateTimeFormat('en-US', {
+        month: 'long',  // Full month name
+        day: 'numeric', // Day of the month
+        year: 'numeric' // Year
+      }).format(date);
+      
+      return formattedDate;
+     })
+  // const messages = [
+  //   { sender: "You", text: "Hello! How can I help you today?", time: "10:30 AM", image: logo },
+  //   { sender: "John Doe", text: "I need more details about the product.", time: "10:32 AM", image: logo },
+  //   { sender: "You", text: "Sure, let me provide you with the information.", time: "10:35 AM", image: logo },
+  //   { sender: "John Doe", text: "Thanks, waiting for the details.", time: "10:36 AM", image: logo },
+  //   { sender: "You", text: "Here are the details you requested.", time: "10:38 AM", image: logo },
+  //   { sender: "John Doe", text: "This is helpful, thank you!", time: "10:40 AM", image: logo },
+  //   { sender: "You", text: "You're welcome!", time: "10:42 AM", image: logo },
+  //   { sender: "You", text: "Let me know if you have any other questions.", time: "10:45 AM", image: logo },
+  //   { sender: "John Doe", text: "This is helpful, thank you!", time: "10:40 AM", image: logo },
+  // ];
 
   const navigate = useNavigate();
 
@@ -34,9 +56,9 @@ export const ProductDetails = () => {
 
   const indexOfLastMessage = currentPage * messagesPerPage;
   const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
-  const currentMessages = messages.slice(indexOfFirstMessage, indexOfLastMessage);
+  const currentMessages = messages?.slice(indexOfFirstMessage, indexOfLastMessage);
 
-  const totalPages = Math.ceil(messages.length / messagesPerPage);
+  const totalPages = Math.ceil(messages?.length / messagesPerPage);
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
@@ -61,7 +83,7 @@ export const ProductDetails = () => {
             <span onClick={() => navigate(-1)} className="bg-[#f5f5f5] text-[20px] rounded-[10px] p-2">
               <MdKeyboardArrowLeft />
             </span>
-            <h3 className=" font-[600]">Mako</h3>
+            <h3 className=" font-[600]">{messages[0]?.name}</h3>
           </div>
           <div className="flex  bg-[#FAFBFD]">
             <span className="border-[0.6px] rounded-l-[10px] border-[#D5D5D5] py-2 px-2 text-[17px]">
@@ -82,13 +104,13 @@ export const ProductDetails = () => {
               <div
                 key={index}
                 className={`flex ${
-                  message.sender === "You" ? "justify-end" : "justify-start"
+                  message.name === "You" ? "justify-end" : "justify-start"
                 } items-center`}
               >
-                {message.sender !== "You" && (
+                {message.name !== "You" && (
                   <img
-                    src={message.image}
-                    alt={message.sender}
+                    src={logo}
+                    alt={message.name}
                     className="w-10 h-10 rounded-full mr-3"
                   />
                 )}
@@ -99,14 +121,14 @@ export const ProductDetails = () => {
                       : "bg-gray-200 text-gray-800"
                   } px-4 py-2 rounded-lg max-w-xs`}
                 >
-                  <p className="text-sm">{message.text}</p>
+                  <p className="text-sm">{message.message}</p>
                   <span className="text-xs block mt-1 text-right text-gray-300">
-                    {message.time}
+                    {date[index]}
                   </span>
                 </div>
                 {message.sender === "You" && (
                   <img
-                    src={message.image}
+                    src={logo}
                     alt={message.sender}
                     className="w-10 h-10 rounded-full ml-3"
                   />
