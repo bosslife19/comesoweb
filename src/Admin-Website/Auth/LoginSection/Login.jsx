@@ -250,6 +250,9 @@ getAuth();
               Sign Up
             </Link>
           </span>
+          <div>
+            <Link to='/forgot-password'>Forgot Password</Link>
+          </div>
         </div>
 
         <div className="lg:w-0 w-[342px] z-[-100] h-[342px] absolute bottom-[-133px] left-[-150px] rounded-full bg-[#F8F9F9]"></div>

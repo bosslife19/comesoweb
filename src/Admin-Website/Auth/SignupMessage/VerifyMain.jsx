@@ -13,7 +13,7 @@ import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext';
 // import {toast} from 'react-toastify'
 
-const OTPMain = () => {
+const VerifyMain = ({email}) => {
   const [otp, setOtp] = useState(Array(4).fill(''));
   const [otpLength, setOtpLength] = useState(4); // Default OTP length
   const [isLoading, setIsLoading] = useState(false);
@@ -82,19 +82,20 @@ const OTPMain = () => {
     const enteredOtp = otp.join(''); // Combine the OTP digits into a single string
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/verify-email`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/validate-password-otp`, {
         otp_code: enteredOtp,
-        email: userDetails.email, // Replace with the actual email
+        email, // Replace with the actual email
       });
 
       setIsLoading(false);
       setSuccessMessage(response.data.message || 'Verification successful.');
       setError('');
       setOtpVerified(true);
-      localStorage.setItem('ACCESS_TOKEN', response.data.token);
+
+      
 
       // Redirect to the success page or dashboard
-      navigate('/dashboard');
+      navigate('/change-password', {state:email});
     } catch (error) {
       console.log(error)
       setIsLoading(false);
@@ -108,7 +109,7 @@ const OTPMain = () => {
     try {
       // Call your resend OTP API
       await axios.post(`${import.meta.env.VITE_BASE_URL}/api/resend-otp`, {
-        email: userDetails.email, // Replace with the actual email
+        email, otp_code: enteredOtp // Replace with the actual email
       });
 
       startCountdown();
@@ -179,4 +180,4 @@ const OTPMain = () => {
   );
 };
 
-export default OTPMain;
+export default VerifyMain;

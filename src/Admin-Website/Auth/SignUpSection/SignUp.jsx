@@ -6,6 +6,7 @@ import "react-phone-number-input/style.css"; // for default styling
 import img from "../../../assets/Asset.png";
 import img2 from "../../../assets/frame2.png";
 import img3 from "../../../assets/frame3.png";
+import { toast } from "react-toastify";
 import "../../../styles/Admin/Signup.css";
 // Import slick carousel styles
 import "slick-carousel/slick/slick.css";
@@ -81,6 +82,7 @@ function Signup() {
       
         
         // localStorage.setItem('ACCESS_TOKEN', res.data.token);
+         toast.success("Registration Successful!");
         setUserDetails({
           ...res.data.user
         });
@@ -186,7 +188,7 @@ function Signup() {
           </div>
           <div>
             <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">
-              Phone Number
+              Phone Number (starting with country code e.g. +233)
             </label>
             <PhoneInput
               className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
@@ -194,6 +196,7 @@ function Signup() {
               onChange={setPhoneNumber}
               defaultCountry="NG"
               international
+              
               required
             />
           </div>

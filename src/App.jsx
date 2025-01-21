@@ -38,6 +38,9 @@ import Dashboard from "./pages/Website/Dashboard/Dashboards";
 import { AuthProvider } from "./context/AuthContext";
 import SignMessage from "./Admin-Website/Auth/SignupMessage/SignMessage";
 import SucessEmail from "./Admin-Website/welcomLoading/SuccessEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOtp from "./Admin-Website/Auth/SignupMessage/VerifyOTP";
+import ResetPassword from "./pages/ResetPassword";
  // import Received from "./Admin-Website/Admin/users/Received/Receive";
 
 function App() {
@@ -61,6 +64,15 @@ function App() {
                   </PageTransition>
                 }
               />
+                            <Route
+                path="/forgot-password"
+                element={
+                  <PageTransition>
+                    {" "}
+                    <ForgotPassword />{" "}
+                  </PageTransition>
+                }
+              />
               <Route path="/Signup" element={<Signup />} />
 
               {/* Starting Website Route */}
@@ -81,6 +93,12 @@ function App() {
 
               <Route path="/OTPSignUp" element={
                      <SignMessage />
+               } />
+               <Route path="/verify-otp" element={
+                     <VerifyOtp />
+               } />
+               <Route path="/change-password" element={
+                     <ResetPassword />
                } />
 
               <Route path="/SucessEmal" element={<SucessEmail  />} />
