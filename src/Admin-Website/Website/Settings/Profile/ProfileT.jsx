@@ -31,7 +31,7 @@ const ProfileT = () => {
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await axiosClient.get("/user");
-      console.log(response);
+      
       setUserInfo(response.data.user);
     }; 
     getUserInfo();

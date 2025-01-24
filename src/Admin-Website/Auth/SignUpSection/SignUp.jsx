@@ -50,8 +50,10 @@ function Signup() {
   const [companyName, setCompanyName] = useState("");
   const [companyLocation, setCompanyLocation] = useState("");
   const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
+  const [showPin, setShowPin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [buttonSpinner, setButtonSpinner] = useState(false);
+  const [dataPin, setDataPin] = useState('')
   const [error, setError] = useState("");
 
   const handleSignup = async () => {
@@ -60,7 +62,7 @@ function Signup() {
       !companyName ||
       !phoneNumber ||
       !password ||
-      !email
+      !email|| !dataPin
     ) {
       return setError("All fields are required!");
     }
@@ -75,7 +77,8 @@ function Signup() {
          companyLocation,
          phone:phoneNumber,
          password,
-         email
+         email,
+         data_restriction_pin:dataPin
         }
       );
       
@@ -111,6 +114,10 @@ function Signup() {
   const handlePasswordChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
     setPassword(value);
+  };
+  const handleDataPinChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    setDataPin(value);
   };
   // Slick settings for the slider
   const settings = {
@@ -158,7 +165,7 @@ function Signup() {
       {/* Login Form */}
       <div className="px-[20px] md:px-[50px] font-poppins py-[40px] flex flex-col w-full lg:w-1/2 scroll-container  lg:h-screen overflow-y-auto">
         <div className="flex flex-col-reverse md:flex-row items-center ">
-          <h2 className="font-poppins text-[#333333] font-[500] text-[12px] md:text-[32px] md:leading-[48px]">Welcome Back</h2>
+          <h2 className="font-poppins text-[#333333] font-[500] text-[12px] md:text-[32px] md:leading-[48px]">Welcome To</h2>
           <img src={COMESOLOGO} className="md:ml-2" alt="COME SO LOGO" />
         </div>
         <form className="space-y-4 mt-6">
@@ -230,6 +237,26 @@ function Signup() {
             >
               {showPassword ? <BiShow  className="text-[12px] md:text-[16px]" /> : <BiHide className="text-[12px] md:text-[16px]" />}
               {showPassword ? "Show" : "Hide"}
+            </span>
+          </div>
+          <div className="relative">
+            <label className="block text-[#666666] text-[12px]  md:text-[16px] font-medium">
+              Data Restriction pin (Numbers Only)
+            </label>
+            <input
+              type={showPin ? "text" : "password"} // Switch input type based on visibility
+              className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
+              value={dataPin}
+              onChange={handleDataPinChange}
+              required
+            />
+            {/* Eye icon for toggling password visibility */}
+            <span
+              onClick={() => setShowPin(!showPin)}
+              className="absolute top-[15%] right-4 gap-1 text-[12px] md:text-[16px] font-poppins font-[400] items-center   flex transform -translate-y-[50%] cursor-pointer text-gray-600"
+            >
+              {showPin ? <BiShow  className="text-[12px] md:text-[16px]" /> : <BiHide className="text-[12px] md:text-[16px]" />}
+              {showPin ? "Show" : "Hide"}
             </span>
           </div>
           {error && <p className="text-red-400 font-bold my-3 text-[12px] md:text-[16px]">{error}</p>}

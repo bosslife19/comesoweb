@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import WelcomeLottie from "./Admin-Website/welcomLoading/welcomLoading";
@@ -41,7 +41,10 @@ import SucessEmail from "./Admin-Website/welcomLoading/SuccessEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOtp from "./Admin-Website/Auth/SignupMessage/VerifyOTP";
 import ResetPassword from "./pages/ResetPassword";
- // import Received from "./Admin-Website/Admin/users/Received/Receive";
+import RequestPayment from "./Admin-Website/Website/WebsitePayment/Payment/RequestPayment";
+import SettingsProtection from "./SettingsProtection";
+import PaymentsProtection from "./PaymentsProtection";
+// import Received from "./Admin-Website/Admin/users/Received/Receive";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +67,7 @@ function App() {
                   </PageTransition>
                 }
               />
-                            <Route
+              <Route
                 path="/forgot-password"
                 element={
                   <PageTransition>
@@ -79,32 +82,29 @@ function App() {
 
               {/* Website Route */}
 
-              <Route path="Kyc/details" element={
-                <ProtectedRoute>
-                     <Customermangemen />
-                </ProtectedRoute>
-             
-                
-                } />
+              <Route
+                path="Kyc/details"
+                element={
+                  <ProtectedRoute>
+                    <Customermangemen />
+                  </ProtectedRoute>
+                }
+              />
 
-              <Route path="Kyc/successful" element={<ProtectedRoute>
-                     <Successful />
-                </ProtectedRoute>} />
+              <Route
+                path="Kyc/successful"
+                element={
+                  <ProtectedRoute>
+                    <Successful />
+                  </ProtectedRoute>
+                }
+              />
 
-              <Route path="/OTPSignUp" element={
-                     <SignMessage />
-               } />
-               <Route path="/verify-otp" element={
-                     <VerifyOtp />
-               } />
-               <Route path="/change-password" element={
-                     <ResetPassword />
-               } />
+              <Route path="/OTPSignUp" element={<SignMessage />} />
+              <Route path="/verify-otp" element={<VerifyOtp />} />
+              <Route path="/change-password" element={<ResetPassword />} />
 
-              <Route path="/SucessEmal" element={<SucessEmail  />} />
-
-              
-  
+              <Route path="/SucessEmal" element={<SucessEmail />} />
 
               <Route
                 path="/"
@@ -130,13 +130,28 @@ function App() {
 
                 <Route path="/payoutDetails" element={<PayoutDetail />} />
 
-                <Route path="/Payments" element={<Payments />} />
+                <Route
+                  path="/Payments"
+                  element={
+                    <PaymentsProtection>
+                      <Payments />
+                    </PaymentsProtection>
+                  }
+                />
 
                 <Route path="payout" element={<PayoutPag />} />
 
                 <Route path="transactions" element={<TransactionPag />} />
 
-                <Route path="settings" element={<SettingsManagemen />} />
+                <Route
+                  path="settings"
+                  element={
+                    <SettingsProtection>
+                      <SettingsManagemen />
+                    </SettingsProtection>
+                  }
+                />
+                <Route path="/request-payments" element={<RequestPayment />} />
               </Route>
 
               {/* End of website Route */}
@@ -205,7 +220,7 @@ function App() {
                 {/* Facilities */}
                 <Route path="/admin/facilities" element={<Facilities />} />
                 {/* Receive */}
-  
+
                 {/* Health Facility */}
                 <Route
                   path="/admin/healthFacility"

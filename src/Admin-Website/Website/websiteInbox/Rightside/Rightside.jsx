@@ -25,6 +25,7 @@ const Rightside = ({ selectedItem, menuItems,handleNext  }) => {
 
   // Default to "Regulatory Requirements" if no item is selected
   const currentPage = pages[selectedItem] || pages["Regulatory Requirements"];
+ 
 
   return (
     <div className="p-5 bg-white rounded-md ">

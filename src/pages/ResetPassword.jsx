@@ -103,6 +103,10 @@ function ResetPassword() {
       </button>
     ),
   };
+  const handlePasswordChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    setPassword(value);
+  };
 
   return (
     <div className="flex justify-between h-screen relative overflow-hidden">
@@ -117,10 +121,10 @@ function ResetPassword() {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="New Password"
+              placeholder="New Password (numbers only)"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
             />
             <button
               type="button"

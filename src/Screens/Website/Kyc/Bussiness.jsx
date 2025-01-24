@@ -40,7 +40,7 @@ const Bussiness = ({ handleNext }) => {
         user.proof_of_registration &&
         user.registration_document &&
         user.bank_name &&
-        user.account_number
+        user.account_number && user.kyc_count >=18
       ) {
         await axiosClient.patch("/user/update-kyc");
 

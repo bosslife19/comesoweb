@@ -10,7 +10,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import axiosClient from "../../../../axios-client";
 import { useNavigate } from "react-router-dom";
 
-const Payments = () => {
+const RequestPayment = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
    const [amount, setAmount] = useState();
 
@@ -24,47 +24,39 @@ const Payments = () => {
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [buttonSpinners, setButtonSpinners] = useState(false);
   const {userDetails} = useContext(AuthContext);
-  const [error, setError] = useState('')
 
  
 
   const navigate = useNavigate()
  
-  const [token, setToken] = useState('');
-  // function generateTokens(count) {
-  //   const tokens = [];
-  //   for (let i = 0; i < count; i++) {
-  //     const token = Math.floor(100000 + Math.random() * 900000).toString();
-  //     tokens.push(token);
-  //   }
-  //   return tokens;
-  // }
+  const [token, setToken] = useState(null);
+  function generateTokens(count) {
+    const tokens = [];
+    for (let i = 0; i < count; i++) {
+      const token = Math.floor(100000 + Math.random() * 900000).toString();
+      tokens.push(token);
+    }
+    return tokens;
+  }
 
-  // useEffect(() => {
-  //   if (token == null) {
-  //     const genToken = generateTokens(6);
-  //     setToken(genToken);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (token == null) {
+      const genToken = generateTokens(6);
+      setToken(genToken);
+    }
+  }, []);
 
   const handleVerifyNumber = async(e)=>{
     e.preventDefault();
     setNumError('')
     try {
       setButtonSpinners(true)
-      
+      console.log('heress');
       const response = await axiosClient.post('/user/verify-number', {phone:phoneNumber})
       
       if(response.data.error){
         setButtonSpinners(false)
-        console.log('here')
-        if(response.data.error=='Credentials are required to create a Client'){
-          return setNumError('Some error occured in the server. Try again');
-        }else{
-          
-          return setNumError(response.data.error)
-        }
-        
+        return setNumError(response.data.error)
       }
       setButtonSpinners(false)
       setUserDets(response.data.user);
@@ -98,15 +90,12 @@ const Payments = () => {
         return alert('You do not have sufficient funds to request');
       }
     
-      const res = await axiosClient.post('/user/collect-payment',{
-        token,amount,phone:phoneNumber
+      const res = await axiosClient.post('/user/create-payment-request',{
+        token: token[0],amount,phone:phoneNumber
       })
       setButtonSpinner(false)
       if(res.data.status){
         setIsModalOpens(true); 
-      }
-      else if(res.data.error){
-        setError(res.data.error);
       }
     } catch (error) {
       console.log(error);
@@ -150,7 +139,7 @@ const Payments = () => {
     <div className="font-poppins space-y-1">
       <div className="flex justify-between py-[20px] flex-wrap gap-4">
         <h3 className="text-[#202224] font-[500] md:text-[20px] leading-[30px]">
-          Collect Patient's Payment
+          Payout
         </h3>
       </div>
 
@@ -172,7 +161,7 @@ const Payments = () => {
                   className="w-full h-[56px] rounded-[12px] p-2 border border[#0A2EE2] mt-2"
                   value={phoneNumber}
                   onChange={setPhoneNumber}
-                  defaultCountry="GH"
+                  defaultCountry="US"
                   international
                   required
                 />
@@ -199,19 +188,19 @@ const Payments = () => {
             </div>
             <div>
               <label className="block text-[#666666] text-sm font-medium">
-                Enter Patient's OTP
+                Generated Token
               </label>
               <input
                 type="text"
                 className="w-full h-[56px] rounded-[12px] p-2 border border[#F1F2F3] mt-2 bg-[#F1F2F3]"
-                placeholder="enter patient's otp"
-                onChange={e=>setToken(e.target.value)}
+                placeholder="e.g GHC300"
+                value={token && token[0]}
                 // num.toString().slice(0, 6)
               />
             </div>
-            {/* <p className="font-[400] text-[18px] font-poppins leading-[27px]">
+            <p className="font-[400] text-[18px] font-poppins leading-[27px]">
               Generated Tokens expire after 5 minutes
-            </p> */}
+            </p>
           </form>
         </div>
 
@@ -248,10 +237,9 @@ const Payments = () => {
               {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
-                <span>Collect Payment</span>
+                <span>Request Payment</span>
               )}
             </button>
-            {error&& <p className="text-red-400 text-center font-bold">{error}</p>}
           </form>
         </div>
 
@@ -289,4 +277,4 @@ const Payments = () => {
   );
 };
 
-export default Payments;
+export default RequestPayment;

@@ -131,7 +131,7 @@ useEffect(()=>{
             </div>
 
             {/* Certificate and compliance */}
-            <div className='space-y-3 pt-[10px]'>
+            {/* <div className='space-y-3 pt-[10px]'>
               <span className='font-poppins font-[400] text-[12px] md:text-[16px] leading-[10px] md:leading-[24px] text-[#333333]'>
                 Certificate and compliance with applicable health regulations (e.g, data protection, hygiene)
               </span>
@@ -150,7 +150,7 @@ useEffect(()=>{
             </p>
           </div>
         </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
