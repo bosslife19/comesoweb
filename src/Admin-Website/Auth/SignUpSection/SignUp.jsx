@@ -85,11 +85,12 @@ function Signup() {
       
         
         // localStorage.setItem('ACCESS_TOKEN', res.data.token);
-         toast.success("Registration Successful!");
+         
         setUserDetails({
           ...res.data.user
         });
          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/send-otp`,{email});
+         toast.success("Registration Successful!");
          setButtonSpinner(false);
         navigate("/OTPSignUp");
         
@@ -201,7 +202,7 @@ function Signup() {
               className="w-full h-[56px] text-[12px] md:text-[16px] rounded-[12px] p-2 border border[#f2f2f2] mt-2"
               // value={phoneNumber}
               onChange={setPhoneNumber}
-              defaultCountry="NG"
+              defaultCountry="GH"
               international
               
               required

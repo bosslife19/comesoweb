@@ -34,13 +34,13 @@ const Bussiness = ({ handleNext }) => {
       const res = await axiosClient.get("/user");
       const user = res.data.user;
       if (
-        user.certificate_and_compliance &&
+        
         user.company_logo &&
         user.health_regulations_compliance &&
         user.proof_of_registration &&
-        user.registration_document &&
+        
         user.bank_name &&
-        user.account_number && user.kyc_count >=18
+        user.account_number && user.kyc_count >=16
       ) {
         await axiosClient.patch("/user/update-kyc");
 
@@ -97,7 +97,7 @@ const Bussiness = ({ handleNext }) => {
           } else {
             console.log("No similar bank found.");
             setButtonSpinner(false)
-            Alert('Your bank was not found');
+            alert('Your bank was not found');
           }
           setButtonSpinner(false);
          navigate("/Kyc/successful");
@@ -221,7 +221,7 @@ const Bussiness = ({ handleNext }) => {
           </div>
 
           {/* Certificate and compliance */}
-          <div className="space-y-3 py-3">
+          {/* <div className="space-y-3 py-3">
             <span className="font-poppins font-[400] text-[12px] md:text-[16px] leading-[24px] text-[#333333]">
               Copy of any Registration Document
             </span>
@@ -240,7 +240,7 @@ const Bussiness = ({ handleNext }) => {
                 </p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -213,7 +213,7 @@ const RequestPayment = () => {
 
             <div className="bg-[#D6ECFC] px-[20px] py-[13px] rounded-[10px]">
               <span className="text-[#3B7BAA]">
-                The account name will be shown below once the phone number has
+                Your account name will be shown below once the phone number has
                 undergone verification.
               </span>
             </div>

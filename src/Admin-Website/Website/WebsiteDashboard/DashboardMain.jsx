@@ -101,6 +101,15 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
     }
   };
 
+  const handleRequestPayment =  ()=>{
+    if(userDetails.kycCompleted){
+      navigate('/request-payment')
+    }else{
+      return alert('Complete your Registration process to collect or request payments')
+    }
+    
+  }
+
 
   return (
     <div>
@@ -136,7 +145,7 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
       )}
 
       {/* KYC Button */}
-      {!kyc && (
+      {!kyc ? (
         <button
           disabled={buttonSpinner}
           onClick={handleChanges}
@@ -145,13 +154,26 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
           {buttonSpinner ? (
             <ClipLoader size={20} color="#fff" />
           ) : (
-            <span className="font-poppins font-[600] text-[12px] md:text-[15px] leading-[10px] md:leading-[24px] flex gap-2 text-[#fff] items-center justify-center">
+            <span className="font-poppins font-[600] text-[12px] md:text-[13px] leading-[10px] md:leading-[24px] flex gap-2 text-[#fff] items-center justify-center">
               <IoCheckmarkDoneSharp />
               Finish Registration
             </span>
           )}
         </button>
-      )}
+      ):(<button
+        disabled={buttonSpinner}
+        onClick={()=>navigate('/settings')}
+        className="bg-[#031AED] py-[11px] md:py-[14px] px-[10px] rounded-[30px] w-[104px] md:w-[204px] flex items-center justify-center text-center"
+      >
+        {buttonSpinner ? (
+          <ClipLoader size={20} color="#fff" />
+        ) : (
+          <span className="font-poppins font-[600] text-[12px] md:text-[13px] leading-[10px] md:leading-[24px] flex gap-2 text-[#fff] items-center justify-center">
+            <IoCheckmarkDoneSharp />
+            Contact Support
+          </span>
+        )}
+      </button>)}
 
       {/* Modal */}
       {isModalOpens && (
@@ -212,7 +234,7 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
                 Due tomorrow, Mar 6th, 2024 */}
               </span>
 
-              <button onClick={handleRequestPaymet} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
+              <button onClick={handleRequestPayment} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
                 Request Payment
               </button>
             </div>

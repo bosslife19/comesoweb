@@ -90,7 +90,7 @@ useEffect(()=>{
             <div className='flex items-center justify-between text-[#333333] font-[500] font-poppins text-[18px] leading-[27px]'>
               <span className='flex items-center gap-[10px]'>
                 <TbUserPlus />
-                Pharmacist Profile
+                Pharmacist Profile/Medical Profile
               </span>
               <span className='bg-[#F3F3F3] rounded-full p-3'><TbDotsVertical /></span>
             </div>

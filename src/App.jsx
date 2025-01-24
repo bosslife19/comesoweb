@@ -151,7 +151,7 @@ function App() {
                     </SettingsProtection>
                   }
                 />
-                <Route path="/request-payments" element={<RequestPayment />} />
+                <Route path="/request-payment" element={<RequestPayment />} />
               </Route>
 
               {/* End of website Route */}

@@ -124,7 +124,7 @@ const PersonalBoard = () => {
         />
        </div>
        <label htmlFor="topLeft" className="my-2 font-[500] text-[14px] leading-[20.3px] ">
-       Certificate of Compliance
+       Certificate of Compliance (optional)
         </label>
        <div className='flex p-2 border md:w-[470px] md:h-[56px] rounded-[8px] items-center gap-2'>
        <span className='p-1 text-[] border-r'>

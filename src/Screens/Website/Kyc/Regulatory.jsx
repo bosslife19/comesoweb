@@ -60,7 +60,7 @@ const Regulatory = ({ handleNext }) => {
       {/* First Upload Box */}
       <div className="space-y-3 mb-5">
         <span className="font-poppins font-[400] text-[13px] md:text-[16px] leading-[24px] text-[#333333]">
-          Proof of Registration with relevant pharmaceutical company or registration with HERFA
+        Upload HEFRA certification or payment evidence.
         </span>
         <div
           {...getRootPropsFirst()}
