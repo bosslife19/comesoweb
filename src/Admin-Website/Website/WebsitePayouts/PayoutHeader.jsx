@@ -120,7 +120,7 @@ const PayoutBoardMain = () => {
              {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
-                <span>Requests History</span>
+                <span>Payouts History</span>
               )}
             </button>
         </div>

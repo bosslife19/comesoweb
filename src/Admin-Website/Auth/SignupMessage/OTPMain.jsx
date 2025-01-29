@@ -11,6 +11,7 @@ import { CheckCircle, Error } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../../context/AuthContext';
+import axiosClient from '../../../axios-client';
 // import {toast} from 'react-toastify'
 
 const OTPMain = () => {
@@ -24,7 +25,7 @@ const OTPMain = () => {
   const [otpVerified, setOtpVerified] = useState(false);
   const timerRef = useRef(null);
   const navigate = useNavigate();
-  const {userDetails} = useContext(AuthContext);
+  const {userDetails, setUserDetails} = useContext(AuthContext);
 
   useEffect(() => {
     fetchOtpLengthFromApi();
@@ -92,6 +93,8 @@ const OTPMain = () => {
       setError('');
       setOtpVerified(true);
       localStorage.setItem('ACCESS_TOKEN', response.data.token);
+      const res = await axiosClient.get('/user');
+      setUserDetails(res.data.user);
 
       // Redirect to the success page or dashboard
       navigate('/dashboard');

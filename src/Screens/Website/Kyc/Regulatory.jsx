@@ -60,7 +60,7 @@ const Regulatory = ({ handleNext }) => {
       {/* First Upload Box */}
       <div className="space-y-3 mb-5">
         <span className="font-poppins font-[400] text-[13px] md:text-[16px] leading-[24px] text-[#333333]">
-        Upload HEFRA certification or payment evidence.
+        Upload HEFRA Certificate or payment proof if you are a hospital(PDF only). Pharmacies, upload your certificate.
         </span>
         <div
           {...getRootPropsFirst()}
@@ -82,7 +82,7 @@ const Regulatory = ({ handleNext }) => {
       {/* Second Upload Box */}
       <div className="space-y-3">
         <span className="font-poppins font-[400] text-[12px] md:text-[16px] leading-[24px] text-[#333333]">
-          Certificate and compliance with applicable health regulations (e.g., data protection, hygiene)
+          Certificate and compliance with applicable health regulations (optional)
         </span>
         <div
           {...getRootPropsSecond()}

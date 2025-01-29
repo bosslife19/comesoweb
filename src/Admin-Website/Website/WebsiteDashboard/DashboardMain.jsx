@@ -23,9 +23,13 @@ const DashboardMain = () => {
     const {userDetails, setUserDetails} = useContext(AuthContext)
     const handleRequestPaymet = ()=>{
       
-      if(userDetails.kycCompleted){
+      if(userDetails.kycCompleted && userDetails.approved){
         navigate('/Payments')
-      }else{
+      }
+      else if(!userDetails.approved){
+        return alert('Wait for approval before requesting or collecting payments')
+      }
+      else{
         return alert('Complete your Registration process to collect or request payments')
       }
       
@@ -35,8 +39,10 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const toggleVisibility = () => {
     if(isTextVisible == false){
       setOpenPasswordModal(true);
+    }else{
+      setIsTextVisible(!isTextVisible);
     }
-    setIsTextVisible(!isTextVisible);
+   
   };
 
   const handleChanges = () => {
@@ -145,6 +151,16 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
       )}
 
       {/* KYC Button */}
+      {
+       !userDetails.approved && userDetails.kycCompleted?
+
+       
+       <h2 className="font-poppins font-[600] text-[12px] md:text-[13px] leading-[10px] md:leading-[24px] flex gap-2 text-[#FFC13C] items-center justify-center">
+        Approval Pending
+       </h2>
+       :('')
+       
+      }
       {!kyc ? (
         <button
           disabled={buttonSpinner}
@@ -174,6 +190,7 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
           </span>
         )}
       </button>)}
+      
 
       {/* Modal */}
       {isModalOpens && (
@@ -198,8 +215,8 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
               <span className="font-normal font-poppins text-[#33333399] flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
                 What would you like us to do for you today?
               </span>
-              <button onClick={handleRequestPaymet} className="bg-[#031AED] justify-center w-full py-[12px] px-[19px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
-                Collect Payment
+              <button onClick={handleRequestPaymet} className="bg-[#031AED] justify-center w-full py-[12px] px-[19px] rounded-[30px] items-center font-poppins font-[600] md:text-[17px] md:leading-[30px] flex gap-2 text-[#fff]">
+                Collect payment from patient
               </button>
             </div>
           </div>
@@ -234,8 +251,8 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
                 Due tomorrow, Mar 6th, 2024 */}
               </span>
 
-              <button onClick={handleRequestPayment} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[20px] md:leading-[30px] flex gap-2 text-[#fff]">
-                Request Payment
+              <button onClick={handleRequestPayment} className="bg-[#212122] justify-center w-full py-[12px] px-[20px] rounded-[30px] items-center font-poppins font-[600] md:text-[17px] md:leading-[30px] flex gap-2 text-[#fff]">
+                Request payment from COMESO
               </button>
             </div>
           </div>

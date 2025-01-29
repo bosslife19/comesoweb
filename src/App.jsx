@@ -128,7 +128,14 @@ function App() {
                 <Route index element={<Dashboard />} />
                 <Route path="inbox-contents" element={<InboxContent />} />
 
-                <Route path="/payoutDetails" element={<PayoutDetail />} />
+                <Route
+                  path="/payoutDetails"
+                  element={
+                    <SettingsProtection>
+                      <PayoutDetail />
+                    </SettingsProtection>
+                  }
+                />
 
                 <Route
                   path="/Payments"

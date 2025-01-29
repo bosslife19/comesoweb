@@ -1,10 +1,11 @@
-import  { useState } from "react";
+import  { useEffect, useState } from "react";
 import { motion } from "framer-motion";
  // import Pagination from "../../Pagination/Paginations";
   
   // import ButtonsWithPopup from "./SideButtons/ButtonWithProps";
  import logo from "../../../assets/imglogo.png"
 import Pagination from "../../../Admin-Website/Website/websitePagnations/Paginations";
+import axiosClient from "../../../axios-client";
   
 const PAGE_SIZE = 10;
  
@@ -29,9 +30,23 @@ const PayoutDetailsList  = () => {
     }
   };
 
-
+const [payouts, setPayouts] = useState([])
   
- 
+  useEffect(() => {
+    const getPayouts = async () => {
+      try {
+        const res = await axiosClient.get('/user/payouts');
+        setPayouts(res.data.payouts);
+
+
+        
+      } catch (error) {
+        console.error('Error fetching payouts:', error);
+      }
+    };
+
+    getPayouts();
+  }, []);
   
   const tableData = [
     {
@@ -195,6 +210,17 @@ const PayoutDetailsList  = () => {
     
     
   ];
+  const date = payouts?.map(item=>{
+    const date = new Date(item.updated_at); // Example date
+
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
 
   const filteredData = tableData.filter((row) => {
     const matchesQuery = row.ID.toLowerCase().includes(searchQuery.toLowerCase());
@@ -264,30 +290,23 @@ Health Faclity
           <tr className="w-full ">
                    
                    <th className="md:px-4 w-[100px]  py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                    Payment  ID
+                    Payment ID
                    </th>
                    <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                   Timestamp  (Request) 
+                    Payout Date  
                      </th>
-                   <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Bank (Account Number)
-                   </th>
+                   
                    <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                     Amount
                    </th>
-                   <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[11px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Transactions
-                   </th>
-                   <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                    Duration
-                   </th>
+                   
                    <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                     Status
                    </th>
                    
-                   <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                   {/* <th className="md:px-4 w-[100px] py-[20px] md:text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Actions
-                   </th>
+                   </th> */}
                  </tr>
           </thead>
           <motion.tbody
@@ -295,7 +314,7 @@ Health Faclity
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {payouts.map((row, index) => (
               <motion.tr
               onClick={(e) => {
                 // Check if the click happened on the select element or its child elements
@@ -313,38 +332,31 @@ Health Faclity
                     index % 2 === 0 ? "bg-gray-100" : " bg-white" 
                   } border-b hover:bg-gray-50`}
               >
-               <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.ID}</td>
+               <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">#{row.token}</td>
                
                 {/* <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row}</td>              */}
-                <td className=" md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{row.Timestamp}</td>
-                 <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Bank}               
-                  </td>
+                <td className=" md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center md:text-start text-[#384250]">{date[index]}</td>
+                 
                   <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Payout}               
+                  {row.amount}               
                   </td>
-                  <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250]">
-                  {row.Transactions}               
-                  </td>
-                  <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
-                  {row.Duration}               
-                  </td>
+                 
                   <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "complete"
+                      row.status === "accepted"
                         ? "text-[#3ECF8E]"
-                        : row.Status === "pending"
+                        : row.status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.Status === "Failed"
+                        : row.status === "Failed"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     } text-[12px] text-[#384250] font-bold px-[10px] py-[5px] rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span>
                 </td>
-                <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
+                {/* <td className="md:px-4 space-x-[200px] py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                 <select
                   onChange={(e) => handleChange(e, row)}
                   value={selectedAction}
@@ -354,7 +366,7 @@ Health Faclity
                   <option value="Approve">View Details</option>
                   <option value="Payout">Payout</option>
                 </select>
-              </td>
+              </td> */}
 
 
              

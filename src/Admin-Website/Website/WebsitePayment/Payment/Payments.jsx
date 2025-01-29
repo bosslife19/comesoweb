@@ -92,11 +92,11 @@ const Payments = () => {
         return alert('All fields are required')
       }
 
-      if(amount > userDetails.balance){
+      // if(amount > userDetails.balance){
         
-        setButtonSpinner(false)
-        return alert('You do not have sufficient funds to request');
-      }
+      //   setButtonSpinner(false)
+      //   return alert('You do not have sufficient funds to request');
+      // }
     
       const res = await axiosClient.post('/user/collect-payment',{
         token,amount,phone:phoneNumber
@@ -153,6 +153,10 @@ const Payments = () => {
           Collect Patient's Payment
         </h3>
       </div>
+      <div className="hidden md:flex md:gap-[50%] text-center">
+        <p className="ml-5 font-[500] font-poppins text-[15px] leading-[30px] h-fit">(Step 1)</p>
+        <p className="font-[500] font-poppins text-[15px] leading-[30px] h-fit">(Step 2)</p>
+      </div>
 
       {/* Main Flex Section */}
       <div className="md:flex justify-start flex-wrap gap-[10px] md:gap-[30px]">
@@ -176,7 +180,7 @@ const Payments = () => {
                   international
                   required
                 />
-                <button  disabled={buttonSpinners} onClick={handleVerifyNumber} className="px-[30px] rounded-[12px] h-full py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
+                <button  disabled={buttonSpinners} onClick={handleVerifyNumber} className="mr-2 md:mr-0 px-[18px] md:px-[30px] rounded-[12px] h-full py-[12px] md:py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
                 {buttonSpinners ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
@@ -228,7 +232,7 @@ const Payments = () => {
                 undergone verification.
               </span>
             </div>
-            <h3 className="font-[600] font-nunito text-[16px] leading-[21.82px] text-[#606060]">
+            <h3 className="font-[600] font-nunito text-[16px] leading-[21.82px] text-blue-500">
               Account Name
             </h3>
             <p className="font-[#33333] font-[600] md:text-[24px] md:leading-[36px] text-[#333333]">
@@ -237,7 +241,7 @@ const Payments = () => {
             <span className="text-[#606060] font-nunito text-[16px] leading-[21.82px]">
               Transaction Amount
             </span>
-            <p className="text-[#333333] font-[600] md:text-[24px] md:leading-[36px]">
+            <p className="text-blue-500 font-[600] md:text-[24px] md:leading-[36px]">
               GHC{amount}
             </p>
             <button
@@ -248,10 +252,10 @@ const Payments = () => {
               {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
-                <span>Collect Payment</span>
+                <span>Collect Payment from Patient</span>
               )}
             </button>
-            {error&& <p className="text-red-400 text-center font-bold">{error}</p>}
+            {error&& <p className="text-red-600 text-center font-bold text-2xl">{error}</p>}
           </form>
         </div>
 

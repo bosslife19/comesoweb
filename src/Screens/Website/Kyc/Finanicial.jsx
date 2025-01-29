@@ -8,6 +8,7 @@ import gtb from "../../../assets/GTBank_logo.svg.png"
 import uba from "../../../assets/uba-logo-1CFD25002D-seeklogo.com.png"
 import zenith from "../../../assets/Zenith-Bank-Logo.jpg"
 import Eco from "../../../assets/ecobank.png"
+import axios from "axios";
 
 const Financial = ({ handleNext }) => {
   const [selectedBank, setSelectedBank] = useState("");
@@ -16,14 +17,32 @@ const Financial = ({ handleNext }) => {
   
 
   // List of Nigerian banks with their logos
-  const banks = [
+  const[ banks, setBanks] = useState([
     { name: "Access Bank", logo: access },
     { name: "First Bank", logo: first },
     { name: "Guaranty Trust Bank", logo: gtb  },
     { name: "United Bank for Africa", logo: uba },
     { name: "Zenith Bank", logo: zenith },
     {name:'Eco Bank', logo:Eco }
-  ];
+  ])
+
+  useEffect(()=>{
+    const getBanks = async()=>{
+      const response = await axios.get(
+        `https://api.paystack.co/bank?country=ghana&perPage=200`,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              import.meta.env.VITE_PAYSTACK_LIVE_SECRET
+            }`,
+          },
+        }
+      );
+      setBanks(response.data.data);
+    }
+    getBanks();
+  },[]);
+
 
   const handleBankSelect = (bank) => {
     setSelectedBank(bank.name);
@@ -101,7 +120,7 @@ const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } = u
                   onClick={() => handleBankSelect(bank)}
                   className="flex items-center gap-2 p-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  <img src={bank.logo} alt={`${bank.name} logo`} className="w-6 h-6 object-contain" />
+                  {/* <img src={bank.logo} alt={`${bank.name} logo`} className="w-6 h-6 object-contain" /> */}
                   <span>{bank.name}</span>
                 </li>
               ))}

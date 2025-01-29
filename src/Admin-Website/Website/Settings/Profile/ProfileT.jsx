@@ -3,11 +3,14 @@ import logo from "../../../../assets/imglogo.png";
 import { CgSoftwareDownload } from "react-icons/cg";
 import { BiEdit, BiUser } from "react-icons/bi";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axiosClient from "../../../../axios-client";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../context/AuthContext";
+import axios from "axios";
 
 const ProfileT = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -20,11 +23,15 @@ const ProfileT = () => {
   const [email,setEmail] = useState('')
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('');
+  const [newPin, setNewPin] = useState('')
+  const [currentPin, setCurrentPin] = useState("")
   const [error, setError] = useState('')
   const [bank, setBank] = useState('');
   const [accountNumber, setAccountNumber] = useState('')
   const [buttonSpinner, setButtonSpinner] = useState(false);
-   
+  const [reset, setReset] = useState(false);
+   const navigate = useNavigate()
+   const {setUserDetails} = useContext(AuthContext);
   
 
 
@@ -33,9 +40,17 @@ const ProfileT = () => {
       const response = await axiosClient.get("/user");
       
       setUserInfo(response.data.user);
+      if(!response.data.user.email_verified_at){
+       
+        setUserDetails(response.data.user);
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/api/send-otp`,{email:response.data.user.email});
+       
+        
+       navigate("/OTPSignUp");
+      }
     }; 
     getUserInfo();
-  }, []);
+  }, [reset]);
 
   const handleNormalUpdate = async(e)=>{
    
@@ -76,16 +91,24 @@ const ProfileT = () => {
     if(newPassword){
       formData.append('newPassword', newPassword)
     }
+    if(currentPin){
+      formData.append('currentPin', currentPin)
+    }
+    if(newPin){
+      formData.append('newPin', newPin)
+    }
+    
 try {
-  setButtonSpinner(true);
+ 
  
 
   const response = await axiosClient.post('/user/update-profile', formData);
   if(response.data.error){
-    return setError(response.data.error);
+   return toast.error(response.data.error);
   }
   
   toast.success("Your settings are saved successfully");
+  setReset(true);
   } catch (error) {
   console.log(error)
   // setButtonSpinner(false)
@@ -365,7 +388,7 @@ try {
           </p>
           <form className="space-y-4">
             <div>
-              {error && <p className="text-red-400 text-center font-semibold">{error}</p>}
+            
               <label
                 htmlFor="currentPassword"
                 className="block text-sm font-medium text-gray-700"
@@ -408,6 +431,64 @@ try {
               ) : (
               <>
                 <span>Update Password</span>
+               </>
+              )}
+                
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className=" px-[20px] md:mt-[0px] mt-[15px]  border py-[20px] bg-[#FFFFFF] rounded-[12px]">
+          <h2 className="md:text-lg font-semibold mb-2 md:mb-4">
+            Change Data Restriction pin
+          </h2>
+          
+          <form className="space-y-4">
+          
+            <div>
+             
+              <label
+                htmlFor="currentPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Current Pin
+              </label>
+              <div className="w-full  p-[5px] md:p-[13px] flex items-center gap-2 border border-[#D0D5DD] rounded-md">
+                <MdLockOutline />
+                <input
+                  type="password"
+                  id="currentPin"
+                  className="mt-1 block flex-1 outline-none"
+                  placeholder="Enter current pin"
+                  onChange={e=>setCurrentPin(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="newPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                New Pin
+              </label>
+              <div className="w-full  p-[5px] md:p-[13px] flex items-center gap-2 border border-[#D0D5DD] rounded-md">
+                <MdLockOutline />
+                <input
+                  type="password"
+                  id="newPassword"
+                  className="mt-1 block flex-1 outline-none"
+                  placeholder="Enter new pin"
+                  onChange={e=>setNewPin(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-[20px]">
+              <button disabled={buttonSpinner} onClick={handleNormalUpdate} className="flex  w-full md:w-[220px] h-[33px] text-sm md:text-[15px] md:h-[43px] bg-[#0A2EE2] text-[#fff] rounded-[8px] items-center gap-2 font-nunito justify-center">
+               {buttonSpinner ? (
+                <ClipLoader size={20} color="#fff" />
+              ) : (
+              <>
+                <span>Update Pin</span>
                </>
               )}
                 

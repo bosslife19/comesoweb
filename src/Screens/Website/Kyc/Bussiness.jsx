@@ -67,7 +67,7 @@ const Bussiness = ({ handleNext }) => {
           );
           // console.log(user.bank_name);
           if (matchedBank) {
-            
+            console.log('here');
             // console.log("Matched Bank:", matchedBank);
             const resp = axios.post(
               "https://api.paystack.co/transferrecipient",

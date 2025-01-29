@@ -21,10 +21,11 @@ const DashboardModal = ({closeModals,}) => {
        </div>
 
        <div className='px-[10%] py-[30px] text-center flex flex-col justify-center'>
-        <h3 className='font-[400] font-alata text-[#456EFE]  text-[32px] leading-[39.52px]'>KYC Verification</h3>
+        <h3 className='font-[400] font-alata text-[#456EFE]  text-[32px] leading-[39.52px]'>KYB Verification</h3>
 
         <p className='text-[#A4A9AE] font-[400] text-[18px] leading-[26.37px] md:px-[16%] mt-2'>
-        Proceed to complete your KYC verification Process in order to enjoy the full benefits and features of our platform
+        Proceed to complete your KYB verification Process in order to enjoy the full benefits and features of our platform. For the registration of the the KYB please have the following documents that are necessary for the registration they are Business Registration, HERFA Document if you are a hospital, Business plan (Pricelist, Number of patients), Bank statement/Registration information and Logo 
+        (Estimated time: 10 Minutes)
         </p>
          <img src={logo}  className=' object-contain h-[100px] md:h-[200px]' />
          <button onClick={handles} className='flex gap-2 items-center rounded-[20px] text-center justify-center font-sans font-[600] leading-[40px] text-[12px] md:text-[14px] text-[#fff] bg-[#0A2EE2] md:py-[10px] '>

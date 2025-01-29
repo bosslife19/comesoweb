@@ -8,6 +8,7 @@ import { BiUserPlus } from "react-icons/bi";
  import Pagination from "../../../../../Admin-Website/Admin/AdminPagnations/Paginations"; 
 import FacilitiesModals from "../../../facilitiesModal/FacilitiesModals";
 import axiosClient from "../../../../../axios-client";
+import { toast } from "react-toastify";
    
 
 const PAGE_SIZE = 10;
@@ -21,16 +22,73 @@ const HealthBord  = () => {
    const [selectedRow, setSelectedRow] = useState(null);
    const [isModalOpens, setIsModalOpens] = useState(false);
 const [facilities, setFacilities] = useState([])
+const [selectedActions, setSelectedActions] = useState({});
   
- 
-  const handleChange = (event, row) => {
-    const value = event.target.value;
-    setSelectedAction(value);
-    if (value === "Approve") {
-      setSelectedRow(row);
-      setIsModalOpen(true);
+const performAction = async (endpoint, row, successMessage) => {
+  try {
+    const res = await axiosClient.post(endpoint, { id: row.id });
+    if (res.data.status) {
+      toast.success(successMessage);
+    } else {
+      toast.error(`Failed to perform the action on ${row.company_name}`);
     }
-  };
+  } catch (error) {
+    console.error(`Error performing action on ${row.company_name}:`, error);
+    toast.error(`An error occurred while processing the request for ${row.company_name}`);
+  }
+};
+
+const handleChange = async (event, row) => {
+  const value = event.target.value;
+
+  setSelectedActions((prev) => ({
+    ...prev,
+    [row.id]: value, // Track action for this specific row
+  }));
+
+  try {
+    switch (value) {
+      case "View Details":
+        setSelectedRow(row); // Set the row data of the currently selected entity
+        //  console.log(row)
+        
+      setIsModalOpen(true); // Open the modal
+        break;
+
+      case "Approve":
+       
+        await performAction('/user/approve', row, `${row.company_name} has been approved successfully for future transactions`);
+        break;
+
+      case "Deactivate":
+        
+        await performAction('/user/deactivate', row, `${row.company_name} has been deactivated successfully`);
+        break;
+
+      case "Verify":
+        await performAction('/user/verify', row, `${row.company_name} has been verified successfully`);
+        break;
+
+      case "Activate":
+        
+        await performAction('/user/activate', row, `${row.company_name} has been activated successfully`);
+        break;
+
+        case "Verify Email":
+        
+        await performAction('/user/verify-email', row, `${row.company_name} email has been verified successfully`);
+        break;
+      default:
+        console.log(`Action "${value}" is not defined`);
+        break;
+    }
+  } catch (error) {
+    console.error(`Error processing action "${value}" for row:`, row, error);
+  }
+};
+
+
+
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -208,7 +266,7 @@ useEffect(()=>{
   getUsers();
 },[])
 const date = facilities?.map(item=>{
-  const date = new Date(item.last_visited); // Example date
+  const date = new Date(item.created_at); // Example date
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     month: 'long',  // Full month name
@@ -318,7 +376,7 @@ Health Facilities
                         ? "text-[#3ECF8E]"
                         : row.status === "pending"
                         ? "text-[#FFC13C]"
-                        : row.status === "Rejected"
+                        : row.status === "deactivated"
                         ? "text-[#F66F68]"
                         : " text-[#F66F68]"
                     }  text-[#384250] font-bold     rounded-[50px]`}
@@ -329,14 +387,17 @@ Health Facilities
                 <td className=" px-2 py-2 text-end">
                 <select
                  onChange={(e) => handleChange(e, row)}
-                 value={selectedAction}
+                //  value={selectedAction}
+                 value={selectedActions[row.id] || ""}
                   className="border outline-none  py-2 rounded-md text-sm"
                 >
                   <option value="">Action</option>
-                  <option value="">Call User</option>
-                  <option value="">Send Mail</option>
-                  <option value="Approve">View Details</option>
-                  <option value="">Deactivate</option>
+                  <option value="Send Mail">Send Mail</option>
+                  <option value="View Details">View Details</option>
+                  <option value="Deactivate">Deactivate</option>
+                  <option value="Activate">Activate</option>
+                  <option value="Approve">Approve</option>
+                  <option value="Verify Email">Verify Email</option>
                 </select>
               </td>
 
@@ -344,17 +405,18 @@ Health Facilities
               {isModalOpen  && (
         <div className="fixed p-3 inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
           <div className="bg-white rounded-lg p-6 md:w-1/2">
-            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">Transaction details (ID- #545676)</h2>
+            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">{row.company_name} Details</h2>
             <div className="flex gap-3 justify-between border-t pt-[20px]">
 
               <div>
                 {/* sender */}
              <div className="">
-             <h4 className=" font-[600]">Sender</h4>
+             <h4 className=" font-[600]">Name</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                {/* {selectedRow.name} */}
+               {selectedRow.name}
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
@@ -365,31 +427,33 @@ Health Facilities
              {/* phone NUmber */}
            <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
-               Sender’s Phone number 
+               Facility's Phone number 
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Sender} */}
+                 {selectedRow.phone}
               </div>
             
            </div>
             {/* Voucher Amount */}
             <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
-             Voucher Amount
+             Balance
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Amount} */}
+                 {selectedRow.balance}
               </div>
             
            </div>
             {/* Transaction Date & Time */}
             <div className="mt-[10px] ">
              <h4 className=" md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
-             Transaction Date & Time
+             Registration Date
               </h4>
               <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden gap-1">
                 <BsCalendar/>
-                 {/* {selectedRow.Timestamp} */}
+                 {date[index]}
               </div>
             
            </div>
@@ -398,11 +462,12 @@ Health Facilities
               <div>
                 {/* Beneficiary */}
              <div className="">
-             <h4 className=" font-[600]">Beneficiary</h4>
+             <h4 className=" font-[600]">KYC Status</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5 md: overflow-hidden justify-center">
                {/* {selectedRow.name} */}
+               {selectedRow.kycCompleted? 'Completed':'Not Completed'}
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
@@ -411,22 +476,97 @@ Health Facilities
              
              </div>
              {/* phone NUmber */}
+             <div className="mt-[10px]">
+            <h4 className="font-[500] text-[12px] md:text-[14px] leading-[20px]">
+              Facility KYC Documents
+            </h4>
+            <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-auto rounded-[4px] p-4 overflow-hidden">
+            <ul className="list-disc pl-5">
+                  {selectedRow.certificate_and_compliance && <li>
+                      <a
+                        href={selectedRow.certificate_and_compliance}
+                        target="_blank"
+                        download={true}
+                        rel="noopener noreferrer"
+                        className="text-[#0EAD69] underline"
+                      >
+                       HERFA Compliance
+                      </a>
+                    </li>}
+                    {selectedRow.company_logo && <li>
+                      <a
+                        href={selectedRow.company_logo}
+                        target="_blank"
+                        download={true}
+                        rel="noopener noreferrer"
+                        className="text-[#0EAD69] underline"
+                      >
+                       Facility Logo
+                      </a>
+                    </li>}
+                    {selectedRow.health_regulations_compliance && <li>
+                      <a
+                        href={selectedRow.health_regulations_compliance}
+                        target="_blank"
+                        download={true}
+                        rel="noopener noreferrer"
+                        className="text-[#0EAD69] underline"
+                      >
+                       Bank Statement
+                      </a>
+                    </li>}
+                    {selectedRow.proof_of_registration && <li>
+                      <a
+                        href={selectedRow.proof_of_registration}
+                        target="_blank"
+                        download={true}
+                        rel="noopener noreferrer"
+                        className="text-[#0EAD69] underline"
+                      >
+                       Proof Of Registration
+                      </a>
+                    </li>}
+                   
+                 
+                </ul>
+              {/* {row.kycDocuments && row.kycDocuments.length > 0 ? (
+                <ul className="list-disc pl-5">
+                  {row.kycDocuments.map((doc, index) => (
+                    <li key={index}>
+                      <a
+                        href={doc.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#0EAD69] underline"
+                      >
+                        {doc.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-[#959FA3]">No KYC documents available.</p>
+              )} */}
+            </div>
+          </div>
            <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
-               Beneficiary’s Phone number 
+               Facility's Bank
               </h4>
               <div className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Beneficiary} */}
+                 {selectedRow.bank_name}
               </div>
             
            </div>
             {/* Transaction*/}
             <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] text-[12px] font-[500] md:text-[14px] leading-[20px] ">
-             Transaction Type
+             Facility's Account Number
               </h4>
               <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.type} */}
+                 {selectedRow.account_number}
               </div>
             
            </div>

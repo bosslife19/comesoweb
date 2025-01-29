@@ -105,6 +105,7 @@ function Signup() {
       if(error?.response?.data){
         setError(error.response?.data.message)
       }else{
+        console.log(error);
         setError('Some network error occured, try again')
       }
     }
@@ -169,6 +170,7 @@ function Signup() {
           <h2 className="font-poppins text-[#333333] font-[500] text-[12px] md:text-[32px] md:leading-[48px]">Welcome To</h2>
           <img src={COMESOLOGO} className="md:ml-2" alt="COME SO LOGO" />
         </div>
+        <p className="text-gray-400 my-3">For the registration of the KYC please have the following documents that are necessary for the registration;Business Plan (Pricelist, Number of patients), Bank regisration information and Business logo</p>
         <form className="space-y-4 mt-6">
           <div>
             <label className="block text-[#666666] text-[12px] md:text-[16px] font-medium">

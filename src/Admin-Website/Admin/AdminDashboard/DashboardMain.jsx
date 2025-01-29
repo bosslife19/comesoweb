@@ -121,7 +121,7 @@ const DashboardMain = () => {
                 Total Transactions
               </h4>
               <p className="font-[700] leading-[38.19px] text-[28px] text-[#202224] font-poppins">
-                E{totalTransactions}
+              ₵{totalTransactions}
               </p>
             </div>
             <div className="p-3 bg-[#d9f7e8] text-[#4AD991] rounded-full md:text-[30px]">
@@ -144,7 +144,7 @@ const DashboardMain = () => {
                 Today’s Transaction
               </h3>
               <p className="font-[700] leading-[38.19px] text-[28px] text-[#202224] font-poppins">
-                E{todayTransNo}
+              ₵{todayTransNo}
               </p>
             </div>
             <div className="p-3 bg-[#ffded1] text-[#FF9066] rounded-full md:text-[30px]">

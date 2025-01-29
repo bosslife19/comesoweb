@@ -90,16 +90,22 @@ getAuth();
         setUserDetails({
           ...response.data.user
         })
-        toast.success("Login successful!");
-
+        
        
          if(response.data.user.isAdmin){
           localStorage.setItem('isAdmin', true);
+          toast.success("Login successful!");
+
           navigate("/admin/dashboard");
          }else if(response.data.user.email_verified_at){
+          if(response.data.user.status =="deactivated"){
+            return toast.error('Your account has been deactivated. Contact support');
+          }
+          toast.success("Login successful!");
+
           navigate('/dashboard');
          }else{
-          toast.error("Please verify your email")
+          toast.error("Your email has not been verified. Please contact support to have it verified")
           }
         
       }

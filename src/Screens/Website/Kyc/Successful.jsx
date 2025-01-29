@@ -23,7 +23,7 @@ const Successful = () => {
       Congratulations!
       </h2>
      <p className=' font-alata font-[400] text-[12px] md:text-[20px] leading-[29.3px] text-[#A4A9AE]'>
-        You have successfully concluded your verification process. You can now start enjoying COMESO.
+        You have successfully concluded your verification process. We'll verify and approve your account within 24 hours.
      </p>
      <div className='px-[10px]'>
      <img src={success} className='w-full'/>

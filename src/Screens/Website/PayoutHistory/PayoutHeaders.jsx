@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { BsCalendar2 } from 'react-icons/bs';
 import { FaArrowTrendUp } from 'react-icons/fa6';
+import axiosClient from '../../../axios-client';
 
 const PayoutHeaders = () => {
   const [isTextVisible, setIsTextVisible] = useState(true);
@@ -13,6 +14,37 @@ const PayoutHeaders = () => {
   const toggleVisibility = () => {
     setIsTextVisible(!isTextVisible);
   };
+  const [requests, setRequests] = useState([])
+ 
+  const [totalAmount, setTotalAmount] = useState(0);
+  useEffect(()=>{
+    const getRequests = async()=>{
+      const res = await axiosClient.get('/user/requests');
+      setRequests(res.data.requests);
+    }
+    getRequests();
+      },[]);
+     
+   
+    
+      useEffect(() => {
+        const getPayouts = async () => {
+          try {
+            const res = await axiosClient.get('/user/payouts');
+            
+    
+            // Calculate the total sum of the `amount` property
+            const total = res.data.payouts.reduce((sum, request) => sum + (request.amount || 0), 0);
+            setTotalAmount(total);
+          } catch (error) {
+            console.error('Error fetching payouts:', error);
+          }
+        };
+    
+        getPayouts();
+      }, []);
+    
+
 
 
   return (
@@ -32,7 +64,7 @@ const PayoutHeaders = () => {
                 </span>
                 <div className="font-[700] p leading-[38.19px] text-[18px] gap-2 md:text-[28px] text-[#202224] font-poppins flex items-center md:gap-[50px]">
                  GHC  
-                  {isTextVisible2 ? " 15,200.00" : "********"}
+                  {isTextVisible2 ? `${totalAmount}` : "********"}
                   <button
                     onClick={toggleVisibilities}
                     className="text-[#6B788E] hover:text-[#202224] relative right-0"
@@ -45,8 +77,8 @@ const PayoutHeaders = () => {
             </div>
             <div className="px-[20px] space-y-4">
               <span className="font-normal font flex gap-1 items-center text-[12px] leading-[18px] pb-3 ml-[10px]">
-                <FaArrowTrendUp size={20} color="#2FC271" />
-                Since 8th October, 2022
+                {/* <FaArrowTrendUp size={20} color="#2FC271" />
+                Since 8th October, 2022 */}
               </span>
 
                
@@ -63,7 +95,7 @@ const PayoutHeaders = () => {
                 </span>
                 <div className="font-[700] p leading-[38.19px] text-[18px]   md:text-[28px] text-[#202224] font-poppins flex items-center md:gap-[50px]">
                
-                  {isTextVisible ? " 40 Requests" : "******"}
+                  {isTextVisible ? `${requests.length} Requests`  : "******"}
                   <button
                     onClick={toggleVisibility}
                     className="text-[#6B788E] hover:text-[#202224]"
@@ -89,7 +121,7 @@ const PayoutHeaders = () => {
      
       </div>
       <div className='flex justify-between pl-2 pt-[15px] items-center'>
-        <h2 className='text-[#23303B] font-poppins font-[500] text-[15px] md:text-[24px] md:leading-[35.16px]'>Payout Details</h2>
+        <h2 className='text-[#23303B] font-poppins font-[500] text-[15px] md:text-[24px] md:leading-[35.16px]'>All Payouts</h2>
        <span className='flex gap-2 text-[#23303B] px-4 py-2 rounded-[30px] border items-center'>
         <BsCalendar2/>
         This Year

@@ -37,7 +37,7 @@ const getRequests = async()=>{
   setRequests(res.data.requests);
 }
 getRequests();
-  });
+  },[]);
 
   const date = requests?.map(item=>{
     const date = new Date(item.created_at); // Example date

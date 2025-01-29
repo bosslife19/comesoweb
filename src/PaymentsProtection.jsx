@@ -6,8 +6,20 @@ function PaymentsProtection({ children }) {
   const { userDetails } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  if (userDetails.kycCompleted) {
+  if (userDetails.kycCompleted && userDetails.approved) {
     return <>{children}</>;
+  }else if(!userDetails.approved){
+    return (
+      <div style={styles.container}>
+        <div style={styles.card}>
+          <h2 style={styles.title}>KYB Pending Approval</h2>
+          <p style={styles.description}>
+            Your KYB documents are still pending approval. We'll approve your account within 24 hours
+          </p>
+          
+        </div>
+      </div>
+    );
   } else {
     return (
       <div style={styles.container}>

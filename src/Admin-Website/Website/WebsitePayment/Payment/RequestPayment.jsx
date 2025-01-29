@@ -51,8 +51,8 @@ const RequestPayment = () => {
     setNumError('')
     try {
       setButtonSpinners(true)
-      console.log('heress');
-      const response = await axiosClient.post('/user/verify-number', {phone:phoneNumber})
+      
+      const response = await axiosClient.post('/user/verify-number-for-hospital', {phone:phoneNumber})
       
       if(response.data.error){
         setButtonSpinners(false)
@@ -93,8 +93,10 @@ const RequestPayment = () => {
       const res = await axiosClient.post('/user/create-payment-request',{
         token: token[0],amount,phone:phoneNumber
       })
+      
       setButtonSpinner(false)
       if(res.data.status){
+        
         setIsModalOpens(true); 
       }
     } catch (error) {
@@ -139,7 +141,7 @@ const RequestPayment = () => {
     <div className="font-poppins space-y-1">
       <div className="flex justify-between py-[20px] flex-wrap gap-4">
         <h3 className="text-[#202224] font-[500] md:text-[20px] leading-[30px]">
-          Payout
+          Request Payment from COMESO
         </h3>
       </div>
 
@@ -188,7 +190,7 @@ const RequestPayment = () => {
             </div>
             <div>
               <label className="block text-[#666666] text-sm font-medium">
-                Generated Token
+                Generated Token(auto generated)
               </label>
               <input
                 type="text"
@@ -226,7 +228,7 @@ const RequestPayment = () => {
             <span className="text-[#606060] font-nunito text-[16px] leading-[21.82px]">
               Transaction Amount
             </span>
-            <p className="text-[#333333] font-[600] md:text-[24px] md:leading-[36px]">
+            <p className="text-blue-500 font-[600] md:text-[24px] md:leading-[36px]">
               GHC{amount}
             </p>
             <button
