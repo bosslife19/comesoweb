@@ -138,7 +138,7 @@ const RequestPayment = () => {
   const closeLastModal = () => setIsLastModalOpen(false);
 
   return (
-    <div className="font-poppins space-y-1">
+<div className="font-poppins space-y-1">
       <div className="flex justify-between py-[20px] flex-wrap gap-4">
         <h3 className="text-[#202224] font-[500] md:text-[20px] leading-[30px]">
           Request Payment from COMESO
@@ -163,7 +163,7 @@ const RequestPayment = () => {
                   className="w-full h-[56px] rounded-[12px] p-2 border border[#0A2EE2] mt-2"
                   value={phoneNumber}
                   onChange={setPhoneNumber}
-                  defaultCountry="US"
+                  defaultCountry="GH"
                   international
                   required
                 />
@@ -222,7 +222,7 @@ const RequestPayment = () => {
             <h3 className="font-[600] font-nunito text-[16px] leading-[21.82px] text-[#606060]">
               Account Name
             </h3>
-            <p className="font-[#33333] font-[600] md:text-[24px] md:leading-[36px] text-[#333333]">
+            <p className="font-[#33333] font-[600] md:text-[24px] md:leading-[36px] text-blue-400">
               {userDets && userDets.name}
             </p>
             <span className="text-[#606060] font-nunito text-[16px] leading-[21.82px]">
@@ -234,7 +234,7 @@ const RequestPayment = () => {
             <button
               onClick={handleChanges}
               disabled={buttonSpinner}
-              className="w-full rounded-[30px] h-full py-[13px] mt-2 bg-[#0A2EE2] text-[#fff] font-[600] md:text-[20px] md:leading-[30px]"
+              className="w-full rounded-[30px] h-full py-[13px] mt-2 bg-blue-800 text-[#fff] font-[600] md:text-[20px] md:leading-[30px]"
             >
               {buttonSpinner ? (
                 <ClipLoader size={20} color="#fff" />
