@@ -74,6 +74,11 @@ const handleChange = async (event, row) => {
         await performAction('/user/activate', row, `${row.company_name} has been activated successfully`);
         break;
 
+        case "Delete":
+        
+        await performAction('/user/delete', row, `${row.company_name} has been deleted successfully`);
+        break;
+
         case "Verify Email":
         
         await performAction('/user/verify-email', row, `${row.company_name} email has been verified successfully`);
@@ -395,6 +400,7 @@ Health Facilities
                   <option value="Send Mail">Send Mail</option>
                   <option value="View Details">View Details</option>
                   <option value="Deactivate">Deactivate</option>
+                  <option value="Delete">Delete</option>
                   <option value="Activate">Activate</option>
                   <option value="Approve">Approve</option>
                   <option value="Verify Email">Verify Email</option>

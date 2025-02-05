@@ -82,7 +82,7 @@ const PayoutBoardMain = () => {
           <div className="flex justify-between items-center gap-3 p-4">
             <div className="space-y-3">
             <h4 className="font-[600] leading-[21.82px] text-[14px] text-[#777779] font-nunito  ">
-              No of Transactions
+              Number of Transactions
             </h4>
             <p className='font-[700] leading-[38.19px] text-[28px] text-[#202224] font-poppins'>
             {transactions}

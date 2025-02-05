@@ -324,9 +324,9 @@ const DashboardList  = () => {
                     Status
                    </th>
                    
-                   <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
+                   {/* <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
                      Actions
-                   </th>
+                   </th> */}
                  </tr>
           </thead>
           <motion.tbody
@@ -369,13 +369,13 @@ const DashboardList  = () => {
                     {row.status}
                   </span>
                 </td>
-                  <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
+                  {/* <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <select onChange={handleChange} value={selectedAction} className="border outline-none px-4 py-2 rounded-md text-sm">
                     <option value=""> Action</option>
                     <option value="Approve">Approve</option>
                     <option value="Reject">Reject</option>
                   </select>
-                </td>
+                </td> */}
               </motion.tr>
             ))}
          </motion.tbody>

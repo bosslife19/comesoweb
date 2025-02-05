@@ -6,6 +6,7 @@ import Pagination from "../AdminPagnations/Paginations";
 import { HiDotsVertical } from "react-icons/hi";
 import { BiUserPlus } from "react-icons/bi";
  import TeamModal from "../../../Screens/Admin/TEamsModal/TeamModal";
+import axiosClient from "../../../axios-client";
    
 const PAGE_SIZE = 10;
   
@@ -37,8 +38,25 @@ const TeamBoard  = () => {
     setSelectedRow(null);
     setSelectedAction("");
   };
+const [teams, setTeams] = useState([])
+  useEffect(()=>{
+const getTeams = async ()=>{
+  const res = await axiosClient.get('/user/admins');
+  setTeams(res.data.admins);
+}
+getTeams()
+  }, []);
+  const date = teams?.map(item=>{
+    const date = new Date(item.last_visited); // Example date
 
-  
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long',  // Full month name
+      day: 'numeric', // Day of the month
+      year: 'numeric' // Year
+    }).format(date);
+    
+    return formattedDate;
+   })
   const tableData = [
     {
       
@@ -229,7 +247,7 @@ const closeModals = () => {
                    UserID/PhoneNumber
                    </th>
                    <th className="px-4 py-[20px] text-start text-[12px] font-[500] text-[#6B788E] font-sans leading-[18px]">
-                     Names
+                     Name
                    </th>
                    
                      
@@ -256,7 +274,7 @@ const closeModals = () => {
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            {teams.length>0 && teams.map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}
@@ -269,15 +287,15 @@ const closeModals = () => {
               >
                  <td className="px-4 flex gap-2 items-center py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">
                   <img src={logo} className="w-[30px] h-[30px] rounded-full" />
-                  {row.PhoneNumber_UserID}
+                  {row.id}
                 </td>
                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-start text-[#384250]">{row.name}</td>      
-                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250] ">{row.LastVisted}</td>
-                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">{row.Role}</td>
+                 <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-center text-[#384250] ">{date[index]}</td>
+                <td className="px-4 py-2 text-[11px] md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">Admin</td>
                   <td className="px-4 py-2 text-[11px]  md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
                   <span
                     className={`${
-                      row.Status === "Active"
+                      row.status === "active"
                         ? "text-[#3ECF8E]"
                         : row.Status === "pending"
                         ? "text-[#FFC13C]"
@@ -286,7 +304,7 @@ const closeModals = () => {
                         : " text-[#F66F68]"
                     }  text-[#384250] font-bold     rounded-[50px]`}
                   >
-                    {row.Status}
+                    {row.status}
                   </span>
                 </td>
                 <td className=" px-2 py-2 text-end">
@@ -304,17 +322,17 @@ const closeModals = () => {
               {isModalOpen  && (
         <div className="fixed p-3 inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
           <div className="bg-white rounded-lg p-6 md:w-1/2">
-            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">Transaction details (ID- #545676)</h2>
+            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">Admin details for {row.name}</h2>
             <div className="flex gap-3 justify-between border-t pt-[20px]">
 
               <div>
                 {/* sender */}
              <div className="">
-             <h4 className=" font-[600]">Sender</h4>
+             <h4 className=" font-[600]">name</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-               {/* {selectedRow.name} */}
+               {selectedRow.name}
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
@@ -325,31 +343,33 @@ const closeModals = () => {
              {/* phone NUmber */}
            <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
-               Sender’s Phone number 
+               email
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Sender} */}
+                 {selectedRow.email}
               </div>
             
            </div>
             {/* Voucher Amount */}
-            <div className="mt-[10px] ">
+            {/* <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
              Voucher Amount
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-                 {/* {selectedRow.Amount} */}
+
               </div>
             
-           </div>
+           </div> */}
             {/* Transaction Date & Time */}
             <div className="mt-[10px] ">
              <h4 className=" md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
-             Transaction Date & Time
+             Last Visited
               </h4>
               <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden gap-1">
                 <BsCalendar/>
                  {/* {selectedRow.Timestamp} */}
+                 {date[index]}
               </div>
             
            </div>
@@ -357,48 +377,48 @@ const closeModals = () => {
               {/* second */}
               <div>
                 {/* Beneficiary */}
-             <div className="">
+             {/* <div className="">
              <h4 className=" font-[600]">Beneficiary</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5 md: overflow-hidden justify-center">
-               {/* {selectedRow.name} */}
+              
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
             </span>
               </div>
              
-             </div>
+             </div> */}
              {/* phone NUmber */}
-           <div className="mt-[20px] ">
+           {/* <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
                Beneficiary’s Phone number 
               </h4>
               <div className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-                 {/* {selectedRow.Beneficiary} */}
+
               </div>
             
-           </div>
+           </div> */}
             {/* Transaction*/}
-            <div className="mt-[10px] ">
+            {/* <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] text-[12px] font-[500] md:text-[14px] leading-[20px] ">
              Transaction Type
               </h4>
               <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-                 {/* {selectedRow.type} */}
+                
               </div>
             
-           </div>
+           </div> */}
             {/* Transaction Date & Time */}
-            <div className="mt-[20px] flex justify-end items-center">
+            {/* <div className="mt-[20px] flex justify-end items-center">
               <button
                 className="bg-[#0EAD69] font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]"
                >
                 Successful
               </button>
             
-           </div>
+           </div> */}
               </div>
             </div>
             

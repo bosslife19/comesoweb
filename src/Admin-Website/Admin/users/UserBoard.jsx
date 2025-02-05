@@ -21,7 +21,7 @@ const UserBoard  = () => {
 
    const [users, setUsers] = useState([]);
    const date = users?.map(item=>{
-    const date = new Date(item.last_visited); // Example date
+    const date = new Date(item.created_at); // Example date
 
     const formattedDate = new Intl.DateTimeFormat('en-US', {
       month: 'long',  // Full month name
@@ -168,6 +168,8 @@ const UserBoard  = () => {
     const matchesStatus = filterStatus === "All" || row.Status.toLowerCase() === filterStatus.toLowerCase();
     return matchesQuery && matchesStatus;
   });
+
+  
 
   const paginatedData = filteredData.slice(
     (currentPage - 1) * PAGE_SIZE,
@@ -342,17 +344,18 @@ useEffect(()=>{
               {isModalOpen  && (
         <div className="fixed p-3 inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
           <div className="bg-white rounded-lg p-6 md:w-1/2">
-            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">Transaction details (ID- #545676)</h2>
+            <h2 className="text-xl font-[600] text-[14px] leading-[24px] md:text-[18px] mb-4">{row.name} details</h2>
             <div className="flex gap-3 justify-between border-t pt-[20px]">
 
               <div>
                 {/* sender */}
              <div className="">
-             <h4 className=" font-[600]">Sender</h4>
+             <h4 className=" font-[600]">Name</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                {/* {selectedRow.name} */}
+               {selectedRow.name}
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
@@ -363,31 +366,34 @@ useEffect(()=>{
              {/* phone NUmber */}
            <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
-               Sender’s Phone number 
+               User’s Phone number 
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Sender} */}
+                 {selectedRow.phone}
               </div>
             
            </div>
             {/* Voucher Amount */}
             <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
-             Voucher Amount
+             Balance
               </h4>
               <div className="border text-[12px] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
                  {/* {selectedRow.Amount} */}
+                 {selectedRow.balance}
               </div>
             
            </div>
             {/* Transaction Date & Time */}
             <div className="mt-[10px] ">
              <h4 className=" md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px] ">
-             Transaction Date & Time
+             Registration Date
               </h4>
               <div className="flex items-center border text-[12px] border-[#E5E7E8] text-[#959FA3] font-[400] md:text-[14px] leading-[20px] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden gap-1">
                 <BsCalendar/>
                  {/* {selectedRow.Timestamp} */}
+                 {date[index]}
               </div>
             
            </div>
@@ -396,11 +402,12 @@ useEffect(()=>{
               <div>
                 {/* Beneficiary */}
              <div className="">
-             <h4 className=" font-[600]">Beneficiary</h4>
+             <h4 className=" font-[600]">Email</h4>
               <div className=" space-x-2 flex  items-center">
               <img src={logo} className=" shadow-md w-[30px] h-[30px] rounded-full" />
               <span className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[207px] md:h-[40px] rounded-[4px]  px-5 md: overflow-hidden justify-center">
                {/* {selectedRow.name} */}
+               {selectedRow.email}
             </span>
             <span className="p-1 md:p-3 text-[13px] md:text-[18px] bg-[#F5F6F7] rounded-full">
             <HiDotsVertical/>
@@ -408,35 +415,35 @@ useEffect(()=>{
               </div>
              
              </div>
-             {/* phone NUmber */}
-           <div className="mt-[20px] ">
+
+           {/* <div className="mt-[20px] ">
              <h4 className="md:mb-[10px] font-[500] text-[12px] md:text-[14px] leading-[20px]">
                Beneficiary’s Phone number 
               </h4>
               <div className="border text-[#959FA3] font-[400] text-[12px] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-                 {/* {selectedRow.Beneficiary} */}
+
               </div>
             
-           </div>
+           </div> */}
             {/* Transaction*/}
-            <div className="mt-[10px] ">
+            {/* <div className="mt-[10px] ">
              <h4 className="md:mb-[10px] text-[12px] font-[500] md:text-[14px] leading-[20px] ">
              Transaction Type
               </h4>
               <div className="border text-[#959FA3] font-[400] md:text-[14px] leading-[20px] border-[#E5E7E8] md:w-[292px] md:h-[40px] rounded-[4px]  px-5  overflow-hidden justify-center">
-                 {/* {selectedRow.type} */}
+
               </div>
             
-           </div>
+           </div> */}
             {/* Transaction Date & Time */}
-            <div className="mt-[20px] flex justify-end items-center">
+            {/* <div className="mt-[20px] flex justify-end items-center">
               <button
                 className="bg-[#0EAD69] font-sans text-sm  text-white px-4 py-2 rounded-full font-[500]"
                >
                 Successful
               </button>
             
-           </div>
+           </div> */}
               </div>
             </div>
             
