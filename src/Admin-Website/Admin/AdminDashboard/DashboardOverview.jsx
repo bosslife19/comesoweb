@@ -238,7 +238,7 @@ const DashboardList  = () => {
     setFilterStatus(status);
   };
   const exportToCSV = () => {
-    const csvData = transactions.map((transaction, index) => ({
+    const csvData = transactions?.slice().reverse().map((transaction, index) => ({
       TransactionID: transaction.transaction_id || "N/A",
       Timestamp:date[index],
       Type: transaction.type || "N/A",

@@ -146,7 +146,12 @@ function App() {
                   }
                 />
 
-                <Route path="payout" element={<PayoutPag />} />
+                <Route path="payout" element={
+                   <SettingsProtection>
+                      <PayoutPag />
+                   </SettingsProtection>
+                  
+                  } />
 
                 <Route path="transactions" element={<TransactionPag />} />
 

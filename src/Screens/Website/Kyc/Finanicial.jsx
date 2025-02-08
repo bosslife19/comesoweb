@@ -14,6 +14,7 @@ const Financial = ({ handleNext }) => {
   const [selectedBank, setSelectedBank] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [accountNumber, setAccountNumber] = useState('');
+  const [accountName, setAccountName] = useState('')
   
 
   // List of Nigerian banks with their logos
@@ -51,7 +52,7 @@ const Financial = ({ handleNext }) => {
     const updateBank = async ()=>{
       try {
        
-        const res = await axiosClient.post('/user/update-profile', {bank:selectedBank});
+        const res = await axiosClient.post('/user/update-profile', {bank:selectedBank, accountName});
         
         
       } catch (error) {
@@ -140,6 +141,20 @@ const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } = u
           
         }}
          />
+        
+         
+      </div>
+      <div className="flex items-center rounded-md bg-[#EBEBEE] border border-[#EBEBEE] p-4 mt-6 justify-between text-[#333333] font-[500] font-poppins text-[18px] leading-[27px]">
+        <input  type="text"
+        className="w-full h-full bg-transparent"
+        placeholder="Account name"
+        onChange={(e)=>{
+          setAccountName(e.target.value);
+          
+          
+        }}
+         />
+        
          
       </div>
       <div className='space-y-3 pt-[10px]'>

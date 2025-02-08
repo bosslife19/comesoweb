@@ -17,6 +17,7 @@ const DashboardMain = () => {
     const [isModalOpens, setIsModalOpens] = useState(false);
     const [buttonSpinner, setButtonSpinner] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [contactModalOpen, setContactModalOpen] = useState(false);
     const [kyc, setKyc] = useState(false);
     // const [transactions, setTransactions] = useState([]);
     const navigate = useNavigate()
@@ -178,7 +179,7 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
         </button>
       ):(<button
         disabled={buttonSpinner}
-        onClick={()=>navigate('/settings')}
+        onClick={()=>setContactModalOpen(true)}
         className="bg-[#031AED] py-[11px] md:py-[14px] px-[10px] rounded-[30px] w-[104px] md:w-[204px] flex items-center justify-center text-center"
       >
         {buttonSpinner ? (
@@ -289,6 +290,55 @@ const [openPasswordModal, setOpenPasswordModal] = useState(false);
           </div>
         </div>
       )}
+      {contactModalOpen &&(<div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              width: "300px",
+              textAlign: "center",
+              boxShadow: "0px 5px 15px rgba(0,0,0,0.2)",
+            }}
+          >
+            <h2 style={{ marginBottom: "10px", color: "#333" }}>
+              Contact Support
+            </h2>
+            <p style={{ marginBottom: "10px", fontSize: "16px" }}>
+              📧 Email: support@mycomeso.com
+            </p>
+            {/* <p style={{ marginBottom: "15px", fontSize: "16px" }}>
+              📞 Phone: +123 456 7890
+            </p> */}
+            <button
+              onClick={() => setContactModalOpen(false)}
+              style={{
+                backgroundColor: "#dc3545",
+                color: "white",
+                padding: "8px 15px",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "14px",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+)}
     </div>
   );
 };

@@ -192,8 +192,8 @@ const getAlltransactions = async ()=>{
 }
 getAlltransactions()
 },[]);
-  const filteredData = transactions.filter((row) => {
-    const matchesQuery = row.beneficiary.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredData = transactions?.filter((row) => {
+    const matchesQuery = row.beneficiary && row.beneficiary.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || row.status.toLowerCase() === filterStatus.toLowerCase();
     return matchesQuery && matchesStatus;
   });
@@ -328,7 +328,7 @@ onClick={() => handleFilterChange("Rejected")}>
   animate="visible"
   variants={containerVariants}
 >
-            {paginatedData.map((row, index) => (
+            { transactions?.slice().reverse().map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}

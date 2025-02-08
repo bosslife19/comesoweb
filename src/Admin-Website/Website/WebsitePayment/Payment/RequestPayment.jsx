@@ -11,7 +11,7 @@ import axiosClient from "../../../../axios-client";
 import { useNavigate } from "react-router-dom";
 
 const RequestPayment = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState();
    const [amount, setAmount] = useState();
 
   // Modal States
@@ -23,7 +23,7 @@ const RequestPayment = () => {
   const [userDets, setUserDets] = useState(null);
   const [buttonSpinner, setButtonSpinner] = useState(false);
   const [buttonSpinners, setButtonSpinners] = useState(false);
-  const {userDetails} = useContext(AuthContext);
+  
 
  
 
@@ -84,7 +84,7 @@ const RequestPayment = () => {
         return alert('All fields are required')
       }
 
-      if(amount > userDetails.balance){
+      if(amount > user.balance){
         
         setButtonSpinner(false)
         return alert('You do not have sufficient funds to request');
@@ -136,6 +136,25 @@ const RequestPayment = () => {
   const closeSecondModal = () => setIsSecondModalOpen(false);
   const closeThirdModal = () => setIsThirdModalOpen(false);
   const closeLastModal = () => setIsLastModalOpen(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(()=>{
+    const getUser = async ()=>{
+     try {
+       
+       const response = await axiosClient.get('/user');
+       
+       setUser(response.data.user);
+       setPhoneNumber(response.data.user.phone);
+
+     } catch (error) {
+       console.log(error);
+     }
+     
+   
+    }
+    getUser();
+     }, []);
 
   return (
 <div className="font-poppins space-y-1">
@@ -143,6 +162,8 @@ const RequestPayment = () => {
         <h3 className="text-[#202224] font-[500] md:text-[20px] leading-[30px]">
           Request Payment from COMESO
         </h3>
+    <h3 className="text-gray-400 font-[500] md:text-[15px] leading-[30px] relative md:right-[150px] md:top-[20px]"> Balance Available: {user?.balance}</h3>
+       
       </div>
 
       {/* Main Flex Section */}
@@ -161,20 +182,20 @@ const RequestPayment = () => {
               <div className="flex items-center gap-5">
                 <PhoneInput
                   className="w-full h-[56px] rounded-[12px] p-2 border border[#0A2EE2] mt-2"
-                  value={phoneNumber}
+                  value={user?.phone}
                   onChange={setPhoneNumber}
                   defaultCountry="GH"
                   international
                   required
                 />
-                <button  disabled={buttonSpinners} onClick={handleVerifyNumber} className="px-[30px] rounded-[12px] h-full py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
+                {/* <button  disabled={buttonSpinners} onClick={handleVerifyNumber} className="px-[30px] rounded-[12px] h-full py-[16px] mt-2 bg-[#0A2EE2] text-[#fff] font-[500]">
                 {buttonSpinners ? (
                 <ClipLoader size={20} color="#fff" />
               ) : (
                 <span>Verify</span>
               )}
                   
-                </button>
+                </button> */}
               </div>
             </div>
             <div>
@@ -215,15 +236,15 @@ const RequestPayment = () => {
 
             <div className="bg-[#D6ECFC] px-[20px] py-[13px] rounded-[10px]">
               <span className="text-[#3B7BAA]">
-                Your account name will be shown below once the phone number has
-                undergone verification.
+                Bank: {user?.bank_name}<br/>
+                Account Number: {user?.account_number}
               </span>
             </div>
             <h3 className="font-[600] font-nunito text-[16px] leading-[21.82px] text-[#606060]">
               Account Name
             </h3>
             <p className="font-[#33333] font-[600] md:text-[24px] md:leading-[36px] text-blue-400">
-              {userDets && userDets.name}
+              {user?.name}
             </p>
             <span className="text-[#606060] font-nunito text-[16px] leading-[21.82px]">
               Transaction Amount

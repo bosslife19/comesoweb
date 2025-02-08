@@ -55,7 +55,7 @@ const PayoutBoardMain = () => {
             <div className="flex relative justify-between items-center gap-3 p-4">
               <div className="space-y-3">
                 <span className="font-[600] leading-[21.82px] text-[14px] md:text-[16px] text-[#202224] font-poppins">
-                  NEXT PAYOUT
+                  BALANCE
                 </span>
                 <div className={`font-[700] p leading-[38.19px] text-[18px] gap-2 md:text-[28px]  ${isTextVisible2 ? "text-[#0A2EE2]" : "text-[#000]"} font-poppins flex items-center md:gap-[50px]`}>
                  GHC  
@@ -87,7 +87,7 @@ const PayoutBoardMain = () => {
             <div className="flex relative justify-between items-center gap-3 p-4">
               <div className="space-y-3">
                 <span className="font-[600] leading-[21.82px] text-[14px] md:text-[16px] text-[#202224] font-poppins">
-                  NEXT PAYOUT
+                  PAYMENT REQUESTS
                 </span>
                 <div className="font-[700] p leading-[38.19px] text-[18px]   md:text-[28px] text-[#202224] font-poppins flex items-center md:gap-[50px]">
                
