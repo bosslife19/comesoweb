@@ -9,6 +9,7 @@ import uba from "../../../assets/uba-logo-1CFD25002D-seeklogo.com.png"
 import zenith from "../../../assets/Zenith-Bank-Logo.jpg"
 import Eco from "../../../assets/ecobank.png"
 import axios from "axios";
+import verified from '../../../assets/verified.png'
 
 const Financial = ({ handleNext }) => {
   const [selectedBank, setSelectedBank] = useState("");
@@ -26,6 +27,28 @@ const Financial = ({ handleNext }) => {
     { name: "Zenith Bank", logo: zenith },
     {name:'Eco Bank', logo:Eco }
   ])
+
+  const [filesUploaded, setFilesUploaded] = useState({
+    file1: false,
+    
+  })
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axiosClient.get('/user');
+      console.log(res.data)
+      if(res.data.user.health_regulations_compliance){
+        
+        setFilesUploaded(prevState => ({
+          file1: !!res.data.user.health_regulations_compliance || prevState.file1,
+  
+        }));
+      }
+      
+    };
+  
+    getUser();
+  }, []);
 
   useEffect(()=>{
     const getBanks = async()=>{
@@ -91,6 +114,8 @@ const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } = u
                 'Content-Type': 'multipart/form-data',
             },
         });
+
+        setFilesUploaded({...filesUploaded, file1:true});
        
     } catch (error) {
         console.error('File upload failed:', error);
@@ -163,8 +188,11 @@ const { getRootProps: getRootPropsFirst, getInputProps: getInputPropsFirst } = u
               </span>
               <div
           {...getRootPropsFirst()}
-          className="flex justify-start gap-[30px] py-[10px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] md:h-[117px] rounded-[10px] border-dotted border-[2px] cursor-pointer"
+          className="flex relative justify-start gap-[30px] py-[10px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] md:h-[117px] rounded-[10px] border-dotted border-[2px] cursor-pointer"
         >
+                     {
+                                  filesUploaded.file1 &&<img style={{width:20, height:20}} src={verified} alt="" className="absolute right-[-6px] top-[-6px]"/>
+                                }
           <input {...getInputPropsFirst()} />
           <RxUpload className="text-[#33333399] text-[11px] md:text-[24px]" />
           <div className="m-auto">

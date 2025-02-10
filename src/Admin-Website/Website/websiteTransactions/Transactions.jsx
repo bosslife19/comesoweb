@@ -278,7 +278,7 @@ Amount:"$150",
               </tr>
             </thead>
             <motion.tbody>
-              {transactions?.slice().reverse().map((row, index) => (
+              {transactions?.map((row, index) => (
                 <motion.tr
                   key={index}
                   onClick={() => handleRowClick(row)}

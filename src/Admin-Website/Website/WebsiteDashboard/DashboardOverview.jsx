@@ -136,7 +136,7 @@ initial="hidden"
 animate="visible"
 variants={containerVariants}
 >
-        {transactions && transactions.slice().reverse().map((row, index) => (
+        {transactions && transactions.map((row, index) => (
           <motion.tr
             key={index}
             variants={rowAnimation}

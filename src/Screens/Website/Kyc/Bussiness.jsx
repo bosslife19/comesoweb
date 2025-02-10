@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { RxUpload } from "react-icons/rx";
 import { TbDotsVertical, TbUserPlus } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import "../../../styles/Website/Spinner.css";
 import { ClipLoader } from "react-spinners";
+import verified from '../../../assets/verified.png'
 
 import axiosClient from "../../../axios-client";
 import axios from "axios";
@@ -19,6 +20,26 @@ const Bussiness = ({ handleNext }) => {
   const [revenue, setRevenue] = useState(0);
   const [numStaff, setNumStaff] = useState(0);
 
+  const [filesUploaded, setFilesUploaded] = useState({
+    file1: false,
+    
+  })
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axiosClient.get('/user');
+      
+      if(res.data.user.company_logo){
+        setFilesUploaded(prevState => ({
+          file1: !!res.data.user.company_logo || prevState.file1,
+  
+        }));
+      }
+      
+    };
+  
+    getUser();
+  }, []);
   const handleSuccess = async () => {
     setButtonSpinner(true);
     try {
@@ -173,6 +194,8 @@ const Bussiness = ({ handleNext }) => {
             },
           }
         );
+        console.log('uploaded')
+        setFilesUploaded({...filesUploaded, file1:true});
       } catch (error) {
         console.error("File upload failed:", error);
       }
@@ -272,7 +295,7 @@ const Bussiness = ({ handleNext }) => {
             onChange={(e) => setNumStaff(e.target.value)}
           />
           <label className="font-[400] text-[#333333] font-poppins text-[12px] md:text-[16px]  leading-[10px] md:leading-[24px]">
-            Number of Patients
+            Number of Patients per year
           </label>
           <input
             type="number"
@@ -309,8 +332,11 @@ const Bussiness = ({ handleNext }) => {
           </span>
           <div
             {...getRootPropsSecond()}
-            className="flex justify-start gap-[30px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] h-full rounded-[10px] border-dotted border-[2px] cursor-pointer"
+            className="flex relative justify-start gap-[30px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] h-full rounded-[10px] border-dotted border-[2px] cursor-pointer"
           >
+                       {
+                                    filesUploaded.file1 &&<img style={{width:20, height:20}} src={verified} alt="" className="absolute right-[-6px] top-[-6px]"/>
+                                  }
             <input {...getInputPropsSecond()} />
             <RxUpload className="text-[#33333399] text-[11px] md:text-[24px]" />
             <div className="m-auto">

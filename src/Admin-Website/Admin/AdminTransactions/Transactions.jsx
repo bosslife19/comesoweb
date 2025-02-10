@@ -328,7 +328,7 @@ onClick={() => handleFilterChange("Rejected")}>
   animate="visible"
   variants={containerVariants}
 >
-            { transactions?.slice().reverse().map((row, index) => (
+            { transactions?.map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}

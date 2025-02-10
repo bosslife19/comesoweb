@@ -38,7 +38,7 @@ const DashboardList  = () => {
     const getTransactions = async () => {
       try {
         const response = await axiosClient.get("/transaction/all");
-        
+      
         setTransactions(response.data.transactions);
         
       
@@ -238,7 +238,7 @@ const DashboardList  = () => {
     setFilterStatus(status);
   };
   const exportToCSV = () => {
-    const csvData = transactions?.slice().reverse().map((transaction, index) => ({
+    const csvData = transactions?.map((transaction, index) => ({
       TransactionID: transaction.transaction_id || "N/A",
       Timestamp:date[index],
       Type: transaction.type || "N/A",
@@ -334,6 +334,7 @@ const DashboardList  = () => {
   animate="visible"
   variants={containerVariants}
 >
+
             {transactions?.map((row, index) => (
               <motion.tr
                 key={index}

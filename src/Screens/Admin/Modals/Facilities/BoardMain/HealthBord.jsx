@@ -377,16 +377,12 @@ Health Facilities
                   <td className="px-4 py-2 text-[11px]  md:text-[13px] font-[500] font-sans leading-[20px] text-end text-[#384250]">
                   <span
                     className={`${
-                      row.status === "active"
+                      row.approved
                         ? "text-[#3ECF8E]"
-                        : row.status === "pending"
-                        ? "text-[#FFC13C]"
-                        : row.status === "deactivated"
-                        ? "text-[#F66F68]"
-                        : " text-[#F66F68]"
-                    }  text-[#384250] font-bold     rounded-[50px]`}
+                        :"text-[#FFC13C]"
+                    }  text-[#384250] font-bold rounded-[50px]`}
                   >
-                    {row.status}
+                    {row.approved?'active':'pending'}
                   </span>
                 </td>
                 <td className=" px-2 py-2 text-end">

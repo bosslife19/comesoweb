@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
  import { RxUpload } from "react-icons/rx";
 import { useDropzone } from "react-dropzone";
 import "../../../styles/Website/overflow_hidden.css"; // Assuming the CSS file for truncation is imported
+import axiosClient from "../../../axios-client";
+import verified from '../../../assets/verified.png'
 
 const Operational = ({ handleNext }) => {
   // Sample messages array (you can replace this with actual data)
@@ -16,7 +18,29 @@ const Operational = ({ handleNext }) => {
       return acc;
     }, {})
   );
+  const [filesUploaded, setFilesUploaded] = useState({
+    file1: false,
+    
+  })
 
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axiosClient.get('/user');
+      
+      if(res.data.user.proof_of_location){
+        setFilesUploaded(prevState => ({
+          file1: !!res.data.user.proof_of_location || prevState.file1,
+  
+        }));
+      }
+      if(localStorage.getItem('operational')){
+        setFilesUploaded({...filesUploaded, file1:true})
+      }
+      
+    };
+  
+    getUser();
+  }, []);
   const handleCheckboxChange = (id) => {
     setCheckedStates((prevState) => ({
       ...prevState,
@@ -39,6 +63,8 @@ const Operational = ({ handleNext }) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            localStorage.setItem('operational', 'operational')
+            setFilesUploaded({...filesUploaded, file1:true});
            
         } catch (error) {
             console.error('File upload failed:', error);
@@ -78,10 +104,13 @@ const Operational = ({ handleNext }) => {
         </span>
         <div
           {...getRootPropsFirst()}
-          className="flex justify-start gap-[30px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] h-[80px] md:h-[117px] rounded-[10px] border-dotted border-[2px] cursor-pointer"
+          className="flex relative justify-start gap-[30px] md:py-[20px] px-[20px] items-center border-[#dcdbdb] h-[80px] md:h-[117px] rounded-[10px] border-dotted border-[2px] cursor-pointer"
         >
           <input {...getInputPropsFirst()} />
           <RxUpload className="text-[#33333399] text-[11px] md:text-[24px]" />
+           {
+                        filesUploaded.file1 &&<img style={{width:20, height:20}} src={verified} alt="" className="absolute right-[-6px] top-[-6px]"/>
+                      }
           <div className="m-auto">
             <span className="text-[#33333399] font-poppins font-[400] text-[12px] md:text-[16px] leading-[24px]">
               Drag and drop here or Click to upload
