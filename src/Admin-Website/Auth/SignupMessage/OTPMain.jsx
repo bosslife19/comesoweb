@@ -14,7 +14,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import axiosClient from '../../../axios-client';
 // import {toast} from 'react-toastify'
 
-const OTPMain = () => {
+const OTPMain = ({email}) => {
   const [otp, setOtp] = useState(Array(4).fill(''));
   const [otpLength, setOtpLength] = useState(4); // Default OTP length
   const [isLoading, setIsLoading] = useState(false);
@@ -81,11 +81,12 @@ const OTPMain = () => {
 
     setIsLoading(true);
     const enteredOtp = otp.join(''); // Combine the OTP digits into a single string
-
+    
+    
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/verify-email`, {
         otp_code: enteredOtp,
-        email: userDetails.email, // Replace with the actual email
+        email: email , 
       });
 
       setIsLoading(false);

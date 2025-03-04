@@ -92,7 +92,7 @@ function Signup() {
          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/send-otp`,{email});
          toast.success("Registration Successful!");
          setButtonSpinner(false);
-        navigate("/OTPSignUp");
+        navigate("/OTPSignUp", {state:email});
         
        
         

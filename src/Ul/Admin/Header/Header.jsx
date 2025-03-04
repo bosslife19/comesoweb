@@ -74,14 +74,14 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 
         {/* Search Bar */}
         <div className="hidden sm:block">
-          <Search
+          {/* <Search
             id="search"
             placeholder="Search"
             name="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             disabled={false}
-          />
+          /> */}
         </div>
 
         {/* Header Actions */}

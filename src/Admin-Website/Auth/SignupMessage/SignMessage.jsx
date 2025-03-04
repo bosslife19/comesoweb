@@ -1,10 +1,11 @@
 // import React from 'react'
- import { useNavigate } from 'react-router-dom';
+ import { useLocation, useNavigate } from 'react-router-dom';
 import EmailLoading from '../../welcomLoading/emailLoading';
 import OTPMain from './OTPMain';
 
 const SignMessage = () => {
-
+  const location = useLocation();
+  const email = location.state;
     return (
       <div className=" flex bg-[#FDFDFD] flex-col  pt-[50px] h-screen  relative overflow-hidden  ">
         <div className="w-[350px] h-[350px] md:w-[542px] md:h-[542px] absolute top-[-193px] right-[-190px] rounded-full bg-[#F8F9F9]"></div>          
@@ -19,7 +20,7 @@ const SignMessage = () => {
               We sent a 4-digit code to your email. Please enter it below to verify your account.
             </p>
             <div >
-          <OTPMain/>
+          <OTPMain email={email}/>
           </div>
           </div>
     
