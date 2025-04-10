@@ -4,7 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import axiosClient from "../../../axios-client";
 
-function ProtectedRoute({ children }) {
+function AdminProtect({ children }) {
  
   const navigate = useNavigate();
   const [verified, setVerified] = useState(false)
@@ -12,7 +12,7 @@ function ProtectedRoute({ children }) {
   useEffect(() => {
     // Check authentication status from localStorage
     const isAuthenticated = localStorage.getItem('ACCESS_TOKEN')
-
+    
    
     if (!isAuthenticated) {
       // Redirect to login after a delay
@@ -24,10 +24,9 @@ function ProtectedRoute({ children }) {
     }
   axiosClient.get('/user').then(res=>{
     if(!res.data.user.email_verified_at){
-      console.log(res.data.user.email)
-      const userEmail = res.data.user.email;
+      
       axios.post(`${import.meta.env.VITE_BASE_URL}/api/send-otp`,{email:res.data.user.email}).then(res=>{
-        return navigate('/OTPSignUp', {state:userEmail});
+        return navigate('/OTPSignUp', {state:res.data.user.email});
       });
       
     }else{
@@ -36,15 +35,13 @@ function ProtectedRoute({ children }) {
   });
     
     
-  if(isAdmin){
-    return navigate('/admin/dashboard')
-  }
+ 
   }, []);
 
   // Render children if authenticated
   const isAuthenticated = localStorage.getItem('ACCESS_TOKEN')
   
-  if (isAuthenticated && verified && !isAdmin) {
+  if (isAuthenticated && verified && isAdmin) {
     return <>{children}</>;
   }else{
     return navigate('/login');
@@ -54,4 +51,4 @@ function ProtectedRoute({ children }) {
   return null;
 }
 
-export default ProtectedRoute;
+export default AdminProtect;

@@ -1,6 +1,6 @@
  
 import bad from "../../../../../assets/bad.png"
-const Failed = ( {handProceedSecond}) => {
+const Failed = ( {handProceedSecond, closeSecondModal}) => {
       
   return (
     <div className="fixed inset-0 font-sans bg-[#333] bg-opacity-[0.2] flex items-center justify-center z-[200]">
@@ -17,11 +17,11 @@ const Failed = ( {handProceedSecond}) => {
      </div>
      <div className='flex justify-center '>
     <button
-    onClick={handProceedSecond}
+    onClick={()=>closeSecondModal()}
       className="text-[#fff]  w-full  py-2 md:h-[60px] rounded-[10px] bg-[#0A2EE2] font-poppins font-[600] md:text-[20px] md:leading-[30px] "
          >
            
-            <span> back to Home</span>
+            <span>Close</span>
           
      </button>
     </div>

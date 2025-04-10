@@ -52,12 +52,13 @@ const Payments = () => {
     setNumError('')
     try {
       setButtonSpinners(true)
+      console.log(phoneNumber)
       
       const response = await axiosClient.post('/user/verify-number', {phone:phoneNumber})
       
       if(response.data.error){
         setButtonSpinners(false)
-        console.log('here')
+        
         if(response.data.error=='Credentials are required to create a Client'){
           return setNumError('Some error occured in the server. Try again');
         }else{
@@ -271,6 +272,7 @@ const Payments = () => {
         {isSecondModalOpen && (
           <Failed
             isOpen={isSecondModalOpen}
+           
             closeSecondModal={closeSecondModal}
             handProceedSecond={handProceedSecond}
           />

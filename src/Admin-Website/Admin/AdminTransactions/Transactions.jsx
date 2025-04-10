@@ -193,9 +193,9 @@ const getAlltransactions = async ()=>{
 getAlltransactions()
 },[]);
   const filteredData = transactions?.filter((row) => {
-    const matchesQuery = row.beneficiary && row.beneficiary.toLowerCase().includes(searchQuery.toLowerCase());
+    // const matchesQuery = row.beneficiary && row.beneficiary.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || row.status.toLowerCase() === filterStatus.toLowerCase();
-    return matchesQuery && matchesStatus;
+    return  matchesStatus;
   });
 
   const paginatedData = filteredData.slice(
@@ -264,25 +264,25 @@ className={`border md:px-[0px] px-[20px] md:w-[118px] md:h-[42px] rounded-[30px]
 All
 </button>
 
-<button onClick={() => handleFilterChange("Complete")} className="border md:px-[0px] px-[20px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px] ">
-  Complete
+<button onClick={() => handleFilterChange("Sent")} className={`border md:px-[0px] px-[20px] md:w-[118px] h-[42px] ${filterStatus === "Sent" ? "border-blue-500 text-[#222222E5]" : "bg-white text-black"} rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px] `}>
+  Sent
 </button>
-<button className="border md:px-[0px] px-[20px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px] "onClick={() => handleFilterChange("Pending")}>
-  Pending
+<button className={`border md:px-[0px] px-[20px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF]  ${filterStatus === "Received" ? "border-blue-500 text-[#222222E5]" : "bg-white text-black"} text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px]`} onClick={() => handleFilterChange("Received")}>
+  Received
 </button>
-<button className="border md:px-[0px] px-[10px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px]"
+{/* <button className="border md:px-[0px] px-[10px] md:w-[118px] h-[42px]  rounded-[30px] border-[#EBEBEE] bg-[#FFFFFF] text-[#222222E5] font-[500] text-[14px] md:text-[17px] leading-[21.42px]"
 onClick={() => handleFilterChange("Rejected")}>
   Rejected
-</button>
+</button> */}
 </div>
 
 </div>
 </div>
 
 {/* Right Section: Search Bar and Filter Button */}
-<div className="flex lg:px-5 lg:items-center gap-3  mt-[35px]">
+{/* <div className="flex lg:px-5 lg:items-center gap-3  mt-[35px]">
 <ButtonsWithPopup/>
-</div>
+</div> */}
 </div>
 
 
@@ -328,7 +328,7 @@ onClick={() => handleFilterChange("Rejected")}>
   animate="visible"
   variants={containerVariants}
 >
-            { transactions?.map((row, index) => (
+            { filteredData?.map((row, index) => (
               <motion.tr
                 key={index}
                 variants={rowAnimation}

@@ -43,8 +43,9 @@ const PayoutBoardList = () => {
     try {
       setButtonSpinner(true);
       const res = await axiosClient.post("/recipients", { accountNumber });
+      console.log(res.data)
       if (res.data.status) {
-        
+        console.log(res.data)
         const response = await axios.post(
           "https://api.paystack.co/transfer",
           {
@@ -70,7 +71,8 @@ const PayoutBoardList = () => {
         
       }
     } catch (error) {
-      
+      setButtonSpinner(false);
+      console.log(error);
     }
    
     
