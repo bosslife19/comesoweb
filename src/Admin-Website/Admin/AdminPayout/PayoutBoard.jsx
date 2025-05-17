@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axiosClient from "../../../axios-client";
 import axios from "axios";
+import { toast } from "react-toastify";
 const PAGE_SIZE = 10;
 
 const PayoutBoardList = () => {
@@ -43,15 +44,115 @@ const PayoutBoardList = () => {
     try {
       setButtonSpinner(true);
       const res = await axiosClient.post("/recipients", { accountNumber });
-      console.log(res.data)
-      if (res.data.status) {
-        console.log(res.data)
-        const response = await axios.post(
+
+      
+
+      if(!res.data.recipient){
+
+        const response = await axiosClient.post('/get-user', {accountNumber});
+        if(response.data.user){
+          let user = response.data.user;
+           const respo = await axios.get(
+            `https://api.paystack.co/bank?country=ghana&perPage=100`,
+            {
+              headers: {
+                Authorization: `Bearer ${
+                  import.meta.env.VITE_PAYSTACK_LIVE_SECRET
+                }`,
+              },
+            }
+          );
+          // console.log(response.data.data);
+          const bankList = respo.data.data;
+           const normalize = (str) => str.toLowerCase().replace(/\s+/g, "");
+  
+          // Find the best match
+          const matchedBank = bankList.find((bankEntity) =>
+            normalize(bankEntity.name).includes(normalize(user.bank_name))
+          );
+           if (matchedBank) {
+           
+            const resp = axios.post(
+              "https://api.paystack.co/transferrecipient",
+              {
+                type: "nuban",
+                name: user.name,
+                account_number: user.account_number,
+                bank_code: matchedBank.code,
+                currency: "GHS",
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${
+                    import.meta.env.VITE_PAYSTACK_LIVE_SECRET
+                  }`,
+                },
+              }
+            );
+             
+            // return  console.log((await resp).data.data)
+            await axiosClient.post('/recipient/create',{
+              name: user.name,
+              bank_code:matchedBank.code,
+              reciepient_code:(await resp).data.data.recipient_code,
+              account_number:user.account_number
+            });
+
+             try {
+            //   setButtonSpinner(false)
+            //  return console.log('amount', `${amount}`);
+           const re = await axios.post(
           "https://api.paystack.co/transfer",
           {
             source:'balance',
             reason:'Payout for the month',
-            amount,
+            amount: amount * 100,
+            recipient:(await resp).data.data.recipient_code,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${
+                import.meta.env.VITE_PAYSTACK_LIVE_SECRET
+              }`,
+            },
+          }
+        );
+                 setButtonSpinner(false);
+        if(re.data.status){
+          setTransferCode(re.data.data.transfer_code)
+          setIsModalOpen(false); // Close the first modal
+          setIsThirdModalOpen(true);
+        }
+        } catch (error) {
+          console.log(error);
+          setButtonSpinner(false)
+                    if(error.response.data){
+            toast.error(error.response.data.message)
+          }
+        }
+            
+            
+          } else {
+
+            setButtonSpinner(false)
+            return alert('Your bank was not found');
+          }
+        }else{
+          setButtonSpinner(false)
+          return toast.error('User with this account number was not found');
+        }
+        // setButtonSpinner(false);
+        // return toast.error("Recipient's account number not found");
+      }
+      
+      if (res.data.status) {
+        try {
+           const response = await axios.post(
+          "https://api.paystack.co/transfer",
+          {
+            source:'balance',
+            reason:'Payout for the month',
+            amount: amount *100,
             recipient:res.data.recipient.reciepient_code,
           },
           {
@@ -62,12 +163,23 @@ const PayoutBoardList = () => {
             },
           }
         );
-        setButtonSpinner(false);
+         setButtonSpinner(false);
         if(response.data.status){
           setTransferCode(response.data.data.transfer_code)
           setIsModalOpen(false); // Close the first modal
           setIsThirdModalOpen(true);
         }
+        } catch (error) {
+          console.log(error);
+          setButtonSpinner(false)
+          if(error.response.data){
+            toast.error(error.response.data.message)
+          }
+          
+        }
+
+       
+       
         
       }
     } catch (error) {

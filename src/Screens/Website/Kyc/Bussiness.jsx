@@ -88,8 +88,7 @@ const Bussiness = ({ handleNext }) => {
           );
           // console.log(user.bank_name);
           if (matchedBank) {
-            console.log('here');
-            // console.log("Matched Bank:", matchedBank);
+           
             const resp = axios.post(
               "https://api.paystack.co/transferrecipient",
               {
@@ -115,13 +114,15 @@ const Bussiness = ({ handleNext }) => {
               reciepient_code:(await resp).data.data.recipient_code,
               account_number:user.account_number
             });
+            
+             navigate("/Kyc/successful");
           } else {
             console.log("No similar bank found.");
             setButtonSpinner(false)
-            alert('Your bank was not found');
+            return alert('Your bank was not found');
           }
-          setButtonSpinner(false);
-         navigate("/Kyc/successful");
+
+        
           
         } catch (error) {
           setButtonSpinner(false)
