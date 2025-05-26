@@ -45,6 +45,9 @@ import RequestPayment from "./Admin-Website/Website/WebsitePayment/Payment/Reque
 import SettingsProtection from "./SettingsProtection";
 import PaymentsProtection from "./PaymentsProtection";
 import AdminProtect from "./Ul/Admin/Layout/AdminProtect";
+import Redpay from "./pages/Redpay";
+import Success from "./pages/Success";
+import Failed from "./pages/Failed";
 // import Received from "./Admin-Website/Admin/users/Received/Receive";
 
 function App() {
@@ -78,6 +81,9 @@ function App() {
                 }
               />
               <Route path="/Signup" element={<Signup />} />
+              <Route path="/redpay" element={< Redpay />} />
+              <Route path="/redpay/success" element={< Success />} />
+              <Route path="/redpay/failed" element={< Failed />} />
 
               {/* Starting Website Route */}
 
