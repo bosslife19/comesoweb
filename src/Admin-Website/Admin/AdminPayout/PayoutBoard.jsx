@@ -556,15 +556,28 @@ Health Faclity
                   </td>
 
                   {/* modal */}
-                  {isModalOpen && (
+                 
+                </motion.tr>
+              ))}
+            </motion.tbody>
+          </table>
+        </motion.div>
+
+        <Pagination
+          count={tableData.length}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          pageSize={PAGE_SIZE}
+        />
+         {isModalOpen && (
                     <Modal
                       // isOpen={isModalOpen}
-                      company={row.user.company_name}
-                      bank={row.user.bank_name}
-                      accountNumber={row.user.account_number}
-                      amount={row.amount}
-                      row={row}
-                      phone={row.user.phone}
+                      company={selectedRow.user.company_name}
+                      bank={selectedRow.user.bank_name}
+                      accountNumber={selectedRow.user.account_number}
+                      amount={selectedRow.amount}
+                      row={selectedRow}
+                      phone={selectedRow.user.phone}
                       closeModal={closeModal}
                       handProceed={handProceed}
                       buttonSpinner={buttonSpinner}
@@ -583,8 +596,8 @@ Health Faclity
                       isOpen={isThirdModalOpen}
                       closeThirdModal={closeThirdModal}
                       handProceedThird={handProceedThird}
-                      name={row.user.name}
-                      token={row.token}
+                      name={selectedRow.user.name}
+                      token={selectedRow.token}
                       buttonSpinner={buttonSpinner}
                     />
                   )}
@@ -594,18 +607,6 @@ Health Faclity
                       closeLastModal={closeLastModal}
                      />
                   )}
-                </motion.tr>
-              ))}
-            </motion.tbody>
-          </table>
-        </motion.div>
-
-        <Pagination
-          count={tableData.length}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          pageSize={PAGE_SIZE}
-        />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { IoMdClose } from 'react-icons/io'
 import { ClipLoader } from 'react-spinners';
  
 export const ModalOtpPage  = ({buttonSpinner,  closeThirdModal,handProceedThird, name, token}) => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", "","", ""]);
   const inputRefs = useRef([]);
 
   const handleChange = (e, index) => {

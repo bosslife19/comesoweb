@@ -55,35 +55,45 @@ const formattedDate = today.toISOString().split("T")[0];
     getTransactions();
   }, []);
 
-  const handleSendNotifications = async(e)=>{
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      if(!title|| !body){
-        return toast.error('Please fill in all the fields')
-      }
-      
-      const res = await axios.post('https://app.nativenotify.com/api/notification', {
-        appId:26812,
-        appToken:'YbFosVTb3J7wbRaVwDsjuW',
-        title,
-        body,
-        dateSent:formattedDate
-      });
-      console.log(res.data);
-      if(res.data =="You must login to NativeNotify.com to become a paying member for push notifications to work. Your free trial period has ended."){
-        toast.error('You do not have enough credits to send push notifications')
-        return setIsLoading(false)
-      }
-      setIsLoading(false)
-      toast.success('Push Notifications dispatched Successfully')
-    } catch (error) {
-      toast.error('An error occured in the server')
-      console.log(error)
+const handleSendNotifications = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  try {
+    if (!title || !body) {
+      toast.error('Please fill in all the fields');
+      return setIsLoading(false);
     }
-    
-    
+
+    const token = localStorage.getItem('ACCESS_TOKEN');
+
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/send-push-notifications`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ title, body }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success(data.message || 'Notifications sent!');
+    } else {
+      toast.error(data.message || 'Failed to send notifications');
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error('An unexpected error occurred.');
+  } finally {
+    setIsLoading(false);
   }
+};
+
+
+
  
   const tableData = [
     {
